@@ -56,7 +56,7 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
       "source_location": "L47",
       "id": "main_get_weather",
-      "community": 0,
+      "community": 3,
       "norm_label": "get_weather()"
     },
     {
@@ -72,7 +72,7 @@
       "label": "debug_forecast()",
       "file_type": "code",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
-      "source_location": "L109",
+      "source_location": "L112",
       "id": "main_debug_forecast",
       "community": 2,
       "norm_label": "debug_forecast()"
@@ -81,7 +81,7 @@
       "label": "get_crowd_disruptions()",
       "file_type": "code",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
-      "source_location": "L132",
+      "source_location": "L135",
       "id": "main_get_crowd_disruptions",
       "community": 3,
       "norm_label": "get_crowd_disruptions()"
@@ -90,7 +90,7 @@
       "label": "debug_search()",
       "file_type": "code",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
-      "source_location": "L156",
+      "source_location": "L159",
       "id": "main_debug_search",
       "community": 3,
       "norm_label": "debug_search()"
@@ -99,7 +99,7 @@
       "label": "get_driving_conditions()",
       "file_type": "code",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
-      "source_location": "L191",
+      "source_location": "L194",
       "id": "main_get_driving_conditions",
       "community": 3,
       "norm_label": "get_driving_conditions()"
@@ -109,7 +109,7 @@
       "file_type": "rationale",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
       "source_location": "L48",
-      "community": 1,
+      "community": 0,
       "norm_label": "test endpoint for the weather agent only.",
       "id": "main_rationale_48"
     },
@@ -118,7 +118,7 @@
       "file_type": "rationale",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
       "source_location": "L71",
-      "community": 1,
+      "community": 0,
       "norm_label": "takes a list of planned activities and     optimizes them around the weather fo",
       "id": "main_rationale_71"
     },
@@ -126,37 +126,37 @@
       "label": "Direct test of the forecast tool.     Remove this endpoint after debugging.",
       "file_type": "rationale",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
-      "source_location": "L110",
-      "community": 1,
+      "source_location": "L113",
+      "community": 0,
       "norm_label": "direct test of the forecast tool.     remove this endpoint after debugging.",
-      "id": "main_rationale_110"
+      "id": "main_rationale_113"
     },
     {
       "label": "Searches real traveler reports, Reddit posts and     travel reviews to find cro",
       "file_type": "rationale",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
-      "source_location": "L135",
-      "community": 1,
+      "source_location": "L138",
+      "community": 0,
       "norm_label": "searches real traveler reports, reddit posts and     travel reviews to find cro",
-      "id": "main_rationale_135"
+      "id": "main_rationale_138"
     },
     {
       "label": "Tests if Gemma web search tool is available     on your API key.",
       "file_type": "rationale",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
-      "source_location": "L157",
-      "community": 1,
+      "source_location": "L160",
+      "community": 0,
       "norm_label": "tests if gemma web search tool is available     on your api key.",
-      "id": "main_rationale_157"
+      "id": "main_rationale_160"
     },
     {
       "label": "Produces a day-by-day driving safety score     and road condition advisory for",
       "file_type": "rationale",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
-      "source_location": "L194",
-      "community": 1,
+      "source_location": "L197",
+      "community": 0,
       "norm_label": "produces a day-by-day driving safety score     and road condition advisory for",
-      "id": "main_rationale_194"
+      "id": "main_rationale_197"
     },
     {
       "label": "orchestrator.py",
@@ -249,76 +249,76 @@
       "norm_label": "run_driving_agent()"
     },
     {
-      "label": "itinerary_agent.py",
+      "label": "itinerary_resuffler_agent.py",
       "file_type": "code",
-      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_agent.py",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_resuffler_agent.py",
       "source_location": "L1",
-      "id": "c_users_dibya_onedrive_desktop_excellence_travelmind_backend_agents_itinerary_agent_py",
+      "id": "c_users_dibya_onedrive_desktop_excellence_travelmind_backend_agents_itinerary_resuffler_agent_py",
       "community": 4,
-      "norm_label": "itinerary_agent.py"
+      "norm_label": "itinerary_resuffler_agent.py"
     },
     {
       "label": "_build_activity_summary()",
       "file_type": "code",
-      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_agent.py",
-      "source_location": "L109",
-      "id": "itinerary_agent_build_activity_summary",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_resuffler_agent.py",
+      "source_location": "L150",
+      "id": "itinerary_resuffler_agent_build_activity_summary",
       "community": 4,
       "norm_label": "_build_activity_summary()"
     },
     {
       "label": "_calculate_available_hours()",
       "file_type": "code",
-      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_agent.py",
-      "source_location": "L129",
-      "id": "itinerary_agent_calculate_available_hours",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_resuffler_agent.py",
+      "source_location": "L170",
+      "id": "itinerary_resuffler_agent_calculate_available_hours",
       "community": 4,
       "norm_label": "_calculate_available_hours()"
     },
     {
       "label": "_score_activity_day_fit()",
       "file_type": "code",
-      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_agent.py",
-      "source_location": "L145",
-      "id": "itinerary_agent_score_activity_day_fit",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_resuffler_agent.py",
+      "source_location": "L186",
+      "id": "itinerary_resuffler_agent_score_activity_day_fit",
       "community": 4,
       "norm_label": "_score_activity_day_fit()"
     },
     {
       "label": "run_itinerary_agent()",
       "file_type": "code",
-      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_agent.py",
-      "source_location": "L178",
-      "id": "itinerary_agent_run_itinerary_agent",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_resuffler_agent.py",
+      "source_location": "L219",
+      "id": "itinerary_resuffler_agent_run_itinerary_agent",
       "community": 4,
       "norm_label": "run_itinerary_agent()"
     },
     {
-      "label": "Converts activity list to a clean text summary     for Gemma to reason over.",
+      "label": "Pure Python scoring \u2014 how well an activity fits     a given day. Higher = bette",
       "file_type": "rationale",
-      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_agent.py",
-      "source_location": "L110",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_resuffler_agent.py",
+      "source_location": "L151",
       "community": 4,
-      "norm_label": "converts activity list to a clean text summary     for gemma to reason over.",
-      "id": "itinerary_agent_rationale_110"
+      "norm_label": "pure python scoring \u2014 how well an activity fits     a given day. higher = bette",
+      "id": "itinerary_resuffler_agent_rationale_151"
     },
     {
       "label": "Calculates usable activity hours in a day     minus meal breaks.",
       "file_type": "rationale",
-      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_agent.py",
-      "source_location": "L134",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_resuffler_agent.py",
+      "source_location": "L175",
       "community": 4,
       "norm_label": "calculates usable activity hours in a day     minus meal breaks.",
-      "id": "itinerary_agent_rationale_134"
+      "id": "itinerary_resuffler_agent_rationale_175"
     },
     {
       "label": "Pure Python scoring \u2014 how well an activity fits     a given day. Higher = bette",
       "file_type": "rationale",
-      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_agent.py",
-      "source_location": "L151",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_resuffler_agent.py",
+      "source_location": "L192",
       "community": 4,
       "norm_label": "pure python scoring \u2014 how well an activity fits     a given day. higher = bette",
-      "id": "itinerary_agent_rationale_151"
+      "id": "itinerary_resuffler_agent_rationale_192"
     },
     {
       "label": "language_agent.py",
@@ -335,7 +335,7 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\weather_agent.py",
       "source_location": "L1",
       "id": "c_users_dibya_onedrive_desktop_excellence_travelmind_backend_agents_weather_agent_py",
-      "community": 0,
+      "community": 1,
       "norm_label": "weather_agent.py"
     },
     {
@@ -344,7 +344,7 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\weather_agent.py",
       "source_location": "L89",
       "id": "weather_agent_run_weather_agent",
-      "community": 0,
+      "community": 1,
       "norm_label": "run_weather_agent()"
     },
     {
@@ -461,7 +461,7 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\models\\schemas.py",
       "source_location": "L1",
       "id": "c_users_dibya_onedrive_desktop_excellence_travelmind_backend_models_schemas_py",
-      "community": 1,
+      "community": 0,
       "norm_label": "schemas.py"
     },
     {
@@ -470,7 +470,7 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\models\\schemas.py",
       "source_location": "L4",
       "id": "schemas_userprofile",
-      "community": 1,
+      "community": 0,
       "norm_label": "userprofile"
     },
     {
@@ -479,7 +479,7 @@
       "source_file": "",
       "source_location": "",
       "id": "basemodel",
-      "community": 1,
+      "community": 0,
       "norm_label": "basemodel"
     },
     {
@@ -488,7 +488,7 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\models\\schemas.py",
       "source_location": "L15",
       "id": "schemas_sessionstartresponse",
-      "community": 1,
+      "community": 0,
       "norm_label": "sessionstartresponse"
     },
     {
@@ -497,7 +497,7 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\models\\schemas.py",
       "source_location": "L19",
       "id": "schemas_chatrequest",
-      "community": 1,
+      "community": 0,
       "norm_label": "chatrequest"
     },
     {
@@ -506,7 +506,7 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\models\\schemas.py",
       "source_location": "L23",
       "id": "schemas_chatresponse",
-      "community": 1,
+      "community": 0,
       "norm_label": "chatresponse"
     },
     {
@@ -515,7 +515,7 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\models\\schemas.py",
       "source_location": "L27",
       "id": "schemas_weatherrequest",
-      "community": 1,
+      "community": 0,
       "norm_label": "weatherrequest"
     },
     {
@@ -524,7 +524,7 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\models\\schemas.py",
       "source_location": "L40",
       "id": "schemas_activity",
-      "community": 1,
+      "community": 0,
       "norm_label": "activity"
     },
     {
@@ -533,25 +533,25 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\models\\schemas.py",
       "source_location": "L52",
       "id": "schemas_itineraryrequest",
-      "community": 1,
+      "community": 0,
       "norm_label": "itineraryrequest"
     },
     {
       "label": "DisruptionRequest",
       "file_type": "code",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\models\\schemas.py",
-      "source_location": "L65",
+      "source_location": "L68",
       "id": "schemas_disruptionrequest",
-      "community": 1,
+      "community": 0,
       "norm_label": "disruptionrequest"
     },
     {
       "label": "DrivingRequest",
       "file_type": "code",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\models\\schemas.py",
-      "source_location": "L72",
+      "source_location": "L75",
       "id": "schemas_drivingrequest",
-      "community": 1,
+      "community": 0,
       "norm_label": "drivingrequest"
     },
     {
@@ -650,7 +650,7 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\tools\\weather_tool.py",
       "source_location": "L1",
       "id": "c_users_dibya_onedrive_desktop_excellence_travelmind_backend_tools_weather_tool_py",
-      "community": 0,
+      "community": 1,
       "norm_label": "weather_tool.py"
     },
     {
@@ -668,7 +668,7 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\tools\\weather_tool.py",
       "source_location": "L50",
       "id": "weather_tool_call_openweathermap",
-      "community": 0,
+      "community": 1,
       "norm_label": "call_openweathermap()"
     },
     {
@@ -677,7 +677,7 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\tools\\weather_tool.py",
       "source_location": "L142",
       "id": "weather_tool_fetch_historical_precipitation",
-      "community": 0,
+      "community": 1,
       "norm_label": "fetch_historical_precipitation()"
     },
     {
@@ -686,7 +686,7 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\tools\\weather_tool.py",
       "source_location": "L292",
       "id": "weather_tool_fetch_reliefweb_disasters",
-      "community": 0,
+      "community": 1,
       "norm_label": "fetch_reliefweb_disasters()"
     },
     {
@@ -695,7 +695,7 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\tools\\weather_tool.py",
       "source_location": "L356",
       "id": "weather_tool_fetch_ncei_station_data",
-      "community": 0,
+      "community": 1,
       "norm_label": "fetch_ncei_station_data()"
     },
     {
@@ -704,7 +704,7 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\tools\\weather_tool.py",
       "source_location": "L463",
       "id": "weather_tool_fetch_health_and_pollen_data",
-      "community": 0,
+      "community": 1,
       "norm_label": "fetch_health_and_pollen_data()"
     },
     {
@@ -713,7 +713,7 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\tools\\weather_tool.py",
       "source_location": "L505",
       "id": "weather_tool_fetch_route_forecast",
-      "community": 0,
+      "community": 1,
       "norm_label": "fetch_route_forecast()"
     },
     {
@@ -722,7 +722,7 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\tools\\weather_tool.py",
       "source_location": "L534",
       "id": "weather_tool_calculate_mosquito_risk",
-      "community": 0,
+      "community": 1,
       "norm_label": "calculate_mosquito_risk()"
     },
     {
@@ -731,7 +731,7 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\tools\\weather_tool.py",
       "source_location": "L560",
       "id": "weather_tool_fetch_health_outbreaks",
-      "community": 0,
+      "community": 1,
       "norm_label": "fetch_health_outbreaks()"
     },
     {
@@ -740,7 +740,7 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\tools\\weather_tool.py",
       "source_location": "L603",
       "id": "weather_tool_fetch_historical_seismic_data",
-      "community": 0,
+      "community": 1,
       "norm_label": "fetch_historical_seismic_data()"
     },
     {
@@ -749,7 +749,7 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\tools\\weather_tool.py",
       "source_location": "L648",
       "id": "weather_tool_fetch_realtime_fires",
-      "community": 0,
+      "community": 1,
       "norm_label": "fetch_realtime_fires()"
     },
     {
@@ -762,11 +762,20 @@
       "norm_label": "fetch_daily_forecast_for_reshuffler()"
     },
     {
+      "label": "fetch_exchange_rate()",
+      "file_type": "code",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\tools\\weather_tool.py",
+      "source_location": "L860",
+      "id": "weather_tool_fetch_exchange_rate",
+      "community": 4,
+      "norm_label": "fetch_exchange_rate()"
+    },
+    {
       "label": "Fetches same-month precipitation data for the     past 20 years from Open-Meteo",
       "file_type": "rationale",
       "source_file": "backend\\tools\\weather_tool.py",
       "source_location": "L148",
-      "community": 0,
+      "community": 1,
       "norm_label": "fetches same-month precipitation data for the     past 20 years from open-meteo",
       "id": "weather_tool_rationale_148"
     },
@@ -775,7 +784,7 @@
       "file_type": "rationale",
       "source_file": "backend\\tools\\weather_tool.py",
       "source_location": "L506",
-      "community": 0,
+      "community": 1,
       "norm_label": "fetches a simple forecast for multiple cities in parallel.     used for the jou",
       "id": "weather_tool_rationale_506"
     },
@@ -784,7 +793,7 @@
       "file_type": "rationale",
       "source_file": "backend\\tools\\weather_tool.py",
       "source_location": "L535",
-      "community": 0,
+      "community": 1,
       "norm_label": "biological model for mosquito activity thresholds.",
       "id": "weather_tool_rationale_535"
     },
@@ -793,7 +802,7 @@
       "file_type": "rationale",
       "source_file": "backend\\tools\\weather_tool.py",
       "source_location": "L561",
-      "community": 0,
+      "community": 1,
       "norm_label": "specifically hunts for active epidemics and health crises using reliefweb v2.",
       "id": "weather_tool_rationale_561"
     },
@@ -802,7 +811,7 @@
       "file_type": "rationale",
       "source_file": "backend\\tools\\weather_tool.py",
       "source_location": "L604",
-      "community": 0,
+      "community": 1,
       "norm_label": "scans the usgs database for magnitude 4.5+ events within 100km over the last 20",
       "id": "weather_tool_rationale_604"
     },
@@ -811,7 +820,7 @@
       "file_type": "rationale",
       "source_file": "backend\\tools\\weather_tool.py",
       "source_location": "L649",
-      "community": 0,
+      "community": 1,
       "norm_label": "uses nasa viirs satellites to detect thermal anomalies (fires) in a 1-degree box",
       "id": "weather_tool_rationale_649"
     },
@@ -823,6 +832,15 @@
       "community": 2,
       "norm_label": "fetches a clean day-by-day forecast between     travel start and end dates.",
       "id": "weather_tool_rationale_697"
+    },
+    {
+      "label": "Fetches live exchange rate between two currencies.     Completely free, no API",
+      "file_type": "rationale",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\tools\\weather_tool.py",
+      "source_location": "L864",
+      "community": 4,
+      "norm_label": "fetches live exchange rate between two currencies.     completely free, no api",
+      "id": "weather_tool_rationale_864"
     },
     {
       "label": "__init__.py",
@@ -906,11 +924,92 @@
       "norm_label": "usestore.js"
     },
     {
+      "label": "Direct test of the forecast tool.     Remove this endpoint after debugging.",
+      "file_type": "rationale",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
+      "source_location": "L110",
+      "community": 0,
+      "norm_label": "direct test of the forecast tool.     remove this endpoint after debugging.",
+      "id": "main_rationale_110"
+    },
+    {
+      "label": "Searches real traveler reports, Reddit posts and     travel reviews to find cro",
+      "file_type": "rationale",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
+      "source_location": "L135",
+      "community": 0,
+      "norm_label": "searches real traveler reports, reddit posts and     travel reviews to find cro",
+      "id": "main_rationale_135"
+    },
+    {
+      "label": "Tests if Gemma web search tool is available     on your API key.",
+      "file_type": "rationale",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
+      "source_location": "L157",
+      "community": 0,
+      "norm_label": "tests if gemma web search tool is available     on your api key.",
+      "id": "main_rationale_157"
+    },
+    {
+      "label": "Produces a day-by-day driving safety score     and road condition advisory for",
+      "file_type": "rationale",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
+      "source_location": "L194",
+      "community": 0,
+      "norm_label": "produces a day-by-day driving safety score     and road condition advisory for",
+      "id": "main_rationale_194"
+    },
+    {
+      "label": "Converts activity list to a clean text summary     for Gemma to reason over.",
+      "file_type": "rationale",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_resuffler_agent.py",
+      "source_location": "L110",
+      "community": 26,
+      "norm_label": "converts activity list to a clean text summary     for gemma to reason over.",
+      "id": "itinerary_resuffler_agent_rationale_110"
+    },
+    {
+      "label": "Calculates usable activity hours in a day     minus meal breaks.",
+      "file_type": "rationale",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_resuffler_agent.py",
+      "source_location": "L134",
+      "community": 27,
+      "norm_label": "calculates usable activity hours in a day     minus meal breaks.",
+      "id": "itinerary_resuffler_agent_rationale_134"
+    },
+    {
+      "label": "Converts activity list to a clean text summary     for Gemma to reason over.",
+      "file_type": "rationale",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_agent.py",
+      "source_location": "L110",
+      "community": 28,
+      "norm_label": "converts activity list to a clean text summary     for gemma to reason over.",
+      "id": "itinerary_agent_rationale_110"
+    },
+    {
+      "label": "Calculates usable activity hours in a day     minus meal breaks.",
+      "file_type": "rationale",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_agent.py",
+      "source_location": "L134",
+      "community": 29,
+      "norm_label": "calculates usable activity hours in a day     minus meal breaks.",
+      "id": "itinerary_agent_rationale_134"
+    },
+    {
+      "label": "Pure Python scoring \u2014 how well an activity fits     a given day. Higher = bette",
+      "file_type": "rationale",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_agent.py",
+      "source_location": "L151",
+      "community": 30,
+      "norm_label": "pure python scoring \u2014 how well an activity fits     a given day. higher = bette",
+      "id": "itinerary_agent_rationale_151"
+    },
+    {
       "label": "Test endpoint for the weather agent only.",
       "file_type": "rationale",
       "source_file": "backend\\main.py",
       "source_location": "L42",
-      "community": 1,
+      "community": 0,
       "norm_label": "test endpoint for the weather agent only.",
       "id": "main_rationale_42"
     },
@@ -936,7 +1035,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 26,
+      "community": 31,
       "norm_label": "google genai",
       "id": "req_google_genai"
     },
@@ -962,7 +1061,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 27,
+      "community": 32,
       "norm_label": "python-dotenv",
       "id": "req_python_dotenv"
     },
@@ -988,7 +1087,7 @@
       "captured_at": null,
       "author": null,
       "contributor": null,
-      "community": 28,
+      "community": 33,
       "norm_label": "geopy",
       "id": "req_geopy"
     },
@@ -1059,7 +1158,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
-      "source_location": "L109",
+      "source_location": "L112",
       "weight": 1.0,
       "_src": "c_users_dibya_onedrive_desktop_excellence_travelmind_backend_main_py",
       "_tgt": "main_debug_forecast",
@@ -1071,7 +1170,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
-      "source_location": "L132",
+      "source_location": "L135",
       "weight": 1.0,
       "_src": "c_users_dibya_onedrive_desktop_excellence_travelmind_backend_main_py",
       "_tgt": "main_get_crowd_disruptions",
@@ -1083,7 +1182,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
-      "source_location": "L156",
+      "source_location": "L159",
       "weight": 1.0,
       "_src": "c_users_dibya_onedrive_desktop_excellence_travelmind_backend_main_py",
       "_tgt": "main_debug_search",
@@ -1095,7 +1194,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
-      "source_location": "L191",
+      "source_location": "L194",
       "weight": 1.0,
       "_src": "c_users_dibya_onedrive_desktop_excellence_travelmind_backend_main_py",
       "_tgt": "main_get_driving_conditions",
@@ -1147,20 +1246,20 @@
       "source_location": "L88",
       "weight": 1.0,
       "_src": "main_reshuffle_itinerary",
-      "_tgt": "itinerary_agent_run_itinerary_agent",
+      "_tgt": "itinerary_resuffler_agent_run_itinerary_agent",
       "source": "main_reshuffle_itinerary",
-      "target": "itinerary_agent_run_itinerary_agent"
+      "target": "itinerary_resuffler_agent_run_itinerary_agent"
     },
     {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
-      "source_location": "L110",
+      "source_location": "L113",
       "weight": 1.0,
-      "_src": "main_rationale_110",
+      "_src": "main_rationale_113",
       "_tgt": "main_debug_forecast",
       "source": "main_debug_forecast",
-      "target": "main_rationale_110",
+      "target": "main_rationale_113",
       "confidence_score": 1.0
     },
     {
@@ -1191,12 +1290,12 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
-      "source_location": "L135",
+      "source_location": "L138",
       "weight": 1.0,
-      "_src": "main_rationale_135",
+      "_src": "main_rationale_138",
       "_tgt": "main_get_crowd_disruptions",
       "source": "main_get_crowd_disruptions",
-      "target": "main_rationale_135",
+      "target": "main_rationale_138",
       "confidence_score": 1.0
     },
     {
@@ -1215,24 +1314,24 @@
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
-      "source_location": "L157",
+      "source_location": "L160",
       "weight": 1.0,
-      "_src": "main_rationale_157",
+      "_src": "main_rationale_160",
       "_tgt": "main_debug_search",
       "source": "main_debug_search",
-      "target": "main_rationale_157",
+      "target": "main_rationale_160",
       "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
-      "source_location": "L194",
+      "source_location": "L197",
       "weight": 1.0,
-      "_src": "main_rationale_194",
+      "_src": "main_rationale_197",
       "_tgt": "main_get_driving_conditions",
       "source": "main_get_driving_conditions",
-      "target": "main_rationale_194",
+      "target": "main_rationale_197",
       "confidence_score": 1.0
     },
     {
@@ -1349,10 +1448,10 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
       "source_location": "L6",
       "weight": 0.8,
-      "_src": "main_rationale_110",
+      "_src": "main_rationale_113",
       "_tgt": "schemas_weatherrequest",
       "confidence_score": 0.5,
-      "source": "main_rationale_110",
+      "source": "main_rationale_113",
       "target": "schemas_weatherrequest"
     },
     {
@@ -1361,10 +1460,10 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
       "source_location": "L6",
       "weight": 0.8,
-      "_src": "main_rationale_110",
+      "_src": "main_rationale_113",
       "_tgt": "schemas_itineraryrequest",
       "confidence_score": 0.5,
-      "source": "main_rationale_110",
+      "source": "main_rationale_113",
       "target": "schemas_itineraryrequest"
     },
     {
@@ -1373,10 +1472,10 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
       "source_location": "L6",
       "weight": 0.8,
-      "_src": "main_rationale_110",
+      "_src": "main_rationale_113",
       "_tgt": "schemas_disruptionrequest",
       "confidence_score": 0.5,
-      "source": "main_rationale_110",
+      "source": "main_rationale_113",
       "target": "schemas_disruptionrequest"
     },
     {
@@ -1385,10 +1484,10 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
       "source_location": "L6",
       "weight": 0.8,
-      "_src": "main_rationale_110",
+      "_src": "main_rationale_113",
       "_tgt": "schemas_drivingrequest",
       "confidence_score": 0.5,
-      "source": "main_rationale_110",
+      "source": "main_rationale_113",
       "target": "schemas_drivingrequest"
     },
     {
@@ -1397,10 +1496,10 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
       "source_location": "L6",
       "weight": 0.8,
-      "_src": "main_rationale_135",
+      "_src": "main_rationale_138",
       "_tgt": "schemas_weatherrequest",
       "confidence_score": 0.5,
-      "source": "main_rationale_135",
+      "source": "main_rationale_138",
       "target": "schemas_weatherrequest"
     },
     {
@@ -1409,10 +1508,10 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
       "source_location": "L6",
       "weight": 0.8,
-      "_src": "main_rationale_135",
+      "_src": "main_rationale_138",
       "_tgt": "schemas_itineraryrequest",
       "confidence_score": 0.5,
-      "source": "main_rationale_135",
+      "source": "main_rationale_138",
       "target": "schemas_itineraryrequest"
     },
     {
@@ -1421,10 +1520,10 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
       "source_location": "L6",
       "weight": 0.8,
-      "_src": "main_rationale_135",
+      "_src": "main_rationale_138",
       "_tgt": "schemas_disruptionrequest",
       "confidence_score": 0.5,
-      "source": "main_rationale_135",
+      "source": "main_rationale_138",
       "target": "schemas_disruptionrequest"
     },
     {
@@ -1433,10 +1532,10 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
       "source_location": "L6",
       "weight": 0.8,
-      "_src": "main_rationale_135",
+      "_src": "main_rationale_138",
       "_tgt": "schemas_drivingrequest",
       "confidence_score": 0.5,
-      "source": "main_rationale_135",
+      "source": "main_rationale_138",
       "target": "schemas_drivingrequest"
     },
     {
@@ -1445,10 +1544,10 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
       "source_location": "L6",
       "weight": 0.8,
-      "_src": "main_rationale_157",
+      "_src": "main_rationale_160",
       "_tgt": "schemas_weatherrequest",
       "confidence_score": 0.5,
-      "source": "main_rationale_157",
+      "source": "main_rationale_160",
       "target": "schemas_weatherrequest"
     },
     {
@@ -1457,10 +1556,10 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
       "source_location": "L6",
       "weight": 0.8,
-      "_src": "main_rationale_157",
+      "_src": "main_rationale_160",
       "_tgt": "schemas_itineraryrequest",
       "confidence_score": 0.5,
-      "source": "main_rationale_157",
+      "source": "main_rationale_160",
       "target": "schemas_itineraryrequest"
     },
     {
@@ -1469,10 +1568,10 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
       "source_location": "L6",
       "weight": 0.8,
-      "_src": "main_rationale_157",
+      "_src": "main_rationale_160",
       "_tgt": "schemas_disruptionrequest",
       "confidence_score": 0.5,
-      "source": "main_rationale_157",
+      "source": "main_rationale_160",
       "target": "schemas_disruptionrequest"
     },
     {
@@ -1481,10 +1580,10 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
       "source_location": "L6",
       "weight": 0.8,
-      "_src": "main_rationale_157",
+      "_src": "main_rationale_160",
       "_tgt": "schemas_drivingrequest",
       "confidence_score": 0.5,
-      "source": "main_rationale_157",
+      "source": "main_rationale_160",
       "target": "schemas_drivingrequest"
     },
     {
@@ -1493,10 +1592,10 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
       "source_location": "L6",
       "weight": 0.8,
-      "_src": "main_rationale_194",
+      "_src": "main_rationale_197",
       "_tgt": "schemas_weatherrequest",
       "confidence_score": 0.5,
-      "source": "main_rationale_194",
+      "source": "main_rationale_197",
       "target": "schemas_weatherrequest"
     },
     {
@@ -1505,10 +1604,10 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
       "source_location": "L6",
       "weight": 0.8,
-      "_src": "main_rationale_194",
+      "_src": "main_rationale_197",
       "_tgt": "schemas_itineraryrequest",
       "confidence_score": 0.5,
-      "source": "main_rationale_194",
+      "source": "main_rationale_197",
       "target": "schemas_itineraryrequest"
     },
     {
@@ -1517,10 +1616,10 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
       "source_location": "L6",
       "weight": 0.8,
-      "_src": "main_rationale_194",
+      "_src": "main_rationale_197",
       "_tgt": "schemas_disruptionrequest",
       "confidence_score": 0.5,
-      "source": "main_rationale_194",
+      "source": "main_rationale_197",
       "target": "schemas_disruptionrequest"
     },
     {
@@ -1529,10 +1628,10 @@
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
       "source_location": "L6",
       "weight": 0.8,
-      "_src": "main_rationale_194",
+      "_src": "main_rationale_197",
       "_tgt": "schemas_drivingrequest",
       "confidence_score": 0.5,
-      "source": "main_rationale_194",
+      "source": "main_rationale_197",
       "target": "schemas_drivingrequest"
     },
     {
@@ -1658,134 +1757,146 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_agent.py",
-      "source_location": "L109",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_resuffler_agent.py",
+      "source_location": "L150",
       "weight": 1.0,
-      "_src": "c_users_dibya_onedrive_desktop_excellence_travelmind_backend_agents_itinerary_agent_py",
-      "_tgt": "itinerary_agent_build_activity_summary",
-      "source": "c_users_dibya_onedrive_desktop_excellence_travelmind_backend_agents_itinerary_agent_py",
-      "target": "itinerary_agent_build_activity_summary",
+      "_src": "c_users_dibya_onedrive_desktop_excellence_travelmind_backend_agents_itinerary_resuffler_agent_py",
+      "_tgt": "itinerary_resuffler_agent_build_activity_summary",
+      "source": "c_users_dibya_onedrive_desktop_excellence_travelmind_backend_agents_itinerary_resuffler_agent_py",
+      "target": "itinerary_resuffler_agent_build_activity_summary",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_agent.py",
-      "source_location": "L129",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_resuffler_agent.py",
+      "source_location": "L170",
       "weight": 1.0,
-      "_src": "c_users_dibya_onedrive_desktop_excellence_travelmind_backend_agents_itinerary_agent_py",
-      "_tgt": "itinerary_agent_calculate_available_hours",
-      "source": "c_users_dibya_onedrive_desktop_excellence_travelmind_backend_agents_itinerary_agent_py",
-      "target": "itinerary_agent_calculate_available_hours",
+      "_src": "c_users_dibya_onedrive_desktop_excellence_travelmind_backend_agents_itinerary_resuffler_agent_py",
+      "_tgt": "itinerary_resuffler_agent_calculate_available_hours",
+      "source": "c_users_dibya_onedrive_desktop_excellence_travelmind_backend_agents_itinerary_resuffler_agent_py",
+      "target": "itinerary_resuffler_agent_calculate_available_hours",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_agent.py",
-      "source_location": "L145",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_resuffler_agent.py",
+      "source_location": "L186",
       "weight": 1.0,
-      "_src": "c_users_dibya_onedrive_desktop_excellence_travelmind_backend_agents_itinerary_agent_py",
-      "_tgt": "itinerary_agent_score_activity_day_fit",
-      "source": "c_users_dibya_onedrive_desktop_excellence_travelmind_backend_agents_itinerary_agent_py",
-      "target": "itinerary_agent_score_activity_day_fit",
+      "_src": "c_users_dibya_onedrive_desktop_excellence_travelmind_backend_agents_itinerary_resuffler_agent_py",
+      "_tgt": "itinerary_resuffler_agent_score_activity_day_fit",
+      "source": "c_users_dibya_onedrive_desktop_excellence_travelmind_backend_agents_itinerary_resuffler_agent_py",
+      "target": "itinerary_resuffler_agent_score_activity_day_fit",
       "confidence_score": 1.0
     },
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
-      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_agent.py",
-      "source_location": "L178",
-      "weight": 1.0,
-      "_src": "c_users_dibya_onedrive_desktop_excellence_travelmind_backend_agents_itinerary_agent_py",
-      "_tgt": "itinerary_agent_run_itinerary_agent",
-      "source": "c_users_dibya_onedrive_desktop_excellence_travelmind_backend_agents_itinerary_agent_py",
-      "target": "itinerary_agent_run_itinerary_agent",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "confidence": "EXTRACTED",
-      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_agent.py",
-      "source_location": "L264",
-      "weight": 1.0,
-      "_src": "itinerary_agent_run_itinerary_agent",
-      "_tgt": "itinerary_agent_build_activity_summary",
-      "source": "itinerary_agent_build_activity_summary",
-      "target": "itinerary_agent_run_itinerary_agent",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_agent.py",
-      "source_location": "L110",
-      "weight": 1.0,
-      "_src": "itinerary_agent_rationale_110",
-      "_tgt": "itinerary_agent_build_activity_summary",
-      "source": "itinerary_agent_build_activity_summary",
-      "target": "itinerary_agent_rationale_110",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "confidence": "EXTRACTED",
-      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_agent.py",
-      "source_location": "L245",
-      "weight": 1.0,
-      "_src": "itinerary_agent_run_itinerary_agent",
-      "_tgt": "itinerary_agent_calculate_available_hours",
-      "source": "itinerary_agent_calculate_available_hours",
-      "target": "itinerary_agent_run_itinerary_agent",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "rationale_for",
-      "confidence": "EXTRACTED",
-      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_agent.py",
-      "source_location": "L134",
-      "weight": 1.0,
-      "_src": "itinerary_agent_rationale_134",
-      "_tgt": "itinerary_agent_calculate_available_hours",
-      "source": "itinerary_agent_calculate_available_hours",
-      "target": "itinerary_agent_rationale_134",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "confidence": "EXTRACTED",
-      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_agent.py",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_resuffler_agent.py",
       "source_location": "L219",
       "weight": 1.0,
-      "_src": "itinerary_agent_run_itinerary_agent",
-      "_tgt": "itinerary_agent_score_activity_day_fit",
-      "source": "itinerary_agent_score_activity_day_fit",
-      "target": "itinerary_agent_run_itinerary_agent",
+      "_src": "c_users_dibya_onedrive_desktop_excellence_travelmind_backend_agents_itinerary_resuffler_agent_py",
+      "_tgt": "itinerary_resuffler_agent_run_itinerary_agent",
+      "source": "c_users_dibya_onedrive_desktop_excellence_travelmind_backend_agents_itinerary_resuffler_agent_py",
+      "target": "itinerary_resuffler_agent_run_itinerary_agent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_resuffler_agent.py",
+      "source_location": "L363",
+      "weight": 1.0,
+      "_src": "itinerary_resuffler_agent_run_itinerary_agent",
+      "_tgt": "itinerary_resuffler_agent_build_activity_summary",
+      "source": "itinerary_resuffler_agent_build_activity_summary",
+      "target": "itinerary_resuffler_agent_run_itinerary_agent",
       "confidence_score": 1.0
     },
     {
       "relation": "rationale_for",
       "confidence": "EXTRACTED",
-      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_agent.py",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_resuffler_agent.py",
       "source_location": "L151",
       "weight": 1.0,
-      "_src": "itinerary_agent_rationale_151",
-      "_tgt": "itinerary_agent_score_activity_day_fit",
-      "source": "itinerary_agent_score_activity_day_fit",
-      "target": "itinerary_agent_rationale_151",
+      "_src": "itinerary_resuffler_agent_rationale_151",
+      "_tgt": "itinerary_resuffler_agent_build_activity_summary",
+      "source": "itinerary_resuffler_agent_build_activity_summary",
+      "target": "itinerary_resuffler_agent_rationale_151",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_resuffler_agent.py",
+      "source_location": "L319",
+      "weight": 1.0,
+      "_src": "itinerary_resuffler_agent_run_itinerary_agent",
+      "_tgt": "itinerary_resuffler_agent_calculate_available_hours",
+      "source": "itinerary_resuffler_agent_calculate_available_hours",
+      "target": "itinerary_resuffler_agent_run_itinerary_agent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_resuffler_agent.py",
+      "source_location": "L175",
+      "weight": 1.0,
+      "_src": "itinerary_resuffler_agent_rationale_175",
+      "_tgt": "itinerary_resuffler_agent_calculate_available_hours",
+      "source": "itinerary_resuffler_agent_calculate_available_hours",
+      "target": "itinerary_resuffler_agent_rationale_175",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_resuffler_agent.py",
+      "source_location": "L293",
+      "weight": 1.0,
+      "_src": "itinerary_resuffler_agent_run_itinerary_agent",
+      "_tgt": "itinerary_resuffler_agent_score_activity_day_fit",
+      "source": "itinerary_resuffler_agent_score_activity_day_fit",
+      "target": "itinerary_resuffler_agent_run_itinerary_agent",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_resuffler_agent.py",
+      "source_location": "L192",
+      "weight": 1.0,
+      "_src": "itinerary_resuffler_agent_rationale_192",
+      "_tgt": "itinerary_resuffler_agent_score_activity_day_fit",
+      "source": "itinerary_resuffler_agent_score_activity_day_fit",
+      "target": "itinerary_resuffler_agent_rationale_192",
       "confidence_score": 1.0
     },
     {
       "relation": "calls",
       "confidence": "INFERRED",
       "confidence_score": 0.8,
-      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_agent.py",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_resuffler_agent.py",
       "source_location": "L196",
       "weight": 1.0,
-      "_src": "itinerary_agent_run_itinerary_agent",
+      "_src": "itinerary_resuffler_agent_run_itinerary_agent",
       "_tgt": "weather_tool_fetch_daily_forecast_for_reshuffler",
-      "source": "itinerary_agent_run_itinerary_agent",
+      "source": "itinerary_resuffler_agent_run_itinerary_agent",
       "target": "weather_tool_fetch_daily_forecast_for_reshuffler"
+    },
+    {
+      "relation": "calls",
+      "confidence": "INFERRED",
+      "confidence_score": 0.8,
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_resuffler_agent.py",
+      "source_location": "L256",
+      "weight": 1.0,
+      "_src": "itinerary_resuffler_agent_run_itinerary_agent",
+      "_tgt": "weather_tool_fetch_exchange_rate",
+      "source": "itinerary_resuffler_agent_run_itinerary_agent",
+      "target": "weather_tool_fetch_exchange_rate"
     },
     {
       "relation": "contains",
@@ -2115,7 +2226,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\models\\schemas.py",
-      "source_location": "L65",
+      "source_location": "L68",
       "weight": 1.0,
       "_src": "c_users_dibya_onedrive_desktop_excellence_travelmind_backend_models_schemas_py",
       "_tgt": "schemas_disruptionrequest",
@@ -2127,7 +2238,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\models\\schemas.py",
-      "source_location": "L72",
+      "source_location": "L75",
       "weight": 1.0,
       "_src": "c_users_dibya_onedrive_desktop_excellence_travelmind_backend_models_schemas_py",
       "_tgt": "schemas_drivingrequest",
@@ -2223,7 +2334,7 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\models\\schemas.py",
-      "source_location": "L65",
+      "source_location": "L68",
       "weight": 1.0,
       "_src": "schemas_disruptionrequest",
       "_tgt": "basemodel",
@@ -2235,13 +2346,61 @@
       "relation": "inherits",
       "confidence": "EXTRACTED",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\models\\schemas.py",
-      "source_location": "L72",
+      "source_location": "L75",
       "weight": 1.0,
       "_src": "schemas_drivingrequest",
       "_tgt": "basemodel",
       "source": "basemodel",
       "target": "schemas_drivingrequest",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
+      "source_location": "L6",
+      "weight": 0.8,
+      "_src": "schemas_weatherrequest",
+      "_tgt": "main_rationale_110",
+      "confidence_score": 0.5,
+      "source": "schemas_weatherrequest",
+      "target": "main_rationale_110"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
+      "source_location": "L6",
+      "weight": 0.8,
+      "_src": "schemas_weatherrequest",
+      "_tgt": "main_rationale_135",
+      "confidence_score": 0.5,
+      "source": "schemas_weatherrequest",
+      "target": "main_rationale_135"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
+      "source_location": "L6",
+      "weight": 0.8,
+      "_src": "schemas_weatherrequest",
+      "_tgt": "main_rationale_157",
+      "confidence_score": 0.5,
+      "source": "schemas_weatherrequest",
+      "target": "main_rationale_157"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
+      "source_location": "L6",
+      "weight": 0.8,
+      "_src": "schemas_weatherrequest",
+      "_tgt": "main_rationale_194",
+      "confidence_score": 0.5,
+      "source": "schemas_weatherrequest",
+      "target": "main_rationale_194"
     },
     {
       "relation": "uses",
@@ -2254,6 +2413,150 @@
       "confidence_score": 0.5,
       "source": "schemas_weatherrequest",
       "target": "main_rationale_42"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
+      "source_location": "L6",
+      "weight": 0.8,
+      "_src": "schemas_itineraryrequest",
+      "_tgt": "main_rationale_110",
+      "confidence_score": 0.5,
+      "source": "schemas_itineraryrequest",
+      "target": "main_rationale_110"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
+      "source_location": "L6",
+      "weight": 0.8,
+      "_src": "schemas_itineraryrequest",
+      "_tgt": "main_rationale_135",
+      "confidence_score": 0.5,
+      "source": "schemas_itineraryrequest",
+      "target": "main_rationale_135"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
+      "source_location": "L6",
+      "weight": 0.8,
+      "_src": "schemas_itineraryrequest",
+      "_tgt": "main_rationale_157",
+      "confidence_score": 0.5,
+      "source": "schemas_itineraryrequest",
+      "target": "main_rationale_157"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
+      "source_location": "L6",
+      "weight": 0.8,
+      "_src": "schemas_itineraryrequest",
+      "_tgt": "main_rationale_194",
+      "confidence_score": 0.5,
+      "source": "schemas_itineraryrequest",
+      "target": "main_rationale_194"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
+      "source_location": "L6",
+      "weight": 0.8,
+      "_src": "schemas_disruptionrequest",
+      "_tgt": "main_rationale_110",
+      "confidence_score": 0.5,
+      "source": "schemas_disruptionrequest",
+      "target": "main_rationale_110"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
+      "source_location": "L6",
+      "weight": 0.8,
+      "_src": "schemas_disruptionrequest",
+      "_tgt": "main_rationale_135",
+      "confidence_score": 0.5,
+      "source": "schemas_disruptionrequest",
+      "target": "main_rationale_135"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
+      "source_location": "L6",
+      "weight": 0.8,
+      "_src": "schemas_disruptionrequest",
+      "_tgt": "main_rationale_157",
+      "confidence_score": 0.5,
+      "source": "schemas_disruptionrequest",
+      "target": "main_rationale_157"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
+      "source_location": "L6",
+      "weight": 0.8,
+      "_src": "schemas_disruptionrequest",
+      "_tgt": "main_rationale_194",
+      "confidence_score": 0.5,
+      "source": "schemas_disruptionrequest",
+      "target": "main_rationale_194"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
+      "source_location": "L6",
+      "weight": 0.8,
+      "_src": "schemas_drivingrequest",
+      "_tgt": "main_rationale_110",
+      "confidence_score": 0.5,
+      "source": "schemas_drivingrequest",
+      "target": "main_rationale_110"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
+      "source_location": "L6",
+      "weight": 0.8,
+      "_src": "schemas_drivingrequest",
+      "_tgt": "main_rationale_135",
+      "confidence_score": 0.5,
+      "source": "schemas_drivingrequest",
+      "target": "main_rationale_135"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
+      "source_location": "L6",
+      "weight": 0.8,
+      "_src": "schemas_drivingrequest",
+      "_tgt": "main_rationale_157",
+      "confidence_score": 0.5,
+      "source": "schemas_drivingrequest",
+      "target": "main_rationale_157"
+    },
+    {
+      "relation": "uses",
+      "confidence": "INFERRED",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
+      "source_location": "L6",
+      "weight": 0.8,
+      "_src": "schemas_drivingrequest",
+      "_tgt": "main_rationale_194",
+      "confidence_score": 0.5,
+      "source": "schemas_drivingrequest",
+      "target": "main_rationale_194"
     },
     {
       "relation": "contains",
@@ -2556,6 +2859,18 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\tools\\weather_tool.py",
+      "source_location": "L860",
+      "weight": 1.0,
+      "_src": "c_users_dibya_onedrive_desktop_excellence_travelmind_backend_tools_weather_tool_py",
+      "_tgt": "weather_tool_fetch_exchange_rate",
+      "source": "c_users_dibya_onedrive_desktop_excellence_travelmind_backend_tools_weather_tool_py",
+      "target": "weather_tool_fetch_exchange_rate",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\tools\\weather_tool.py",
@@ -2661,6 +2976,18 @@
       "_tgt": "weather_tool_fetch_daily_forecast_for_reshuffler",
       "source": "weather_tool_fetch_daily_forecast_for_reshuffler",
       "target": "weather_tool_rationale_697",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "rationale_for",
+      "confidence": "EXTRACTED",
+      "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\tools\\weather_tool.py",
+      "source_location": "L864",
+      "weight": 1.0,
+      "_src": "weather_tool_rationale_864",
+      "_tgt": "weather_tool_fetch_exchange_rate",
+      "source": "weather_tool_fetch_exchange_rate",
+      "target": "weather_tool_rationale_864",
       "confidence_score": 1.0
     },
     {

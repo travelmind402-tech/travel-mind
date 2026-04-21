@@ -6,7 +6,8 @@ from google import genai
 from google.genai import types
 from dotenv import load_dotenv
 from tools.weather_tool import (
-    fetch_daily_forecast_for_reshuffler
+    fetch_daily_forecast_for_reshuffler,
+    fetch_exchange_rate
 )
 
 load_dotenv()
@@ -46,6 +47,27 @@ Rules you must follow:
   3 hours per day and schedule rest periods
 - Flag any activities that could not be optimally placed
   and explain why
+- BUDGET RULE: You will receive daily_budget_local and
+  total_budget_local in the traveler's local currency.
+  You will also receive currency and currency_symbol.
+  Every activity has an estimated_cost_local field
+  showing cost in local currency.
+  Make sure the total cost of all activities assigned
+  across all days does not exceed total_budget_local.
+  Always show ALL money amounts in local currency
+  using the currency_symbol provided.
+  Never show USD amounts in the response — always
+  convert to local currency using the exchange_rate
+  provided in the bundle.
+- If an activity costs too much given remaining budget
+  mark it as "budget_constrained" and suggest a
+  free or cheaper alternative.
+- In each day's schedule show the running budget spent
+  and remaining budget for the trip.
+- Prioritize free or low cost activities on days where
+  budget is running low.
+- Always include estimated meal costs in daily budget
+  tracking (use local average pricing knowledge).
 
 Respond ONLY in this JSON format, no other text:
 {
@@ -62,10 +84,20 @@ Respond ONLY in this JSON format, no other text:
           "activity": "...",
           "activity_type": "outdoor | indoor | flexible",
           "duration_hours": 2.0,
+          "estimated_cost_usd": 0,
           "weather_suitability": "perfect | good | acceptable | forced",
-          "tip": "short practical tip for this activity on this day"
+          "tip": "short practical tip for this activity on this day",
+          "budget_status": "within_budget | tight | over_budget",
+          "cheaper_alternative": "null | alternative if over budget"
         }
       ],
+      "day_budget_summary": {
+        "activities_cost_usd": 0,
+        "meals_cost_usd": 0,
+        "transport_cost_usd": 0,
+        "total_day_cost_usd": 0,
+        "remaining_trip_budget_usd": 0
+      },
       "meals": [
         {
           "time": "13:00",
@@ -101,8 +133,17 @@ Respond ONLY in this JSON format, no other text:
   "best_day_of_trip": "YYYY-MM-DD",
   "worst_day_of_trip": "YYYY-MM-DD",
   "key_warnings": ["...", "..."],
-  "packing_recommendations": ["...", "...", "..."]
-}
+  "packing_recommendations": ["...", "...", "..."],
+  "budget_summary": {
+    "total_trip_budget_usd": 0,
+    "estimated_total_spend_usd": 0,
+    "estimated_savings_usd": 0,
+    "most_expensive_day": "YYYY-MM-DD",
+    "cheapest_day": "YYYY-MM-DD",
+    "budget_feasibility": "comfortable | tight | over_budget",
+    "money_saving_tips": ["...", "...", "..."]
+    }
+  }
 """
 
 
@@ -185,7 +226,10 @@ async def run_itinerary_agent(
     daily_start_time: str = "09:00",
     daily_end_time:   str = "21:00",
     avoid_extreme_heat:     bool = False,
-    avoid_rain_completely:  bool = False
+    avoid_rain_completely:  bool = False,
+    daily_budget_usd:       float = 50.0,    # ← added
+    total_trip_budget_usd:  float = None,     # ← added
+    currency:               str = "INR"
 ) -> dict:
 
     print(f"[ItineraryAgent] Fetching forecast for "
@@ -208,6 +252,36 @@ async def run_itinerary_agent(
 
     print(f"[ItineraryAgent] Got {len(forecast_days)} "
           f"days of forecast data")
+    # ── Fetch live exchange rate ──────────────────────
+    exchange = await fetch_exchange_rate("USD", currency)
+    rate      = exchange.get("rate", 1.0)
+    symbol    = {
+        "INR": "₹", "EUR": "€", "GBP": "£",
+        "JPY": "¥", "AUD": "A$", "CAD": "C$",
+        "SGD": "S$", "THB": "฿", "USD": "$",
+        "BDT": "৳", "NPR": "Rs"
+    }.get(currency, currency)
+
+    print(f"[ItineraryAgent] Exchange rate: "
+          f"1 USD = {rate} {currency}")
+
+    # Convert budgets to local currency
+    daily_budget_local = round(daily_budget_usd * rate, 2)
+    total_budget_local = round(
+        (total_trip_budget_usd
+         if total_trip_budget_usd
+         else daily_budget_usd * trip_days) * rate, 2
+    )
+
+    # Convert activity costs to local currency
+    for act in activities:
+        act["estimated_cost_local"] = round(
+            act.get("estimated_cost_usd", 0) * rate, 2
+        )
+        act["cost_display"] = (
+            f"{symbol}"
+            f"{act['estimated_cost_local']:,.0f} {currency}"
+        )
 
     # ── Step 2: Pre-score in Python ───────────────────
     # Give Gemma a hint about which activities fit
@@ -248,6 +322,18 @@ async def run_itinerary_agent(
     )
 
     # ── Step 3: Build bundle for Gemma ───────────────
+    # Calculate total trip budget if not provided
+    trip_days = (
+        datetime.strptime(travel_end_date, "%Y-%m-%d") -
+        datetime.strptime(travel_start_date, "%Y-%m-%d")
+    ).days + 1
+
+    total_budget = (
+        total_trip_budget_usd
+        if total_trip_budget_usd
+        else daily_budget_usd * trip_days
+    )
+
     bundle = {
         "city":              city,
         "country":           country,
@@ -260,7 +346,20 @@ async def run_itinerary_agent(
         "available_hours_per_day": available_hours,
         "avoid_extreme_heat":    avoid_extreme_heat,
         "avoid_rain_completely": avoid_rain_completely,
-
+        "daily_budget_usd":      daily_budget_usd,
+        "total_trip_budget_usd": total_budget,
+        "trip_days":             trip_days,
+        "currency":              currency,
+        "currency_symbol":       symbol,
+        "exchange_rate":         f"1 USD = {rate} {currency}",
+        "daily_budget_local":    daily_budget_local,
+        "total_budget_local":    total_budget_local,
+        "budget_display":        (
+            f"{symbol}{daily_budget_local:,.0f} "
+            f"{currency}/day | "
+            f"{symbol}{total_budget_local:,.0f} "
+            f"{currency} total"
+        ),
         "planned_activities": _build_activity_summary(
             activities
         ),

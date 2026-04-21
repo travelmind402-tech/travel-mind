@@ -95,7 +95,10 @@ async def reshuffle_itinerary(request: ItineraryRequest):
             daily_start_time=request.daily_start_time,
             daily_end_time=request.daily_end_time,
             avoid_extreme_heat=request.avoid_extreme_heat,
-            avoid_rain_completely=request.avoid_rain_completely
+            avoid_rain_completely=request.avoid_rain_completely,
+            daily_budget_usd=request.daily_budget_usd,           # ← added
+            total_trip_budget_usd=request.total_trip_budget_usd,  # ← added
+            currency=request.currency
         )
         return result
 

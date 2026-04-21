@@ -852,3 +852,62 @@ async def fetch_daily_forecast_for_reshuffler(
 
     except Exception as e:
         return [{"error": str(e)}]
+    
+# ─────────────────────────────────────────────
+# TOOL 11 — Live exchange rate fetcher
+#           (exchangerate.host — FREE, no key)
+# ─────────────────────────────────────────────
+async def fetch_exchange_rate(
+    from_currency: str = "USD",
+    to_currency: str = "INR"
+) -> dict:
+    """
+    Fetches live exchange rate between two currencies.
+    Completely free, no API key needed.
+    """
+    try:
+        async with httpx.AsyncClient(timeout=10) as client:
+            r = await client.get(
+                "https://api.exchangerate-api.com/v4/latest/USD"
+            )
+            data = r.json()
+            rates = data.get("rates", {})
+
+            to_rate   = rates.get(to_currency, 1)
+            from_rate = rates.get(from_currency, 1)
+
+            # Convert: from_currency → USD → to_currency
+            rate = to_rate / from_rate
+
+            return {
+                "from":       from_currency,
+                "to":         to_currency,
+                "rate":       round(rate, 4),
+                "source":     "exchangerate-api.com",
+                "example":    f"1 {from_currency} = "
+                              f"{round(rate, 2)} {to_currency}"
+            }
+    except Exception as e:
+        # Fallback hardcoded rates if API fails
+        fallback_rates = {
+            "INR":  83.5,
+            "EUR":  0.92,
+            "GBP":  0.79,
+            "JPY":  149.5,
+            "AUD":  1.53,
+            "CAD":  1.36,
+            "SGD":  1.34,
+            "THB":  35.1,
+            "BDT":  110.0,
+            "NPR":  133.5,
+        }
+        rate = fallback_rates.get(to_currency, 1.0)
+        return {
+            "from":    from_currency,
+            "to":      to_currency,
+            "rate":    rate,
+            "source":  "fallback_hardcoded",
+            "example": f"1 {from_currency} = "
+                       f"{rate} {to_currency}",
+            "warning": f"Live rate fetch failed: {str(e)}"
+        }

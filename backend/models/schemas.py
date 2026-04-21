@@ -56,10 +56,13 @@ class ItineraryRequest(BaseModel):
     travel_end_date: str
     traveler_type: Literal["solo", "elderly", "student", "family"]
     activities: List[Activity]
-    daily_start_time: str = "09:00"   # when traveler wakes up
-    daily_end_time: str = "21:00"     # when traveler stops
-    avoid_extreme_heat: bool = False   # for elderly travelers
+    daily_start_time: str = "09:00"
+    daily_end_time: str = "21:00"
+    avoid_extreme_heat: bool = False
     avoid_rain_completely: bool = False
+    daily_budget_usd: float = 50.0      # ← added
+    total_trip_budget_usd: Optional[float] = None  # ← added
+    currency: str = "INR" 
 
 
 class DisruptionRequest(BaseModel):
