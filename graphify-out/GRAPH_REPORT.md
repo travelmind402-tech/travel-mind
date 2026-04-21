@@ -1,12 +1,12 @@
 # Graph Report - C:\Users\dibya\OneDrive\Desktop\Excellence\travelmind  (2026-04-22)
 
 ## Corpus Check
-- 27 files · ~19,490 words
+- 27 files · ~17,701 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 117 nodes · 159 edges · 34 communities detected
-- Extraction: 57% EXTRACTED · 43% INFERRED · 0% AMBIGUOUS · INFERRED: 68 edges (avg confidence: 0.62)
+- 100 nodes · 140 edges · 24 communities detected
+- Extraction: 65% EXTRACTED · 35% INFERRED · 0% AMBIGUOUS · INFERRED: 49 edges (avg confidence: 0.65)
 - Token cost: 0 input · 0 output
 
 ## Community Hubs (Navigation)
@@ -34,23 +34,13 @@
 - [[_COMMUNITY_Community 21|Community 21]]
 - [[_COMMUNITY_Community 22|Community 22]]
 - [[_COMMUNITY_Community 23|Community 23]]
-- [[_COMMUNITY_Community 24|Community 24]]
-- [[_COMMUNITY_Community 25|Community 25]]
-- [[_COMMUNITY_Community 26|Community 26]]
-- [[_COMMUNITY_Community 27|Community 27]]
-- [[_COMMUNITY_Community 28|Community 28]]
-- [[_COMMUNITY_Community 29|Community 29]]
-- [[_COMMUNITY_Community 30|Community 30]]
-- [[_COMMUNITY_Community 31|Community 31]]
-- [[_COMMUNITY_Community 32|Community 32]]
-- [[_COMMUNITY_Community 33|Community 33]]
 
 ## God Nodes (most connected - your core abstractions)
-1. `WeatherRequest` - 13 edges
-2. `run_weather_agent()` - 12 edges
-3. `ItineraryRequest` - 12 edges
-4. `DisruptionRequest` - 12 edges
-5. `DrivingRequest` - 12 edges
+1. `run_weather_agent()` - 12 edges
+2. `WeatherRequest` - 8 edges
+3. `ItineraryRequest` - 8 edges
+4. `DisruptionRequest` - 8 edges
+5. `DrivingRequest` - 8 edges
 6. `run_driving_agent()` - 7 edges
 7. `run_itinerary_agent()` - 7 edges
 8. `analyse_route_conditions()` - 7 edges
@@ -69,18 +59,15 @@
 - `run_weather_agent()` --calls--> `geocode_city()`  [INFERRED]
   C:\Users\dibya\OneDrive\Desktop\Excellence\travelmind\backend\agents\weather_agent.py → C:\Users\dibya\OneDrive\Desktop\Excellence\travelmind\backend\tools\weather_tool.py
 
-## Hyperedges (group relationships)
-- **Backend Python Dependencies** — req_fastapi, req_google_genai, req_uvicorn, req_python_dotenv, req_httpx, req_geopy, req_aiohttp [EXTRACTED 1.00]
-
 ## Communities
 
 ### Community 0 - "Community 0"
-Cohesion: 0.26
-Nodes (21): BaseModel, Direct test of the forecast tool.     Remove this endpoint after debugging., Direct test of the forecast tool.     Remove this endpoint after debugging., Searches real traveler reports, Reddit posts and     travel reviews to find cro, Searches real traveler reports, Reddit posts and     travel reviews to find cro, Tests if Gemma web search tool is available     on your API key., Tests if Gemma web search tool is available     on your API key., Produces a day-by-day driving safety score     and road condition advisory for (+13 more)
-
-### Community 1 - "Community 1"
 Cohesion: 0.16
 Nodes (17): run_weather_agent(), calculate_mosquito_risk(), call_openweathermap(), fetch_health_and_pollen_data(), fetch_health_outbreaks(), fetch_historical_precipitation(), fetch_historical_seismic_data(), fetch_ncei_station_data() (+9 more)
+
+### Community 1 - "Community 1"
+Cohesion: 0.31
+Nodes (16): BaseModel, Direct test of the forecast tool.     Remove this endpoint after debugging., Searches real traveler reports, Reddit posts and     travel reviews to find cro, Tests if Gemma web search tool is available     on your API key., Produces a day-by-day driving safety score     and road condition advisory for, Test endpoint for the weather agent only., Takes a list of planned activities and     optimizes them around the weather fo, Activity (+8 more)
 
 ### Community 2 - "Community 2"
 Cohesion: 0.22
@@ -92,7 +79,7 @@ Nodes (8): Tries web search first, falls back to      Gemma knowledge if search 
 
 ### Community 4 - "Community 4"
 Cohesion: 0.27
-Nodes (9): _build_activity_summary(), _calculate_available_hours(), Pure Python scoring — how well an activity fits     a given day. Higher = bette, Calculates usable activity hours in a day     minus meal breaks., Pure Python scoring — how well an activity fits     a given day. Higher = bette, run_itinerary_agent(), _score_activity_day_fit(), fetch_exchange_rate() (+1 more)
+Nodes (9): _build_activity_summary(), _calculate_available_hours(), Converts activity list to a clean text summary     for Gemma to reason over., Calculates usable activity hours in a day     minus meal breaks., Pure Python scoring — how well an activity fits     a given day. Higher = bette, run_itinerary_agent(), _score_activity_day_fit(), fetch_exchange_rate() (+1 more)
 
 ### Community 5 - "Community 5"
 Cohesion: 0.4
@@ -104,11 +91,11 @@ Nodes (0):
 
 ### Community 7 - "Community 7"
 Cohesion: 1.0
-Nodes (2): FastAPI, Uvicorn
+Nodes (0): 
 
 ### Community 8 - "Community 8"
 Cohesion: 1.0
-Nodes (2): aiohttp, HTTPX
+Nodes (0): 
 
 ### Community 9 - "Community 9"
 Cohesion: 1.0
@@ -170,118 +157,58 @@ Nodes (0):
 Cohesion: 1.0
 Nodes (0): 
 
-### Community 24 - "Community 24"
-Cohesion: 1.0
-Nodes (0): 
-
-### Community 25 - "Community 25"
-Cohesion: 1.0
-Nodes (0): 
-
-### Community 26 - "Community 26"
-Cohesion: 1.0
-Nodes (1): Converts activity list to a clean text summary     for Gemma to reason over.
-
-### Community 27 - "Community 27"
-Cohesion: 1.0
-Nodes (1): Calculates usable activity hours in a day     minus meal breaks.
-
-### Community 28 - "Community 28"
-Cohesion: 1.0
-Nodes (1): Converts activity list to a clean text summary     for Gemma to reason over.
-
-### Community 29 - "Community 29"
-Cohesion: 1.0
-Nodes (1): Calculates usable activity hours in a day     minus meal breaks.
-
-### Community 30 - "Community 30"
-Cohesion: 1.0
-Nodes (1): Pure Python scoring — how well an activity fits     a given day. Higher = bette
-
-### Community 31 - "Community 31"
-Cohesion: 1.0
-Nodes (1): Google GenAI
-
-### Community 32 - "Community 32"
-Cohesion: 1.0
-Nodes (1): python-dotenv
-
-### Community 33 - "Community 33"
-Cohesion: 1.0
-Nodes (1): geopy
-
 ## Knowledge Gaps
-- **29 isolated node(s):** `Tries web search first, falls back to      Gemma knowledge if search unavailabl`, `Pure Python scoring — how well an activity fits     a given day. Higher = bette`, `Calculates usable activity hours in a day     minus meal breaks.`, `Pure Python scoring — how well an activity fits     a given day. Higher = bette`, `Gets elevation at a specific coordinate.     Used to detect mountain/hill roads` (+24 more)
+- **16 isolated node(s):** `Tries web search first, falls back to      Gemma knowledge if search unavailabl`, `Converts activity list to a clean text summary     for Gemma to reason over.`, `Calculates usable activity hours in a day     minus meal breaks.`, `Pure Python scoring — how well an activity fits     a given day. Higher = bette`, `Gets elevation at a specific coordinate.     Used to detect mountain/hill roads` (+11 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **Thin community `Community 7`** (2 nodes): `FastAPI`, `Uvicorn`
+- **Thin community `Community 7`** (1 nodes): `orchestrator.py`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 8`** (2 nodes): `aiohttp`, `HTTPX`
+- **Thin community `Community 8`** (1 nodes): `budget_agent.py`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 9`** (1 nodes): `orchestrator.py`
+- **Thin community `Community 9`** (1 nodes): `cuisine_agent.py`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 10`** (1 nodes): `budget_agent.py`
+- **Thin community `Community 10`** (1 nodes): `culture_agent.py`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 11`** (1 nodes): `cuisine_agent.py`
+- **Thin community `Community 11`** (1 nodes): `language_agent.py`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 12`** (1 nodes): `culture_agent.py`
+- **Thin community `Community 12`** (1 nodes): `__init__.py`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 13`** (1 nodes): `language_agent.py`
+- **Thin community `Community 13`** (1 nodes): `__init__.py`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 14`** (1 nodes): `__init__.py`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 15`** (1 nodes): `__init__.py`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 16`** (1 nodes): `__init__.py`
+- **Thin community `Community 16`** (1 nodes): `helpers.py`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 - **Thin community `Community 17`** (1 nodes): `__init__.py`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 18`** (1 nodes): `helpers.py`
+- **Thin community `Community 18`** (1 nodes): `App.jsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 19`** (1 nodes): `__init__.py`
+- **Thin community `Community 19`** (1 nodes): `main.jsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 20`** (1 nodes): `App.jsx`
+- **Thin community `Community 20`** (1 nodes): `travelmind.js`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 21`** (1 nodes): `main.jsx`
+- **Thin community `Community 21`** (1 nodes): `Chat.jsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 22`** (1 nodes): `travelmind.js`
+- **Thin community `Community 22`** (1 nodes): `Onboarding.jsx`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 23`** (1 nodes): `Chat.jsx`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 24`** (1 nodes): `Onboarding.jsx`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 25`** (1 nodes): `useStore.js`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 26`** (1 nodes): `Converts activity list to a clean text summary     for Gemma to reason over.`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 27`** (1 nodes): `Calculates usable activity hours in a day     minus meal breaks.`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 28`** (1 nodes): `Converts activity list to a clean text summary     for Gemma to reason over.`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 29`** (1 nodes): `Calculates usable activity hours in a day     minus meal breaks.`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 30`** (1 nodes): `Pure Python scoring — how well an activity fits     a given day. Higher = bette`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 31`** (1 nodes): `Google GenAI`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 32`** (1 nodes): `python-dotenv`
-  Too small to be a meaningful cluster - may be noise or needs more connections extracted.
-- **Thin community `Community 33`** (1 nodes): `geopy`
+- **Thin community `Community 23`** (1 nodes): `useStore.js`
   Too small to be a meaningful cluster - may be noise or needs more connections extracted.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `run_weather_agent()` connect `Community 1` to `Community 2`, `Community 3`?**
-  _High betweenness centrality (0.097) - this node is a cross-community bridge._
+- **Why does `run_weather_agent()` connect `Community 0` to `Community 2`, `Community 3`?**
+  _High betweenness centrality (0.118) - this node is a cross-community bridge._
 - **Why does `run_itinerary_agent()` connect `Community 4` to `Community 2`, `Community 3`?**
-  _High betweenness centrality (0.091) - this node is a cross-community bridge._
-- **Why does `get_weather()` connect `Community 3` to `Community 0`, `Community 1`?**
-  _High betweenness centrality (0.076) - this node is a cross-community bridge._
-- **Are the 11 inferred relationships involving `WeatherRequest` (e.g. with `Test endpoint for the weather agent only.` and `Takes a list of planned activities and     optimizes them around the weather fo`) actually correct?**
-  _`WeatherRequest` has 11 INFERRED edges - model-reasoned connections that need verification._
+  _High betweenness centrality (0.116) - this node is a cross-community bridge._
+- **Why does `fetch_daily_forecast_for_reshuffler()` connect `Community 2` to `Community 0`, `Community 4`?**
+  _High betweenness centrality (0.096) - this node is a cross-community bridge._
 - **Are the 11 inferred relationships involving `run_weather_agent()` (e.g. with `get_weather()` and `geocode_city()`) actually correct?**
   _`run_weather_agent()` has 11 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 10 inferred relationships involving `ItineraryRequest` (e.g. with `Test endpoint for the weather agent only.` and `Takes a list of planned activities and     optimizes them around the weather fo`) actually correct?**
-  _`ItineraryRequest` has 10 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 10 inferred relationships involving `DisruptionRequest` (e.g. with `Test endpoint for the weather agent only.` and `Takes a list of planned activities and     optimizes them around the weather fo`) actually correct?**
-  _`DisruptionRequest` has 10 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 6 inferred relationships involving `WeatherRequest` (e.g. with `Test endpoint for the weather agent only.` and `Takes a list of planned activities and     optimizes them around the weather fo`) actually correct?**
+  _`WeatherRequest` has 6 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 6 inferred relationships involving `ItineraryRequest` (e.g. with `Test endpoint for the weather agent only.` and `Takes a list of planned activities and     optimizes them around the weather fo`) actually correct?**
+  _`ItineraryRequest` has 6 INFERRED edges - model-reasoned connections that need verification._
+- **Are the 6 inferred relationships involving `DisruptionRequest` (e.g. with `Test endpoint for the weather agent only.` and `Takes a list of planned activities and     optimizes them around the weather fo`) actually correct?**
+  _`DisruptionRequest` has 6 INFERRED edges - model-reasoned connections that need verification._
