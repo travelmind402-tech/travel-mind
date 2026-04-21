@@ -1,7 +1,0 @@
-google-genai
-fastapi
-uvicorn
-python-dotenv
-httpx
-geopy
-aiohttp
