@@ -89,54 +89,54 @@
       "file_type": "rationale",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
       "source_location": "L48",
+      "id": "main_rationale_48",
       "community": 1,
-      "norm_label": "test endpoint for the weather agent only.",
-      "id": "main_rationale_48"
+      "norm_label": "test endpoint for the weather agent only."
     },
     {
       "label": "Takes a list of planned activities and     optimizes them around the weather fo",
       "file_type": "rationale",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
       "source_location": "L71",
+      "id": "main_rationale_71",
       "community": 1,
-      "norm_label": "takes a list of planned activities and     optimizes them around the weather fo",
-      "id": "main_rationale_71"
+      "norm_label": "takes a list of planned activities and     optimizes them around the weather fo"
     },
     {
       "label": "Direct test of the forecast tool.     Remove this endpoint after debugging.",
       "file_type": "rationale",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
       "source_location": "L113",
+      "id": "main_rationale_113",
       "community": 1,
-      "norm_label": "direct test of the forecast tool.     remove this endpoint after debugging.",
-      "id": "main_rationale_113"
+      "norm_label": "direct test of the forecast tool.     remove this endpoint after debugging."
     },
     {
       "label": "Searches real traveler reports, Reddit posts and     travel reviews to find cro",
       "file_type": "rationale",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
       "source_location": "L138",
+      "id": "main_rationale_138",
       "community": 1,
-      "norm_label": "searches real traveler reports, reddit posts and     travel reviews to find cro",
-      "id": "main_rationale_138"
+      "norm_label": "searches real traveler reports, reddit posts and     travel reviews to find cro"
     },
     {
       "label": "Tests if Gemma web search tool is available     on your API key.",
       "file_type": "rationale",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
       "source_location": "L160",
+      "id": "main_rationale_160",
       "community": 1,
-      "norm_label": "tests if gemma web search tool is available     on your api key.",
-      "id": "main_rationale_160"
+      "norm_label": "tests if gemma web search tool is available     on your api key."
     },
     {
       "label": "Produces a day-by-day driving safety score     and road condition advisory for",
       "file_type": "rationale",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\main.py",
       "source_location": "L197",
+      "id": "main_rationale_197",
       "community": 1,
-      "norm_label": "produces a day-by-day driving safety score     and road condition advisory for",
-      "id": "main_rationale_197"
+      "norm_label": "produces a day-by-day driving safety score     and road condition advisory for"
     },
     {
       "label": "orchestrator.py",
@@ -206,9 +206,9 @@
       "file_type": "rationale",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\disruption_agent.py",
       "source_location": "L112",
+      "id": "disruption_agent_rationale_112",
       "community": 3,
-      "norm_label": "tries web search first, falls back to      gemma knowledge if search unavailabl",
-      "id": "disruption_agent_rationale_112"
+      "norm_label": "tries web search first, falls back to      gemma knowledge if search unavailabl"
     },
     {
       "label": "driving_agent.py",
@@ -278,27 +278,27 @@
       "file_type": "rationale",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_resuffler_agent.py",
       "source_location": "L151",
+      "id": "itinerary_resuffler_agent_rationale_151",
       "community": 4,
-      "norm_label": "converts activity list to a clean text summary     for gemma to reason over.",
-      "id": "itinerary_resuffler_agent_rationale_151"
+      "norm_label": "converts activity list to a clean text summary     for gemma to reason over."
     },
     {
       "label": "Calculates usable activity hours in a day     minus meal breaks.",
       "file_type": "rationale",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_resuffler_agent.py",
       "source_location": "L175",
+      "id": "itinerary_resuffler_agent_rationale_175",
       "community": 4,
-      "norm_label": "calculates usable activity hours in a day     minus meal breaks.",
-      "id": "itinerary_resuffler_agent_rationale_175"
+      "norm_label": "calculates usable activity hours in a day     minus meal breaks."
     },
     {
       "label": "Pure Python scoring \u2014 how well an activity fits     a given day. Higher = bette",
       "file_type": "rationale",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\agents\\itinerary_resuffler_agent.py",
       "source_location": "L192",
+      "id": "itinerary_resuffler_agent_rationale_192",
       "community": 4,
-      "norm_label": "pure python scoring \u2014 how well an activity fits     a given day. higher = bette",
-      "id": "itinerary_resuffler_agent_rationale_192"
+      "norm_label": "pure python scoring \u2014 how well an activity fits     a given day. higher = bette"
     },
     {
       "label": "language_agent.py",
@@ -593,36 +593,36 @@
       "file_type": "rationale",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\tools\\driving_tool.py",
       "source_location": "L15",
+      "id": "driving_tool_rationale_15",
       "community": 2,
-      "norm_label": "gets elevation at a specific coordinate.     used to detect mountain/hill roads",
-      "id": "driving_tool_rationale_15"
+      "norm_label": "gets elevation at a specific coordinate.     used to detect mountain/hill roads"
     },
     {
       "label": "Classifies terrain type based on elevation.",
       "file_type": "rationale",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\tools\\driving_tool.py",
       "source_location": "L49",
+      "id": "driving_tool_rationale_49",
       "community": 2,
-      "norm_label": "classifies terrain type based on elevation.",
-      "id": "driving_tool_rationale_49"
+      "norm_label": "classifies terrain type based on elevation."
     },
     {
       "label": "Pure Python driving safety scorer.     Combines weather data with terrain and",
       "file_type": "rationale",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\tools\\driving_tool.py",
       "source_location": "L73",
+      "id": "driving_tool_rationale_73",
       "community": 2,
-      "norm_label": "pure python driving safety scorer.     combines weather data with terrain and",
-      "id": "driving_tool_rationale_73"
+      "norm_label": "pure python driving safety scorer.     combines weather data with terrain and"
     },
     {
       "label": "Analyses driving conditions for each     waypoint along the route.",
       "file_type": "rationale",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\tools\\driving_tool.py",
       "source_location": "L355",
+      "id": "driving_tool_rationale_355",
       "community": 2,
-      "norm_label": "analyses driving conditions for each     waypoint along the route.",
-      "id": "driving_tool_rationale_355"
+      "norm_label": "analyses driving conditions for each     waypoint along the route."
     },
     {
       "label": "weather_tool.py",
@@ -755,72 +755,72 @@
       "file_type": "rationale",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\tools\\weather_tool.py",
       "source_location": "L148",
+      "id": "weather_tool_rationale_148",
       "community": 0,
-      "norm_label": "fetches same-month precipitation data for the     past 20 years from open-meteo",
-      "id": "weather_tool_rationale_148"
+      "norm_label": "fetches same-month precipitation data for the     past 20 years from open-meteo"
     },
     {
       "label": "Fetches a simple forecast for multiple cities in parallel.     Used for the Jou",
       "file_type": "rationale",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\tools\\weather_tool.py",
       "source_location": "L506",
+      "id": "weather_tool_rationale_506",
       "community": 0,
-      "norm_label": "fetches a simple forecast for multiple cities in parallel.     used for the jou",
-      "id": "weather_tool_rationale_506"
+      "norm_label": "fetches a simple forecast for multiple cities in parallel.     used for the jou"
     },
     {
       "label": "Biological model for mosquito activity thresholds.",
       "file_type": "rationale",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\tools\\weather_tool.py",
       "source_location": "L535",
+      "id": "weather_tool_rationale_535",
       "community": 0,
-      "norm_label": "biological model for mosquito activity thresholds.",
-      "id": "weather_tool_rationale_535"
+      "norm_label": "biological model for mosquito activity thresholds."
     },
     {
       "label": "Specifically hunts for active epidemics and health crises using ReliefWeb v2.",
       "file_type": "rationale",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\tools\\weather_tool.py",
       "source_location": "L561",
+      "id": "weather_tool_rationale_561",
       "community": 0,
-      "norm_label": "specifically hunts for active epidemics and health crises using reliefweb v2.",
-      "id": "weather_tool_rationale_561"
+      "norm_label": "specifically hunts for active epidemics and health crises using reliefweb v2."
     },
     {
       "label": "Scans the USGS database for Magnitude 4.5+ events within 100km over the last 20",
       "file_type": "rationale",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\tools\\weather_tool.py",
       "source_location": "L604",
+      "id": "weather_tool_rationale_604",
       "community": 0,
-      "norm_label": "scans the usgs database for magnitude 4.5+ events within 100km over the last 20",
-      "id": "weather_tool_rationale_604"
+      "norm_label": "scans the usgs database for magnitude 4.5+ events within 100km over the last 20"
     },
     {
       "label": "Uses NASA VIIRS satellites to detect thermal anomalies (fires) in a 1-degree box",
       "file_type": "rationale",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\tools\\weather_tool.py",
       "source_location": "L649",
+      "id": "weather_tool_rationale_649",
       "community": 0,
-      "norm_label": "uses nasa viirs satellites to detect thermal anomalies (fires) in a 1-degree box",
-      "id": "weather_tool_rationale_649"
+      "norm_label": "uses nasa viirs satellites to detect thermal anomalies (fires) in a 1-degree box"
     },
     {
       "label": "Fetches a clean day-by-day forecast between     travel start and end dates.",
       "file_type": "rationale",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\tools\\weather_tool.py",
       "source_location": "L697",
+      "id": "weather_tool_rationale_697",
       "community": 2,
-      "norm_label": "fetches a clean day-by-day forecast between     travel start and end dates.",
-      "id": "weather_tool_rationale_697"
+      "norm_label": "fetches a clean day-by-day forecast between     travel start and end dates."
     },
     {
       "label": "Fetches live exchange rate between two currencies.     Completely free, no API",
       "file_type": "rationale",
       "source_file": "C:\\Users\\dibya\\OneDrive\\Desktop\\Excellence\\travelmind\\backend\\tools\\weather_tool.py",
       "source_location": "L864",
+      "id": "weather_tool_rationale_864",
       "community": 4,
-      "norm_label": "fetches live exchange rate between two currencies.     completely free, no api",
-      "id": "weather_tool_rationale_864"
+      "norm_label": "fetches live exchange rate between two currencies.     completely free, no api"
     },
     {
       "label": "__init__.py",
@@ -1153,9 +1153,9 @@
       "weight": 0.8,
       "_src": "main_rationale_48",
       "_tgt": "schemas_weatherrequest",
-      "confidence_score": 0.5,
       "source": "main_rationale_48",
-      "target": "schemas_weatherrequest"
+      "target": "schemas_weatherrequest",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -1165,9 +1165,9 @@
       "weight": 0.8,
       "_src": "main_rationale_48",
       "_tgt": "schemas_itineraryrequest",
-      "confidence_score": 0.5,
       "source": "main_rationale_48",
-      "target": "schemas_itineraryrequest"
+      "target": "schemas_itineraryrequest",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -1177,9 +1177,9 @@
       "weight": 0.8,
       "_src": "main_rationale_48",
       "_tgt": "schemas_disruptionrequest",
-      "confidence_score": 0.5,
       "source": "main_rationale_48",
-      "target": "schemas_disruptionrequest"
+      "target": "schemas_disruptionrequest",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -1189,9 +1189,9 @@
       "weight": 0.8,
       "_src": "main_rationale_48",
       "_tgt": "schemas_drivingrequest",
-      "confidence_score": 0.5,
       "source": "main_rationale_48",
-      "target": "schemas_drivingrequest"
+      "target": "schemas_drivingrequest",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -1201,9 +1201,9 @@
       "weight": 0.8,
       "_src": "main_rationale_71",
       "_tgt": "schemas_weatherrequest",
-      "confidence_score": 0.5,
       "source": "main_rationale_71",
-      "target": "schemas_weatherrequest"
+      "target": "schemas_weatherrequest",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -1213,9 +1213,9 @@
       "weight": 0.8,
       "_src": "main_rationale_71",
       "_tgt": "schemas_itineraryrequest",
-      "confidence_score": 0.5,
       "source": "main_rationale_71",
-      "target": "schemas_itineraryrequest"
+      "target": "schemas_itineraryrequest",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -1225,9 +1225,9 @@
       "weight": 0.8,
       "_src": "main_rationale_71",
       "_tgt": "schemas_disruptionrequest",
-      "confidence_score": 0.5,
       "source": "main_rationale_71",
-      "target": "schemas_disruptionrequest"
+      "target": "schemas_disruptionrequest",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -1237,9 +1237,9 @@
       "weight": 0.8,
       "_src": "main_rationale_71",
       "_tgt": "schemas_drivingrequest",
-      "confidence_score": 0.5,
       "source": "main_rationale_71",
-      "target": "schemas_drivingrequest"
+      "target": "schemas_drivingrequest",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -1249,9 +1249,9 @@
       "weight": 0.8,
       "_src": "main_rationale_113",
       "_tgt": "schemas_weatherrequest",
-      "confidence_score": 0.5,
       "source": "main_rationale_113",
-      "target": "schemas_weatherrequest"
+      "target": "schemas_weatherrequest",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -1261,9 +1261,9 @@
       "weight": 0.8,
       "_src": "main_rationale_113",
       "_tgt": "schemas_itineraryrequest",
-      "confidence_score": 0.5,
       "source": "main_rationale_113",
-      "target": "schemas_itineraryrequest"
+      "target": "schemas_itineraryrequest",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -1273,9 +1273,9 @@
       "weight": 0.8,
       "_src": "main_rationale_113",
       "_tgt": "schemas_disruptionrequest",
-      "confidence_score": 0.5,
       "source": "main_rationale_113",
-      "target": "schemas_disruptionrequest"
+      "target": "schemas_disruptionrequest",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -1285,9 +1285,9 @@
       "weight": 0.8,
       "_src": "main_rationale_113",
       "_tgt": "schemas_drivingrequest",
-      "confidence_score": 0.5,
       "source": "main_rationale_113",
-      "target": "schemas_drivingrequest"
+      "target": "schemas_drivingrequest",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -1297,9 +1297,9 @@
       "weight": 0.8,
       "_src": "main_rationale_138",
       "_tgt": "schemas_weatherrequest",
-      "confidence_score": 0.5,
       "source": "main_rationale_138",
-      "target": "schemas_weatherrequest"
+      "target": "schemas_weatherrequest",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -1309,9 +1309,9 @@
       "weight": 0.8,
       "_src": "main_rationale_138",
       "_tgt": "schemas_itineraryrequest",
-      "confidence_score": 0.5,
       "source": "main_rationale_138",
-      "target": "schemas_itineraryrequest"
+      "target": "schemas_itineraryrequest",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -1321,9 +1321,9 @@
       "weight": 0.8,
       "_src": "main_rationale_138",
       "_tgt": "schemas_disruptionrequest",
-      "confidence_score": 0.5,
       "source": "main_rationale_138",
-      "target": "schemas_disruptionrequest"
+      "target": "schemas_disruptionrequest",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -1333,9 +1333,9 @@
       "weight": 0.8,
       "_src": "main_rationale_138",
       "_tgt": "schemas_drivingrequest",
-      "confidence_score": 0.5,
       "source": "main_rationale_138",
-      "target": "schemas_drivingrequest"
+      "target": "schemas_drivingrequest",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -1345,9 +1345,9 @@
       "weight": 0.8,
       "_src": "main_rationale_160",
       "_tgt": "schemas_weatherrequest",
-      "confidence_score": 0.5,
       "source": "main_rationale_160",
-      "target": "schemas_weatherrequest"
+      "target": "schemas_weatherrequest",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -1357,9 +1357,9 @@
       "weight": 0.8,
       "_src": "main_rationale_160",
       "_tgt": "schemas_itineraryrequest",
-      "confidence_score": 0.5,
       "source": "main_rationale_160",
-      "target": "schemas_itineraryrequest"
+      "target": "schemas_itineraryrequest",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -1369,9 +1369,9 @@
       "weight": 0.8,
       "_src": "main_rationale_160",
       "_tgt": "schemas_disruptionrequest",
-      "confidence_score": 0.5,
       "source": "main_rationale_160",
-      "target": "schemas_disruptionrequest"
+      "target": "schemas_disruptionrequest",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -1381,9 +1381,9 @@
       "weight": 0.8,
       "_src": "main_rationale_160",
       "_tgt": "schemas_drivingrequest",
-      "confidence_score": 0.5,
       "source": "main_rationale_160",
-      "target": "schemas_drivingrequest"
+      "target": "schemas_drivingrequest",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -1393,9 +1393,9 @@
       "weight": 0.8,
       "_src": "main_rationale_197",
       "_tgt": "schemas_weatherrequest",
-      "confidence_score": 0.5,
       "source": "main_rationale_197",
-      "target": "schemas_weatherrequest"
+      "target": "schemas_weatherrequest",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -1405,9 +1405,9 @@
       "weight": 0.8,
       "_src": "main_rationale_197",
       "_tgt": "schemas_itineraryrequest",
-      "confidence_score": 0.5,
       "source": "main_rationale_197",
-      "target": "schemas_itineraryrequest"
+      "target": "schemas_itineraryrequest",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -1417,9 +1417,9 @@
       "weight": 0.8,
       "_src": "main_rationale_197",
       "_tgt": "schemas_disruptionrequest",
-      "confidence_score": 0.5,
       "source": "main_rationale_197",
-      "target": "schemas_disruptionrequest"
+      "target": "schemas_disruptionrequest",
+      "confidence_score": 0.5
     },
     {
       "relation": "uses",
@@ -1429,9 +1429,9 @@
       "weight": 0.8,
       "_src": "main_rationale_197",
       "_tgt": "schemas_drivingrequest",
-      "confidence_score": 0.5,
       "source": "main_rationale_197",
-      "target": "schemas_drivingrequest"
+      "target": "schemas_drivingrequest",
+      "confidence_score": 0.5
     },
     {
       "relation": "contains",

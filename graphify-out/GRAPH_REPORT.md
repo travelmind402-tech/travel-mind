@@ -1,7 +1,7 @@
 # Graph Report - C:\Users\dibya\OneDrive\Desktop\Excellence\travelmind  (2026-04-22)
 
 ## Corpus Check
-- 27 files · ~17,701 words
+- 27 files · ~17,713 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
