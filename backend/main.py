@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from models.schemas import WeatherRequest,ItineraryRequest,DisruptionRequest,DrivingRequest 
 from agents.weather_agent import run_weather_agent
 from fastapi.openapi.docs import get_swagger_ui_html
-from agents.itinerary_agent import run_itinerary_agent
+from backend.agents.itinerary_resuffler_agent import run_itinerary_agent
 from tools.weather_tool import fetch_daily_forecast_for_reshuffler, geocode_city
 from agents.disruption_agent import run_disruption_agent
 from agents.driving_agent import run_driving_agent
