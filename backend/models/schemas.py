@@ -127,3 +127,21 @@ class CultureRequest(BaseModel):
     travel_style: Optional[str] = "general"   # general | adventure | luxury | budget | religious
     group_size: Optional[int] = 1
     known_sensitivities: Optional[List[str]] = []  # e.g. ["vegetarian", "conservative dress"]
+    
+    
+class BudgetRequest(BaseModel):
+    city: str
+    country: str
+    travel_start_date: str
+    travel_end_date: str
+    traveler_type: Literal["solo", "elderly", "student", "family"]
+    daily_budget: float = 3000.0        # in local currency
+    currency: str = "INR"
+    group_size: int = 1
+    accommodation_preference: Literal[
+        "hostel", "budget_hotel", "mid_range", "luxury", "any"
+    ] = "any"
+    transport_mode: Literal[
+        "public", "private", "mixed", "any"
+    ] = "any"
+    include_flights: bool = False

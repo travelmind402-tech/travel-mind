@@ -3,7 +3,7 @@ import os
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
-from models.schemas import WeatherRequest,ItineraryRequest,DisruptionRequest,DrivingRequest,CuisineRequest,CultureRequest
+from models.schemas import WeatherRequest,ItineraryRequest,DisruptionRequest,DrivingRequest,CuisineRequest,CultureRequest,BudgetRequest
 from agents.weather_agent import run_weather_agent
 from fastapi.openapi.docs import get_swagger_ui_html
 from agents.itinerary_resuffler_agent import run_itinerary_agent
@@ -12,6 +12,8 @@ from agents.disruption_agent import run_disruption_agent
 from agents.driving_agent import run_driving_agent
 from agents.cuisine_agent import run_cuisine_agent
 from agents.culture_agent import run_culture_agent
+from agents.budget_agent import run_budget_agent
+
 
 
 load_dotenv()
@@ -276,3 +278,29 @@ async def get_culture_guide(
             status_code=500,
             detail=str(e)
         )
+        
+        
+@app.post("/budget/plan")
+async def get_budget_plan(request: BudgetRequest):
+    """
+    Returns a complete trip budget plan with live hotel
+    prices, transport costs, daily breakdown and money
+    saving tips — all in the user's local currency.
+    """
+    try:
+        result = await run_budget_agent(
+            city=request.city,
+            country=request.country,
+            travel_start_date=request.travel_start_date,
+            travel_end_date=request.travel_end_date,
+            traveler_type=request.traveler_type,
+            daily_budget=request.daily_budget,
+            currency=request.currency,
+            group_size=request.group_size,
+            accommodation_preference=request.accommodation_preference,
+            transport_mode=request.transport_mode,
+            include_flights=request.include_flights
+        )
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
