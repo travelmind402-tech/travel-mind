@@ -3,13 +3,15 @@ import os
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
-from models.schemas import WeatherRequest,ItineraryRequest,DisruptionRequest,DrivingRequest 
+from models.schemas import WeatherRequest,ItineraryRequest,DisruptionRequest,DrivingRequest,CuisineRequest,CultureRequest
 from agents.weather_agent import run_weather_agent
 from fastapi.openapi.docs import get_swagger_ui_html
-from backend.agents.itinerary_resuffler_agent import run_itinerary_agent
+from agents.itinerary_resuffler_agent import run_itinerary_agent
 from tools.weather_tool import fetch_daily_forecast_for_reshuffler, geocode_city
 from agents.disruption_agent import run_disruption_agent
 from agents.driving_agent import run_driving_agent
+from agents.cuisine_agent import run_cuisine_agent
+from agents.culture_agent import run_culture_agent
 
 
 load_dotenv()
@@ -209,6 +211,64 @@ async def get_driving_conditions(
             vehicle_type=request.vehicle_type,
             driver_experience=request.driver_experience,
             night_driving=request.night_driving
+        )
+        return result
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=str(e)
+        )
+        
+@app.post("/cuisine/recommendations")
+async def get_cuisine_recommendations(
+    request: CuisineRequest
+):
+    """
+    Returns a complete cuisine guide including
+    must-try dishes, live restaurant listings,
+    street food guide, food markets and budget
+    meal plan — all in the user's local currency.
+    """
+    try:
+        result = await run_cuisine_agent(
+            city=request.city,
+            country=request.country,
+            travel_start_date=request.travel_start_date,
+            travel_end_date=request.travel_end_date,
+            traveler_type=request.traveler_type,
+            daily_budget_usd=request.daily_budget_usd,
+            currency=request.currency,
+            dietary_restrictions=request.dietary_restrictions,
+            cuisine_preferences=request.cuisine_preferences,
+            group_size=request.group_size
+        )
+        return result
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=str(e)
+        )
+        
+        
+@app.post("/culture/guide")
+async def get_culture_guide(
+    request: CultureRequest
+):
+    """
+    Returns a complete cultural intelligence briefing including
+    customs, dress code, language phrases, live festivals,
+    local laws, and traveler-type-specific etiquette tips.
+    """
+    try:
+        result = await run_culture_agent(
+            city=request.city,
+            country=request.country,
+            travel_start_date=request.travel_start_date,
+            travel_end_date=request.travel_end_date,
+            traveler_type=request.traveler_type,
+            travel_style=request.travel_style,
+            group_size=request.group_size,
+            known_sensitivities=request.known_sensitivities
         )
         return result
     except Exception as e:

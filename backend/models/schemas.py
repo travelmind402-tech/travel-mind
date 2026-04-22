@@ -92,3 +92,38 @@ class DrivingRequest(BaseModel):
         "expert"
     ] = "intermediate"
     night_driving: bool = False
+
+
+class CuisineRequest(BaseModel):
+    city: str
+    country: str
+    travel_start_date: str
+    travel_end_date: str
+    traveler_type: Literal["solo", "elderly", "student", "family"]
+    daily_budget_usd: float = 50.0
+    currency: str = "INR"
+    dietary_restrictions: List[str] = []  # vegetarian, vegan, halal, gluten_free
+    cuisine_preferences: Literal[
+        "local", "street", "fine_dining", "all"
+    ] = "all"
+    group_size: int = 1
+    
+    
+from pydantic import BaseModel
+from typing import Optional, List
+
+
+# ─────────────────────────────────────────────
+# Add this class to your existing models/schemas.py
+# alongside WeatherRequest, CuisineRequest, etc.
+# ─────────────────────────────────────────────
+
+class CultureRequest(BaseModel):
+    city: str
+    country: str
+    travel_start_date: str          # "YYYY-MM-DD"
+    travel_end_date: str            # "YYYY-MM-DD"
+    traveler_type: str              # solo | family | couple | student | elderly | business
+    travel_style: Optional[str] = "general"   # general | adventure | luxury | budget | religious
+    group_size: Optional[int] = 1
+    known_sensitivities: Optional[List[str]] = []  # e.g. ["vegetarian", "conservative dress"]
