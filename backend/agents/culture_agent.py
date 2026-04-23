@@ -12,6 +12,7 @@ from tools.culture_tool import (
     fetch_language_tips,
     fetch_dress_code_venues,
 )
+from utils.cache import build_cache_key, get_cache, set_cache, TTL
 from tools.weather_tool import geocode_city
 
 load_dotenv()
@@ -114,6 +115,18 @@ async def run_culture_agent(
 
     if known_sensitivities is None:
         known_sensitivities = []
+        # ── Cache check ───────────────────────────────────
+    cache_key = build_cache_key(
+        "culture",
+        city=city,
+        country=country,
+        traveler=traveler_type,
+        style=travel_style
+    )
+    cached = await get_cache(cache_key)
+    if cached:
+        print(f"[CultureAgent] Serving from cache")
+        return cached
 
     # ── Step 1: Geocode city ──────────────────────────
     coords = await geocode_city(city)
@@ -178,6 +191,8 @@ async def run_culture_agent(
             "religious_sites_nearby": venue_data.get("religious_sites_nearby", 0),
             "data_retrieval_time":   datetime.now().isoformat()
         }
+        # ── Cache result ──────────────────────────────
+        await set_cache(cache_key, parsed, TTL["culture"])
 
         return parsed
 

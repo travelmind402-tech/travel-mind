@@ -9,6 +9,7 @@ from tools.weather_tool import (
     fetch_daily_forecast_for_reshuffler,
     fetch_exchange_rate
 )
+from utils.cache import build_cache_key, get_cache, set_cache, TTL
 
 load_dotenv()
 
@@ -231,11 +232,22 @@ async def run_itinerary_agent(
     total_trip_budget_usd:  float = None,     # ← added
     currency:               str = "INR"
 ) -> dict:
-
     print(f"[ItineraryAgent] Fetching forecast for "
           f"{city} ({travel_start_date} to "
           f"{travel_end_date})...")
-
+    # ── Cache check ───────────────────────────────────
+    cache_key = build_cache_key(
+        "itinerary",
+        city=city,
+        start=travel_start_date,
+        end=travel_end_date,
+        traveler=traveler_type,
+        currency=currency
+    )
+    cached = await get_cache(cache_key)
+    if cached:
+        print(f"[ItineraryAgent] Serving from cache")
+        return cached
     # ── Step 1: Get day-by-day forecast ──────────────
     forecast_days = await fetch_daily_forecast_for_reshuffler(
         city,
@@ -428,6 +440,8 @@ async def run_itinerary_agent(
         parsed["_forecast_data"] = forecast_days
         parsed["_city"] = city
         parsed["_generated_at"] = datetime.now().isoformat()
+        # ── Cache result ──────────────────────────────
+        await set_cache(cache_key, parsed, TTL["itinerary"])
 
         return parsed
 

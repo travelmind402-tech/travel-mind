@@ -4,6 +4,12 @@ from google import genai
 from google.genai import types
 from dotenv import load_dotenv
 from datetime import datetime
+from utils.cache import (
+    build_cache_key,
+    get_cache,
+    set_cache,
+    TTL
+)
 
 load_dotenv()
 
@@ -20,22 +26,11 @@ MONTH_NAMES = {
 
 EXTRACTION_PROMPT = """
 You are a travel disruption intelligence analyst.
-
 You will receive raw text from traveler reports, Reddit posts,
 and travel reviews about a specific destination.
 
-Your job is to extract structured disruption events that 
-would affect a traveler visiting this destination.
-
-Focus on finding:
-- Road closures or flooding on specific routes
-- Trail or attraction closures due to weather
-- Activity cancellations (boat rides, treks, tours)
-- Power outages and their typical duration
-- Transport disruptions (buses, taxis unavailable)
-- Hotel or accommodation issues during bad weather
-- Scam alerts specific to bad weather situations
-- Mobile network or ATM failures during storms
+Extract structured disruption events that would affect
+a traveler visiting this destination.
 
 Respond ONLY in this JSON format, no other text:
 {
@@ -45,16 +40,16 @@ Respond ONLY in this JSON format, no other text:
   "total_reports_analyzed": 0,
   "disruption_hotspots": [
     {
-      "location": "specific place name or route",
+      "location": "...",
       "disruption_type": "road_flood | trail_closure | activity_cancellation | power_outage | transport | accommodation | scam | network_failure",
       "frequency": "always | often | sometimes | rarely",
-      "frequency_detail": "e.g. 3 out of 5 recent Junes",
-      "typical_duration": "e.g. 1-3 days",
-      "trigger_condition": "e.g. rainfall above 50mm in 24hrs",
+      "frequency_detail": "...",
+      "typical_duration": "...",
+      "trigger_condition": "...",
       "traveler_reports_count": 0,
-      "last_reported": "approximate date or year",
+      "last_reported": "...",
       "severity": "critical | high | medium | low",
-      "advisory": "specific actionable advice for traveler",
+      "advisory": "...",
       "source_types": ["reddit", "tripadvisor", "google_maps"]
     }
   ],
@@ -80,28 +75,13 @@ Respond ONLY in this JSON format, no other text:
       "how_to_avoid": "..."
     }
   ],
-  "positive_notes": [
-    "things that work well even in bad weather"
-  ],
-  "best_backup_plans": [
-    "specific backup plan if main attraction is closed"
-  ],
+  "positive_notes": ["..."],
+  "best_backup_plans": ["..."],
   "overall_disruption_risk": "high | medium | low",
   "confidence_level": "high | medium | low",
   "data_freshness": "recent | moderate | old"
 }
 """
-
-SEARCH_QUERIES = [
-    "{city} {month} travel disruption flood road closure",
-    "{city} {month} monsoon road blocked landslide traveler",
-    "{city} travel tips {month} problems issues reddit",
-    "{city} tourist attraction closed {month} weather",
-    "visiting {city} {month} what to expect problems",
-    "{city} power outage {month} travel experience",
-    "site:reddit.com {city} travel {month} disruption",
-    "site:tripadvisor.com {city} {month} review warning",
-]
 
 
 async def search_and_extract(
@@ -109,17 +89,15 @@ async def search_and_extract(
     city: str,
     month_name: str
 ) -> str:
-    """
-    Tries web search first, falls back to 
-    Gemma knowledge if search unavailable.
-    """
-    # Try with web search first
     try:
         response = client.models.generate_content(
             model="gemma-4-31b-it",
             contents=(
-                f"Search for and summarize recent "
-                f"traveler reports about: {query}"
+                f"Search for recent traveler experiences "
+                f"and reports about this topic and "
+                f"summarize what you find. Focus on "
+                f"real disruptions, problems, and issues "
+                f"travelers faced:\n\n{query}"
             ),
             config=types.GenerateContentConfig(
                 tools=[{"google_search": {}}],
@@ -127,16 +105,10 @@ async def search_and_extract(
                 max_output_tokens=1024,
             )
         )
-        print(f"[DisruptionAgent] Web search succeeded")
         return response.text
-
     except Exception as search_error:
         print(f"[DisruptionAgent] Web search failed: "
               f"{search_error}")
-        print(f"[DisruptionAgent] Falling back to "
-              f"Gemma knowledge...")
-
-        # Fallback — use Gemma's training knowledge
         try:
             fallback = client.models.generate_content(
                 model="gemma-4-31b-it",
@@ -156,8 +128,8 @@ async def search_and_extract(
             )
             return fallback.text
         except Exception as fallback_error:
-            print(f"[DisruptionAgent] Fallback also "
-                  f"failed: {fallback_error}")
+            print(f"[DisruptionAgent] Fallback failed: "
+                  f"{fallback_error}")
             return ""
 
 
@@ -171,12 +143,22 @@ async def run_disruption_agent(
 
     month_name = MONTH_NAMES.get(travel_month, "June")
 
-    print(f"[DisruptionAgent] Starting crowd-sourced "
-          f"disruption scan for {city} in {month_name}...")
+    # ── Cache check ───────────────────────────────────
+    cache_key = build_cache_key(
+        "disruption",
+        city=city,
+        month=travel_month,
+        year=travel_year
+    )
+    cached = await get_cache(cache_key)
+    if cached:
+        print(f"[DisruptionAgent] Serving from cache")
+        return cached
 
-    # ── Step 1: Run targeted searches ────────────────
-    # Run 4 most targeted queries
-    # (limit to avoid rate limits)
+    print(f"[DisruptionAgent] Starting disruption scan "
+          f"for {city} in {month_name}...")
+
+    # ── Search queries ────────────────────────────────
     priority_queries = [
         f"{city} {month_name} road closure flood "
         f"landslide travel",
@@ -196,7 +178,7 @@ async def run_disruption_agent(
         )
         if result:
             search_results.append({
-                "query": query,
+                "query":    query,
                 "findings": result
             })
 
@@ -209,17 +191,18 @@ async def run_disruption_agent(
             "confidence_level": "low"
         }
 
-    print(f"[DisruptionAgent] Got {len(search_results)} "
-          f"search results. Extracting disruptions...")
+    print(f"[DisruptionAgent] Got "
+          f"{len(search_results)} results. "
+          f"Extracting disruptions...")
 
-    # ── Step 2: Combine all search findings ───────────
+    # ── Combine findings ──────────────────────────────
     combined_findings = "\n\n---\n\n".join([
         f"Search Query: {r['query']}\n"
         f"Findings:\n{r['findings']}"
         for r in search_results
     ])
 
-    # ── Step 3: Extract structured disruptions ────────
+    # ── Extract structured data ───────────────────────
     try:
         extraction_response = client.models.generate_content(
             model="gemma-4-31b-it",
@@ -241,22 +224,25 @@ async def run_disruption_agent(
             "```json", "").replace("```", "").strip()
 
         parsed = json.loads(text)
-
-        # Add metadata
         parsed["_metadata"] = {
             "searches_performed": len(search_results),
-            "city": city,
-            "country": country,
-            "travel_month": month_name,
-            "travel_year": travel_year,
+            "city":          city,
+            "country":       country,
+            "travel_month":  month_name,
+            "travel_year":   travel_year,
             "traveler_type": traveler_type,
-            "generated_at": datetime.now().isoformat(),
-            "approach": "gemma_web_search"
+            "generated_at":  datetime.now().isoformat(),
+            "approach":      "gemma_web_search"
         }
 
+        # ── Cache result ──────────────────────────────
+        await set_cache(
+            cache_key, parsed, TTL["disruption"]
+        )
+
         print(f"[DisruptionAgent] Found "
-              f"{len(parsed.get('disruption_hotspots', []))} "
-              f"disruption hotspots")
+              f"{len(parsed.get('disruption_hotspots', []))}"
+              f" hotspots")
 
         return parsed
 
@@ -264,7 +250,6 @@ async def run_disruption_agent(
         print(f"[DisruptionAgent] JSON parse error: {e}")
         return {
             "error": "Could not parse disruption data",
-            "raw_findings": combined_findings[:1000],
             "destination": city,
             "disruption_hotspots": [],
             "overall_disruption_risk": "unknown",
@@ -273,7 +258,7 @@ async def run_disruption_agent(
     except Exception as e:
         print(f"[DisruptionAgent] Error: {e}")
         return {
-            "error": str(e),
+            "error":       str(e),
             "destination": city,
             "disruption_hotspots": [],
             "overall_disruption_risk": "unknown",

@@ -14,6 +14,12 @@ from tools.driving_tool import (
     calculate_driving_score,
     analyse_route_conditions
 )
+from utils.cache import (
+    build_cache_key,
+    get_cache,
+    set_cache,
+    TTL
+)
 
 load_dotenv()
 
@@ -32,10 +38,7 @@ You receive:
 4. Route waypoint analysis
 5. Vehicle type and driver experience
 
-Your job is to produce a complete driving safety advisory
-that tells the traveler exactly when to drive, when not to,
-which routes to avoid, and what precautions to take.
-
+Produce a complete driving safety advisory.
 Be specific about route names, road numbers, and local
 knowledge about dangerous stretches.
 
@@ -43,8 +46,7 @@ Respond ONLY in this JSON format, no other text:
 {
   "destination": "...",
   "overall_driving_risk": "low | moderate | high | extreme",
-  "trip_driving_summary": "2-3 sentence overall assessment",
-
+  "trip_driving_summary": "...",
   "daily_driving_guide": [
     {
       "date": "YYYY-MM-DD",
@@ -65,33 +67,24 @@ Respond ONLY in this JSON format, no other text:
       ]
     }
   ],
-
   "dangerous_stretches": [
     {
       "route_name": "...",
-      "stretch": "specific km markers or landmarks",
+      "stretch": "...",
       "risk_type": "landslide | flood | fog | sharp_bends | poor_surface",
       "risk_level": "critical | high | medium",
       "advisory": "...",
       "alternative_route": "..."
     }
   ],
-
   "vehicle_specific_advice": {
     "vehicle_type": "...",
     "suitability_rating": "excellent | good | poor | unsuitable",
     "specific_tips": ["...", "..."],
     "modification_suggestions": ["...", "..."]
   },
-
-  "driver_checklist": [
-    "specific item to check or prepare before driving"
-  ],
-
-  "emergency_kit_for_conditions": [
-    "specific item needed given the weather forecast"
-  ],
-
+  "driver_checklist": ["..."],
+  "emergency_kit_for_conditions": ["..."],
   "emergency_contacts": [
     {
       "service": "...",
@@ -99,11 +92,9 @@ Respond ONLY in this JSON format, no other text:
       "when_to_call": "..."
     }
   ],
-
   "fuel_advisory": "...",
   "parking_advisory": "...",
   "night_driving_assessment": "...",
-
   "best_driving_day": "YYYY-MM-DD",
   "worst_driving_day": "YYYY-MM-DD",
   "should_avoid_self_drive": false,
@@ -124,10 +115,25 @@ async def run_driving_agent(
     night_driving: bool
 ) -> dict:
 
+    # ── Cache check ───────────────────────────────────
+    cache_key = build_cache_key(
+        "driving",
+        city=city,
+        start=travel_start_date,
+        end=travel_end_date,
+        vehicle=vehicle_type,
+        experience=driver_experience,
+        night=str(night_driving)
+    )
+    cached = await get_cache(cache_key)
+    if cached:
+        print(f"[DrivingAgent] Serving from cache")
+        return cached
+
     print(f"[DrivingAgent] Starting road condition "
           f"analysis for {city}...")
 
-    # ── Step 1: Geocode destination ───────────────────
+    # ── Geocode ───────────────────────────────────────
     coords = await geocode_city(city)
     if "error" in coords:
         return {
@@ -138,9 +144,8 @@ async def run_driving_agent(
     lat = coords["latitude"]
     lon = coords["longitude"]
 
-    # ── Step 2: Run data fetches in parallel ──────────
-    print(f"[DrivingAgent] Fetching forecast, "
-          f"elevation and route data in parallel...")
+    # ── Fetch all data in parallel ────────────────────
+    print(f"[DrivingAgent] Fetching data in parallel...")
 
     results = await asyncio.gather(
         fetch_daily_forecast_for_reshuffler(
@@ -175,10 +180,8 @@ async def run_driving_agent(
 
     print(f"[DrivingAgent] Elevation: {elevation_m}m "
           f"({terrain_type})")
-    print(f"[DrivingAgent] Forecast days: "
-          f"{len(forecast) if isinstance(forecast, list) else 0}")
 
-    # ── Step 3: Score each day in pure Python ─────────
+    # ── Score each day in Python ──────────────────────
     daily_scores = []
     if isinstance(forecast, list):
         for day in forecast:
@@ -193,27 +196,25 @@ async def run_driving_agent(
                 night_driving
             )
             daily_scores.append({
-                "date":          day["date"],
-                "weather":       {
-                    "rain_mm":   day.get("rain_mm", 0),
-                    "wind_kmh":  day.get("wind_kmh", 0),
-                    "temp_max":  day.get("temp_max_c", 0),
-                    "temp_min":  day.get("temp_min_c", 0),
-                    "code":      day.get("weather_code", 0),
-                    "sunrise":   day.get("sunrise", ""),
-                    "sunset":    day.get("sunset", ""),
+                "date":    day["date"],
+                "weather": {
+                    "rain_mm":  day.get("rain_mm", 0),
+                    "wind_kmh": day.get("wind_kmh", 0),
+                    "temp_max": day.get("temp_max_c", 0),
+                    "temp_min": day.get("temp_min_c", 0),
+                    "code":     day.get("weather_code", 0),
+                    "sunrise":  day.get("sunrise", ""),
+                    "sunset":   day.get("sunset", ""),
                 },
                 "driving_score": score
             })
 
     if not daily_scores:
         return {
-            "error": "No forecast data available "
-                     "for driving analysis",
+            "error": "No forecast data for driving analysis",
             "overall_driving_risk": "unknown"
         }
 
-    # Find best and worst days
     best_day  = max(
         daily_scores,
         key=lambda x: x["driving_score"]["driving_score"]
@@ -223,50 +224,40 @@ async def run_driving_agent(
         key=lambda x: x["driving_score"]["driving_score"]
     )
 
-    print(f"[DrivingAgent] Best day: "
-          f"{best_day['date']} "
-          f"(score: {best_day['driving_score']['driving_score']})")
-    print(f"[DrivingAgent] Worst day: "
-          f"{worst_day['date']} "
-          f"(score: {worst_day['driving_score']['driving_score']})")
-
-    # ── Step 4: Bundle for Gemma ──────────────────────
+    # ── Build bundle ──────────────────────────────────
     bundle = {
-        "city":            city,
-        "country":         country,
-        "travel_dates":    (
+        "city":              city,
+        "country":           country,
+        "travel_dates":      (
             f"{travel_start_date} to {travel_end_date}"
         ),
-        "traveler_type":   traveler_type,
-        "vehicle_type":    vehicle_type,
+        "traveler_type":     traveler_type,
+        "vehicle_type":      vehicle_type,
         "driver_experience": driver_experience,
-        "night_driving":   night_driving,
+        "night_driving":     night_driving,
         "destination_elevation_m": elevation_m,
-        "terrain_type":    terrain_type,
+        "terrain_type":      terrain_type,
         "daily_driving_scores": daily_scores,
-        "route_waypoints": route_waypoints,
-        "route_analysis":  route_analysis,
-        "best_driving_day": best_day["date"],
+        "route_waypoints":   route_waypoints,
+        "route_analysis":    route_analysis,
+        "best_driving_day":  best_day["date"],
         "worst_driving_day": worst_day["date"],
         "trip_overview": {
             "total_days": len(daily_scores),
             "dangerous_days": sum(
                 1 for d in daily_scores
-                if d["driving_score"]["driving_score"] < 20
+                if d["driving_score"][
+                    "driving_score"] < 20
             ),
             "poor_days": sum(
                 1 for d in daily_scores
                 if 20 <= d["driving_score"][
                     "driving_score"] < 40
             ),
-            "moderate_days": sum(
-                1 for d in daily_scores
-                if 40 <= d["driving_score"][
-                    "driving_score"] < 60
-            ),
             "good_days": sum(
                 1 for d in daily_scores
-                if d["driving_score"]["driving_score"] >= 60
+                if d["driving_score"][
+                    "driving_score"] >= 60
             ),
             "any_landslide_risk": any(
                 d["driving_score"].get("landslide_risk")
@@ -283,23 +274,21 @@ async def run_driving_agent(
         }
     }
 
-    print(f"[DrivingAgent] Sending to Gemma for "
-          f"road safety analysis...")
+    # ── Gemma analysis ────────────────────────────────
+    print(f"[DrivingAgent] Sending to Gemma...")
 
-    # ── Step 5: Gemma analysis ────────────────────────
     try:
         response = client.models.generate_content(
             model="gemma-4-31b-it",
             contents=(
                 f"Produce a complete driving safety "
-                f"advisory for {city}, {country} "
-                f"based on this data:\n\n"
+                f"advisory for {city}, {country}:\n\n"
                 f"{json.dumps(bundle, indent=2)}"
             ),
             config=types.GenerateContentConfig(
                 system_instruction=DRIVING_SYSTEM_PROMPT,
                 temperature=0.2,
-                max_output_tokens=3000,
+                max_output_tokens=2000,
             )
         )
 
@@ -308,8 +297,6 @@ async def run_driving_agent(
             "```json", "").replace("```", "").strip()
 
         parsed = json.loads(text)
-
-        # Attach raw scores for frontend use
         parsed["_raw_daily_scores"] = daily_scores
         parsed["_elevation_m"]      = elevation_m
         parsed["_terrain_type"]     = terrain_type
@@ -317,6 +304,10 @@ async def run_driving_agent(
             datetime.now().isoformat()
         )
 
+        # ── Cache result ──────────────────────────────
+        await set_cache(
+            cache_key, parsed, TTL["driving"]
+        )
         return parsed
 
     except json.JSONDecodeError as e:

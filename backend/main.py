@@ -13,7 +13,7 @@ from agents.driving_agent import run_driving_agent
 from agents.cuisine_agent import run_cuisine_agent
 from agents.culture_agent import run_culture_agent
 from agents.budget_agent import run_budget_agent
-
+from utils.cache import get_cache_stats, clear_prefix, delete_cache
 
 
 load_dotenv()
@@ -158,6 +158,69 @@ async def get_crowd_disruptions(
             status_code=500,
             detail=str(e)
         )
+
+# ─────────────────────────────────────────────
+# Culture guide
+# ─────────────────────────────────────────────
+@app.post("/culture/guide")
+async def get_culture_guide(request: CultureRequest):
+    try:
+        result = await run_culture_agent(
+            city=request.city,
+            country=request.country,
+            travel_start_date=request.travel_start_date,
+            travel_end_date=request.travel_end_date,
+            traveler_type=request.traveler_type,
+            travel_style=request.travel_style,
+            group_size=request.group_size,
+            known_sensitivities=request.known_sensitivities
+        )
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ─────────────────────────────────────────────
+# Budget plan
+# ─────────────────────────────────────────────
+@app.post("/budget/plan")
+async def get_budget_plan(request: BudgetRequest):
+    try:
+        result = await run_budget_agent(
+            city=request.city,
+            country=request.country,
+            travel_start_date=request.travel_start_date,
+            travel_end_date=request.travel_end_date,
+            traveler_type=request.traveler_type,
+            daily_budget=request.daily_budget,
+            currency=request.currency,
+            group_size=request.group_size,
+            accommodation_preference=request.accommodation_preference,
+            transport_mode=request.transport_mode,
+            include_flights=request.include_flights
+        )
+        return result
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ─────────────────────────────────────────────
+# Clear all cache
+# ─────────────────────────────────────────────
+@app.delete("/cache/clear-all")
+async def cache_clear_all():
+    prefixes = [
+        "weather", "cuisine", "culture",
+        "budget", "driving", "disruption", "itinerary"
+    ]
+    total = 0
+    for p in prefixes:
+        total += await clear_prefix(p)
+    return {
+        "message": "Full cache cleared",
+        "total_keys_deleted": total
+    }
+
         
 @app.get("/debug/search-test")
 async def debug_search():
@@ -304,3 +367,8 @@ async def get_budget_plan(request: BudgetRequest):
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
+@app.get("/cache/stats")
+async def cache_stats():
+    stats = await get_cache_stats()
+    return stats

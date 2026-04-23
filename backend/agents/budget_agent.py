@@ -12,6 +12,7 @@ from tools.budget_tool import (
     classify_budget_tier,
     
 )
+from utils.cache import build_cache_key, get_cache, set_cache, TTL
 from tools.weather_tool import fetch_exchange_rate
 
 load_dotenv()
@@ -143,6 +144,20 @@ async def run_budget_agent(
 
     print(f"[BudgetAgent] Starting budget planning "
           f"for {city}...")
+    # ── Cache check ───────────────────────────────────
+    cache_key = build_cache_key(
+        "budget",
+        city=city,
+        start=travel_start_date,
+        end=travel_end_date,
+        traveler=traveler_type,
+        budget=str(daily_budget),
+        currency=currency
+    )
+    cached = await get_cache(cache_key)
+    if cached:
+        print(f"[BudgetAgent] Serving from cache")
+        return cached
 
     # ── Step 1: Get exchange rate ─────────────────────
     exchange      = await fetch_exchange_rate(currency, "USD")
@@ -283,7 +298,9 @@ async def run_budget_agent(
             "exchange_rate":   exchange_back.get("example"),
             "generated_at":    datetime.now().isoformat()
         }
-
+        
+        # ── Cache result ──────────────────────────────
+        await set_cache(cache_key, parsed, TTL["budget"])
         return parsed
 
     except json.JSONDecodeError as e:
