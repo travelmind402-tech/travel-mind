@@ -282,7 +282,7 @@ async def get_budget_interest_questions(
 
     try:
         response = client.models.generate_content(
-            model="gemma-4-31b-it",
+            model="models/gemma-4-31b-it",
             contents=prompt,
             config=types.GenerateContentConfig(
                 temperature=0.3,
@@ -480,7 +480,7 @@ async def run_budget_agent(
     for attempt in range(3):
         try:
             response = client.models.generate_content(
-                model="gemma-4-31b-it",
+                model="models/gemma-4-31b-it",
                 contents=(
                     f"Create a personalized travel budget plan "
                     f"for {city}, {country} based on the user's "

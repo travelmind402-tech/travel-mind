@@ -6,7 +6,7 @@ from google.genai import types
 from utils.gemini_client import get_genai_client
 
 
-SUPPORTED_GEMMA_MODELS = ["gemma-4-31b-it"]
+SUPPORTED_GEMMA_MODELS = ["models/gemma-4-31b-it"]
 RETRYABLE_MODEL_ERRORS = (
     "500",
     "503",
@@ -57,4 +57,3 @@ async def generate_content_with_timeout(
         return await gen_call
 
     return await asyncio.wait_for(gen_call, timeout=timeout_seconds)
-

@@ -31,7 +31,7 @@ MONTH_NAMES = {
 }
 
 # Must match SUPPORTED_GEMMA_MODELS in utils/llm.py
-EXTRACT_MODELS = ["gemma-4-31b-it"]
+EXTRACT_MODELS = ["models/gemma-4-31b-it"]
 
 MAX_SEARCHES     = 2
 SEARCH_TIMEOUT   = 40    # seconds for Serper HTTP call
