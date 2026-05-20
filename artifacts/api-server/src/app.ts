@@ -65,6 +65,7 @@ function proxyToPython(req: Request, res: Response) {
   proxyReq.end();
 }
 
+app.all("/api/health", proxyToPython);
 app.all("/api/session/*splat", proxyToPython);
 
 app.use("/api", router);
