@@ -10,6 +10,7 @@ The deployed app is available here:
 
 Backend: https://python-fastapi-backend-ez3s.onrender.com/docs#/default/session_create_session_create_post
 #This need to be started first
+
 Frontend: https://node-js-api-server.onrender.com/
 
 ## What The App Does
