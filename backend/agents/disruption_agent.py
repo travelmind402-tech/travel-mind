@@ -1,4 +1,4 @@
-import asyncio
+﻿import asyncio
 import json
 import os
 import aiohttp
@@ -31,7 +31,7 @@ MONTH_NAMES = {
 }
 
 # Must match SUPPORTED_GEMMA_MODELS in utils/llm.py
-EXTRACT_MODELS = ["models/gemma-4-31b-it"]
+EXTRACT_MODELS = ["models/gemini-2.5-flash", "models/gemini-3-flash"]
 
 MAX_SEARCHES     = 2
 SEARCH_TIMEOUT   = 40    # seconds for Serper HTTP call
@@ -402,7 +402,7 @@ async def run_disruption_agent(
         print(f"[DisruptionAgent] Weather context injected")
 
     # ------------------------------------------------------------------
-    # Extraction — Gemma unchanged, same retry logic as before
+    # Extraction — retry loop with proper exception handling
     # ------------------------------------------------------------------
     parsed     = None
     last_error = None
@@ -424,24 +424,26 @@ async def run_disruption_agent(
                     ),
                     system_instruction=EXTRACTION_PROMPT,
                     temperature=0.1,
-                    max_output_tokens=1800,
+                    max_output_tokens=3000,
                     timeout_seconds=EXTRACT_TIMEOUT,
                 )
                 raw    = (resp.text or "").strip()
                 text   = raw.replace("```json", "").replace("```", "").strip()
                 parsed = json.loads(text)
-                print(f"[DisruptionAgent] ✓ {model} extraction OK")
+                print(f"[DisruptionAgent] [OK] {model} extraction OK")
                 break
 
             except json.JSONDecodeError as exc:
                 last_error = f"JSON parse failed ({model}): {exc}"
                 print(f"[DisruptionAgent] {last_error}")
                 print(f"[DisruptionAgent] Raw output: {raw[:300]}")
-                break
+                continue  # retry same model
+
             except asyncio.TimeoutError:
                 last_error = f"{model} timed out"
                 print(f"[DisruptionAgent] {last_error}")
                 break
+
             except Exception as exc:
                 last_error = str(exc)
                 if is_retryable_model_error(last_error):
@@ -478,7 +480,7 @@ async def run_disruption_agent(
     }
 
     await set_cache(cache_key, parsed, TTL["disruption"])
-    print(f"[DisruptionAgent] ✓ Done — "
+    print(f"[DisruptionAgent] [OK] Done - "
           f"{len(parsed.get('disruption_hotspots', []))} hotspots "
           f"| source: {data_source}")
     return parsed
