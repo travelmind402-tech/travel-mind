@@ -6,7 +6,11 @@ from google.genai import types
 from utils.gemini_client import get_genai_client
 
 
-SUPPORTED_GEMMA_MODELS = ["models/gemma-4-31b-it"]
+SUPPORTED_GEMMA_MODELS = [
+    "models/gemini-3-flash",
+    "models/gemini-2.5-flash",
+    "models/gemini-3.1-flash-lite",
+]
 RETRYABLE_MODEL_ERRORS = (
     "500",
     "503",
@@ -39,6 +43,7 @@ async def generate_content_with_timeout(
     config_kwargs = {
         "temperature": temperature,
         "max_output_tokens": max_output_tokens,
+        "response_mime_type": "application/json",
     }
     if system_instruction is not None:
         config_kwargs["system_instruction"] = system_instruction
