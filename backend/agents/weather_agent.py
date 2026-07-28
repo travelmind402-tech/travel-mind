@@ -283,7 +283,7 @@ async def run_weather_agent(
                     ),
                     system_instruction=WEATHER_SYSTEM_PROMPT,
                     temperature=0.1,
-                    max_output_tokens=1800,
+                    max_output_tokens=4096,
                     timeout_seconds=90,
                 )
                 # last_raw assigned before json.loads — no NameError risk
