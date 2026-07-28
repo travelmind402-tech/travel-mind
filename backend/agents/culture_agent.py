@@ -208,7 +208,7 @@ async def run_culture_agent(
                     ),
                     system_instruction=CULTURE_SYSTEM_PROMPT,
                     temperature=0.2,
-                    max_output_tokens=1800,
+                    max_output_tokens=4096,
                     timeout_seconds=10_000,
 
                 )
