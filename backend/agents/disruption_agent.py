@@ -13,6 +13,7 @@ from utils.cache import (
 from utils.llm import (
     generate_content_with_timeout,
     is_retryable_model_error,
+    SUPPORTED_GEMMA_MODELS,
 )
 
 load_dotenv()
@@ -30,8 +31,8 @@ MONTH_NAMES = {
     10: "October", 11: "November", 12: "December"
 }
 
-# Must match SUPPORTED_GEMMA_MODELS in utils/llm.py
-EXTRACT_MODELS = ["models/gemini-2.5-flash", "models/gemini-3-flash"]
+# Same fallback chain as every other agent (driving, weather, culture, cuisine, language)
+EXTRACT_MODELS = SUPPORTED_GEMMA_MODELS
 
 MAX_SEARCHES     = 2
 SEARCH_TIMEOUT   = 40    # seconds for Serper HTTP call
