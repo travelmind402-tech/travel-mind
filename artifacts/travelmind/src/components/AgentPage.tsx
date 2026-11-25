@@ -2,6 +2,7 @@ import { ReactNode, useState, useEffect } from "react";
 import { useTrip } from "@/context/TripContext";
 import { useLocation } from "wouter";
 import { Button } from "./ui/button";
+import { ScrapbookSticker } from "./ScrapbookStickers";
 import { RefreshCw, LucideIcon, Zap } from "lucide-react";
 
 interface AgentPageProps {
@@ -12,16 +13,34 @@ interface AgentPageProps {
   formatData?: (data: any) => ReactNode;
 }
 
+const AGENT_LOADING_MESSAGES = [
+  "Shuffling field notes into place...",
+  "Checking local signals and timing...",
+  "Formatting your scannable briefing...",
+];
+
 export function AgentPage({ title, description, icon: Icon, fetchData, formatData }: AgentPageProps) {
   const { tripId } = useTrip();
   const [, setLocation] = useLocation();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
+  const [statusIdx, setStatusIdx] = useState(0);
 
   useEffect(() => {
-    if (!tripId) setLocation("/");
+    if (!tripId) setLocation("/plan");
   }, [tripId, setLocation]);
+
+  useEffect(() => {
+    if (!loading) {
+      setStatusIdx(0);
+      return;
+    }
+    const id = window.setInterval(() => {
+      setStatusIdx((i) => (i + 1) % AGENT_LOADING_MESSAGES.length);
+    }, 2000);
+    return () => window.clearInterval(id);
+  }, [loading]);
 
   if (!tripId) return null;
 
@@ -39,51 +58,86 @@ export function AgentPage({ title, description, icon: Icon, fetchData, formatDat
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 md:p-10 space-y-8">
-      <div className="space-y-1">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center">
-            <Icon className="w-5 h-5 text-primary" />
+    <div className="max-w-4xl mx-auto p-5 sm:p-8 md:p-10 space-y-8">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-dashed border-[#4C9DB0]/65 pb-6">
+        <div className="space-y-1.5">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-[#4C9DB0] border-[1.5px] border-[#1F4F5B] shadow-[2px_2px_0_#1F4F5B] flex items-center justify-center shrink-0">
+              <Icon className="w-5 h-5 text-[#163E48]" />
+            </div>
+            <h1 className="font-display text-2xl sm:text-3xl font-extrabold tracking-tight text-[#163E48]">
+              {title}
+            </h1>
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-foreground">{title}</h1>
+          <p className="text-sm sm:text-base text-[#2A5C69] sm:pl-13">{description}</p>
         </div>
-        <p className="text-muted-foreground ml-12">{description}</p>
+
+        {data && !loading && (
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleAnalyze}
+            className="self-start sm:self-auto rounded-full border-[1.5px] border-[#1F4F5B] bg-[#FFF8E0] text-[#163E48] hover:bg-[#4C9DB0] font-semibold cursor-pointer"
+          >
+            <RefreshCw className="w-3.5 h-3.5 mr-1.5" />
+            Refresh
+          </Button>
+        )}
       </div>
 
-      <div className="min-h-[400px]">
+      <div className="min-h-[380px]">
         {loading && (
-          <div className="flex flex-col items-center justify-center py-24 space-y-4">
-            <div className="relative w-16 h-16">
-              <div className="absolute inset-0 rounded-full border-2 border-primary/20 animate-ping" />
-              <div className="absolute inset-0 rounded-full border-2 border-primary/40 animate-ping [animation-delay:0.5s]" />
-              <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center relative z-10">
-                <Icon className="w-7 h-7 text-primary animate-pulse" />
+          <div className="paper-card rounded-3xl flex flex-col items-center justify-center py-20 px-6 space-y-6 text-center">
+            <div className="flex items-center justify-center gap-4">
+              <div className="w-16 animate-sticker-shuffle">
+                <ScrapbookSticker variant="newsbird" />
+              </div>
+              <div className="w-16 animate-sticker-shuffle [animation-delay:0.3s]">
+                <ScrapbookSticker variant="speech" />
+              </div>
+              <div className="w-16 animate-sticker-shuffle [animation-delay:0.6s]">
+                <ScrapbookSticker variant="star" />
               </div>
             </div>
-            <div className="text-center space-y-1">
-              <p className="font-medium text-foreground">Analyzing with Gemma 4...</p>
-              <p className="text-sm text-muted-foreground">This may take up to 30 seconds</p>
+            <div className="space-y-1.5">
+              <p className="font-display text-xl font-bold text-[#163E48]">
+                Putting your briefing together...
+              </p>
+              <p className="font-note text-sm font-bold text-[#1F4F5B]">
+                {AGENT_LOADING_MESSAGES[statusIdx]}
+              </p>
+              <p className="font-note text-xs text-[#2A5C69]">
+                This can take up to 30 seconds while live intelligence compiles.
+              </p>
             </div>
           </div>
         )}
 
         {!loading && error && (
-          <div className="flex flex-col items-center justify-center py-16 text-center space-y-4">
-            <div className="w-12 h-12 rounded-full bg-destructive/10 flex items-center justify-center">
-              <RefreshCw className="w-6 h-6 text-destructive" />
+          <div className="paper-card rounded-3xl flex flex-col items-center justify-center py-16 px-6 text-center space-y-4">
+            <div className="w-12 h-12 rounded-full bg-[#4C9DB0]/25 border border-[#1F4F5B] flex items-center justify-center">
+              <RefreshCw className="w-6 h-6 text-[#1F4F5B]" />
             </div>
             <div className="space-y-1">
-              <p className="font-medium text-foreground">Analysis Failed</p>
-              <p className="text-sm text-muted-foreground max-w-sm">{error}</p>
+              <p className="font-display font-bold text-lg text-[#163E48]">Analysis Failed</p>
+              <p className="text-sm text-[#2A5C69] max-w-sm">{error}</p>
             </div>
-            <Button variant="outline" onClick={handleAnalyze}>Try Again</Button>
+            <Button
+              variant="outline"
+              onClick={handleAnalyze}
+              className="rounded-full border-[1.5px] border-[#1F4F5B] bg-[#4C9DB0] text-[#163E48] font-bold hover:bg-[#3F8C9E] cursor-pointer"
+            >
+              Try Again
+            </Button>
           </div>
         )}
 
         {!loading && !error && data && (
-          formatData ? formatData(data) : (
-            <div className="bg-card border border-border rounded-xl p-6 shadow-sm">
-              <pre className="text-sm text-muted-foreground whitespace-pre-wrap">
+          formatData ? (
+            <div className="animate-step-enter">{formatData(data)}</div>
+          ) : (
+            <div className="paper-card-soft rounded-2xl p-6">
+              <pre className="text-sm text-[#2A5C69] whitespace-pre-wrap font-note">
                 {typeof data === "string" ? data : JSON.stringify(data, null, 2)}
               </pre>
             </div>
@@ -91,17 +145,26 @@ export function AgentPage({ title, description, icon: Icon, fetchData, formatDat
         )}
 
         {!loading && !error && !data && (
-          <div className="flex flex-col items-center justify-center py-24 text-center space-y-6">
-            <div className="w-20 h-20 rounded-full bg-primary/5 flex items-center justify-center">
-              <Icon className="w-10 h-10 text-primary/30" />
+          <div className="paper-card rounded-3xl flex flex-col items-center justify-center py-16 sm:py-20 px-6 text-center space-y-6">
+            <div className="flex items-center gap-3">
+              <div className="w-16 -rotate-6">
+                <ScrapbookSticker variant="swallow" />
+              </div>
+              <div className="w-16 h-16 rounded-2xl bg-[#FFEBAF] border-[1.5px] border-[#1F4F5B] flex items-center justify-center">
+                <Icon className="w-8 h-8 text-[#1F4F5B]" />
+              </div>
             </div>
-            <div className="space-y-2 max-w-xs">
-              <p className="font-medium text-foreground">Ready to analyze</p>
-              <p className="text-sm text-muted-foreground">
-                Gemma 4 will analyze your trip details and generate personalized insights.
+            <div className="space-y-2 max-w-sm">
+              <p className="font-display text-xl font-bold text-[#163E48]">Ready to brief you</p>
+              <p className="text-sm text-[#2A5C69]">
+                Run this desk to turn your trip brief into a scannable, practical guide.
               </p>
             </div>
-            <Button onClick={handleAnalyze} size="lg" className="gap-2 px-8">
+            <Button
+              onClick={handleAnalyze}
+              size="lg"
+              className="gap-2 px-8 h-12 rounded-full bg-[#4C9DB0] text-[#163E48] hover:bg-[#3F8C9E] border-[1.5px] border-[#1F4F5B] shadow-[4px_4px_0_#1F4F5B] hover:shadow-[2px_2px_0_#1F4F5B] hover:translate-x-[2px] hover:translate-y-[2px] font-extrabold transition-all duration-150 cursor-pointer"
+            >
               <Zap className="w-4 h-4" />
               Run Analysis
             </Button>

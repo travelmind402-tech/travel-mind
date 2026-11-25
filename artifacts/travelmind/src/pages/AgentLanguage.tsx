@@ -6,17 +6,21 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 const proficiencyColors: Record<string, string> = {
-  high: "bg-emerald-100 text-emerald-700",
-  medium: "bg-amber-100 text-amber-700",
-  low: "bg-red-100 text-red-700",
-  easy: "bg-emerald-100 text-emerald-700",
-  moderate: "bg-amber-100 text-amber-700",
-  hard: "bg-red-100 text-red-700",
+  high: "bg-[#4C9DB0]/20 text-[#163E48] border-[#4C9DB0]",
+  medium: "bg-[#FFEBAF] text-[#163E48] border-[#1F4F5B]/50",
+  low: "bg-[#1F4F5B] text-[#FFEBAF] border-[#163E48]",
+  easy: "bg-[#4C9DB0]/20 text-[#163E48] border-[#4C9DB0]",
+  moderate: "bg-[#FFEBAF] text-[#163E48] border-[#1F4F5B]/50",
+  hard: "bg-[#1F4F5B] text-[#FFEBAF] border-[#163E48]",
 };
 
 function StatusBadge({ value }: { value: string }) {
-  const color = proficiencyColors[value?.toLowerCase?.()] ?? "bg-muted text-muted-foreground";
-  return <span className={`inline-flex px-2 py-0.5 rounded-full text-xs font-semibold ${color}`}>{value}</span>;
+  const color = proficiencyColors[value?.toLowerCase?.()] ?? "bg-[#FFF3CC] text-[#163E48] border-[#4C9DB0]/55";
+  return (
+    <span className={`inline-flex px-2.5 py-0.5 rounded-full border text-xs font-bold capitalize ${color}`}>
+      {value}
+    </span>
+  );
 }
 
 function LanguageDisplay({ data }: { data: any }) {
@@ -33,57 +37,61 @@ function LanguageDisplay({ data }: { data: any }) {
   const scripts = d.script_learning_tips ?? d.script_tips ?? d.script_reading_guide ?? {};
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
       <div className="flex flex-wrap items-center gap-3">
-        {d.destination && <span className="font-semibold">{d.destination}</span>}
-        {d.local_language && <Badge>{d.local_language}</Badge>}
-        {d.script && <Badge variant="outline">{d.script}</Badge>}
+        {d.destination && <span className="font-display font-bold text-lg text-[#163E48]">{d.destination}</span>}
+        {d.local_language && (
+          <Badge className="bg-[#4C9DB0] text-[#163E48] border border-[#1F4F5B]">{d.local_language}</Badge>
+        )}
+        {d.script && (
+          <Badge variant="outline" className="border-[#1F4F5B]/45 bg-[#FFF8E0]">{d.script}</Badge>
+        )}
       </div>
 
       <div className="grid sm:grid-cols-3 gap-3">
         {d.english_proficiency_locals && (
-          <div className="bg-card border border-border rounded-lg p-3 text-center">
-            <p className="text-xs text-muted-foreground mb-1">English Level</p>
+          <div className="paper-card-soft rounded-2xl p-4 text-center">
+            <p className="font-note text-xs text-[#2A5C69] mb-1.5">English Level</p>
             <StatusBadge value={d.english_proficiency_locals} />
           </div>
         )}
         {d.translation_difficulty && (
-          <div className="bg-card border border-border rounded-lg p-3 text-center">
-            <p className="text-xs text-muted-foreground mb-1">Difficulty</p>
+          <div className="paper-card-soft rounded-2xl p-4 text-center">
+            <p className="font-note text-xs text-[#2A5C69] mb-1.5">Difficulty</p>
             <StatusBadge value={d.translation_difficulty} />
           </div>
         )}
         {d.script && (
-          <div className="bg-card border border-border rounded-lg p-3 text-center">
-            <p className="text-xs text-muted-foreground mb-1">Script</p>
-            <span className="text-sm font-medium">{d.script}</span>
+          <div className="paper-card-soft rounded-2xl p-4 text-center">
+            <p className="font-note text-xs text-[#2A5C69] mb-1.5">Script</p>
+            <span className="text-sm font-bold text-[#163E48]">{d.script}</span>
           </div>
         )}
       </div>
 
       {phraseHelpRows.length > 0 && (
-        <Card className="border-primary/30 bg-primary/5">
+        <Card className="bg-[#4C9DB0]/20 border-[1.5px] border-[#1F4F5B] shadow-[3px_3px_0_#1F4F5B] rounded-2xl">
           <CardHeader className="pb-2 flex-row items-center gap-2">
-            <MessageSquare className="w-4 h-4 text-primary" />
-            <CardTitle className="text-sm">Phrases You Need Help With</CardTitle>
+            <MessageSquare className="w-4 h-4 text-[#163E48]" />
+            <CardTitle className="font-display text-base font-bold text-[#163E48]">Phrases You Need Help With</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
               {phraseHelpRows.map((p: any, i: number) => (
-                <div key={i} className="border border-border rounded-lg bg-card p-3 space-y-1">
-                  <p className="text-sm text-muted-foreground">{p.native ?? p.english ?? p.phrase ?? ""}</p>
+                <div key={i} className="border border-[#1F4F5B]/35 rounded-xl bg-[#FFF8E0] p-3.5 space-y-1">
+                  <p className="text-sm text-[#2A5C69]">{p.native ?? p.english ?? p.phrase ?? ""}</p>
                   {(p.local || p.translation) ? (
-                    <p className="font-semibold text-sm text-foreground">{p.local ?? p.translation}</p>
+                    <p className="font-bold text-base text-[#163E48]">{p.local ?? p.translation}</p>
                   ) : (
-                    <p className="text-xs text-muted-foreground">
+                    <p className="font-note text-xs text-[#2A5C69]">
                       Translation will appear here after the language agent returns it.
                     </p>
                   )}
                   {p.phonetic && (
-                    <p className="text-xs text-primary italic mt-0.5">{p.phonetic}</p>
+                    <p className="font-note text-xs text-[#1F4F5B] font-bold mt-0.5">{p.phonetic}</p>
                   )}
                   {(p.usage_tip || p.usage) && (
-                    <p className="text-xs text-muted-foreground border-t border-border pt-1.5">
+                    <p className="text-xs text-[#2A5C69] border-t border-[#4C9DB0]/35 pt-1.5 mt-1">
                       {p.usage_tip ?? p.usage}
                     </p>
                   )}
@@ -95,28 +103,28 @@ function LanguageDisplay({ data }: { data: any }) {
       )}
 
       {phrases.length > 0 && (
-        <Card>
+        <Card className="paper-card-soft rounded-2xl">
           <CardHeader className="pb-2 flex-row items-center gap-2">
-            <MessageSquare className="w-4 h-4 text-primary" />
-            <CardTitle className="text-sm">Essential Phrases</CardTitle>
+            <MessageSquare className="w-4 h-4 text-[#4C9DB0]" />
+            <CardTitle className="font-display text-base font-bold text-[#163E48]">Essential Phrases</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
               {phrases.map((p: any, i: number) => (
-                <div key={i} className="border border-border rounded-lg p-3 space-y-1">
+                <div key={i} className="bg-[#FFEBAF]/50 border border-[#4C9DB0]/55 rounded-xl p-3.5 space-y-1">
                   <div className="flex items-start justify-between gap-2">
-                    <span className="text-sm text-muted-foreground">{p.native}</span>
+                    <span className="text-sm text-[#2A5C69]">{p.native}</span>
                   </div>
                   <div className="flex items-start gap-3 flex-wrap">
                     <div className="flex-1">
-                      <p className="font-semibold text-sm text-foreground">{p.local}</p>
+                      <p className="font-bold text-base text-[#163E48]">{p.local}</p>
                       {p.phonetic && (
-                        <p className="text-xs text-primary italic mt-0.5">{p.phonetic}</p>
+                        <p className="font-note text-xs text-[#1F4F5B] font-bold mt-0.5">{p.phonetic}</p>
                       )}
                     </div>
                   </div>
                   {p.usage_tip && (
-                    <p className="text-xs text-muted-foreground border-t border-border pt-1.5">{p.usage_tip}</p>
+                    <p className="text-xs text-[#2A5C69] border-t border-[#4C9DB0]/35 pt-1.5">{p.usage_tip}</p>
                   )}
                 </div>
               ))}
@@ -126,18 +134,18 @@ function LanguageDisplay({ data }: { data: any }) {
       )}
 
       {d.survival_phrases?.length > 0 && (
-        <Card>
+        <Card className="paper-card-soft rounded-2xl">
           <CardHeader className="pb-2 flex-row items-center gap-2">
-            <BookOpen className="w-4 h-4 text-primary" />
-            <CardTitle className="text-sm">Survival Phrases</CardTitle>
+            <BookOpen className="w-4 h-4 text-[#4C9DB0]" />
+            <CardTitle className="font-display text-base font-bold text-[#163E48]">Survival Phrases</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid sm:grid-cols-2 gap-2">
+            <div className="grid sm:grid-cols-2 gap-2.5">
               {d.survival_phrases.map((p: any, i: number) => (
-                <div key={i} className="bg-muted/50 rounded-lg p-2.5 text-sm">
-                  <p className="text-muted-foreground text-xs">{p.situation ?? p.context}</p>
-                  <p className="font-medium mt-0.5">{p.local}</p>
-                  {p.phonetic && <p className="text-primary italic text-xs">{p.phonetic}</p>}
+                <div key={i} className="bg-[#FFEBAF]/50 border border-[#4C9DB0]/55 rounded-xl p-3 text-sm">
+                  <p className="font-note text-[#2A5C69] text-xs">{p.situation ?? p.context}</p>
+                  <p className="font-bold text-[#163E48] mt-0.5">{p.local}</p>
+                  {p.phonetic && <p className="font-note text-[#1F4F5B] font-bold text-xs">{p.phonetic}</p>}
                 </div>
               ))}
             </div>
@@ -146,16 +154,16 @@ function LanguageDisplay({ data }: { data: any }) {
       )}
 
       {Object.keys(customs).length > 0 && (
-        <Card>
+        <Card className="paper-card-soft rounded-2xl">
           <CardHeader className="pb-2 flex-row items-center gap-2">
-            <Globe className="w-4 h-4 text-primary" />
-            <CardTitle className="text-sm">Communication Customs</CardTitle>
+            <Globe className="w-4 h-4 text-[#4C9DB0]" />
+            <CardTitle className="font-display text-base font-bold text-[#163E48]">Communication Customs</CardTitle>
           </CardHeader>
           <CardContent className="text-sm space-y-2">
             {Object.entries(customs).map(([key, val]) => (
-              <div key={key} className="border-b border-border/50 pb-2 last:border-0 last:pb-0">
-                <span className="text-muted-foreground capitalize">{key.replace(/_/g, " ")}:</span>
-                <span className="ml-1">{String(val)}</span>
+              <div key={key} className="border-b border-[#4C9DB0]/35 pb-2 last:border-0 last:pb-0">
+                <span className="font-semibold text-[#163E48] capitalize">{key.replace(/_/g, " ")}:</span>
+                <span className="ml-1 text-[#2A5C69]">{String(val)}</span>
               </div>
             ))}
           </CardContent>
@@ -163,18 +171,18 @@ function LanguageDisplay({ data }: { data: any }) {
       )}
 
       {(translationApps.length > 0 || d.offline_translation_tips) && (
-        <Card>
+        <Card className="paper-card-soft rounded-2xl">
           <CardHeader className="pb-2 flex-row items-center gap-2">
-            <Smartphone className="w-4 h-4 text-primary" />
-            <CardTitle className="text-sm">Tech & Translation Tools</CardTitle>
+            <Smartphone className="w-4 h-4 text-[#4C9DB0]" />
+            <CardTitle className="font-display text-base font-bold text-[#163E48]">Tech & Translation Tools</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2 text-sm">
             {translationApps.length > 0 && (
               <div>
-                <p className="text-xs text-muted-foreground mb-1">Recommended Apps</p>
+                <p className="font-note text-xs text-[#2A5C69] mb-1.5">Recommended Apps</p>
                 <div className="flex flex-wrap gap-1.5">
                   {translationApps.map((app: any) => (
-                    <Badge key={typeof app === "string" ? app : app.name ?? app.app} variant="secondary">
+                    <Badge key={typeof app === "string" ? app : app.name ?? app.app} variant="secondary" className="bg-[#FFF3CC] text-[#163E48]">
                       {typeof app === "string" ? app : app.name ?? app.app}
                     </Badge>
                   ))}
@@ -182,33 +190,33 @@ function LanguageDisplay({ data }: { data: any }) {
               </div>
             )}
             {d.offline_translation_tips && (
-              <p className="text-muted-foreground">{d.offline_translation_tips}</p>
+              <p className="text-[#2A5C69]">{d.offline_translation_tips}</p>
             )}
           </CardContent>
         </Card>
       )}
 
       {Object.keys(scripts).length > 0 && (
-        <Card className="bg-primary/5 border-primary/20">
+        <Card className="paper-card-soft rounded-2xl bg-[#FFF3CC]">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm">Script Tips</CardTitle>
+            <CardTitle className="font-display text-base font-bold text-[#163E48]">Script Tips</CardTitle>
           </CardHeader>
-          <CardContent className="text-sm space-y-1">
+          <CardContent className="text-sm space-y-1.5 text-[#2A5C69]">
             {Object.entries(scripts).map(([k, v]) => (
-              <p key={k}><span className="text-muted-foreground capitalize">{k.replace(/_/g, " ")}:</span> {String(v)}</p>
+              <p key={k}><span className="font-semibold text-[#163E48] capitalize">{k.replace(/_/g, " ")}:</span> {String(v)}</p>
             ))}
           </CardContent>
         </Card>
       )}
 
       {d.quick_learning_tips?.length > 0 && (
-        <Card>
-          <CardHeader className="pb-2"><CardTitle className="text-sm">Quick Learning Tips</CardTitle></CardHeader>
+        <Card className="paper-card-soft rounded-2xl">
+          <CardHeader className="pb-2"><CardTitle className="font-display text-base font-bold text-[#163E48]">Quick Learning Tips</CardTitle></CardHeader>
           <CardContent>
-            <ul className="space-y-1.5">
+            <ul className="space-y-2">
               {d.quick_learning_tips.map((tip: string, i: number) => (
-                <li key={i} className="flex items-start gap-2 text-sm">
-                  <span className="text-primary mt-0.5">•</span><span>{tip}</span>
+                <li key={i} className="flex items-start gap-2.5 text-sm text-[#163E48]">
+                  <span className="text-[#4C9DB0] font-bold mt-0.5">•</span><span>{tip}</span>
                 </li>
               ))}
             </ul>

@@ -3,10 +3,13 @@ import { Switch, Route, Router as WouterRouter } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { AuthProvider } from "@/context/AuthContext";
 import { TripProvider, useTrip } from "@/context/TripContext";
 import { startBackendWarmup } from "@/services/api";
 import NotFound from "@/pages/not-found";
+import Landing from "@/pages/Landing";
 import Onboarding from "@/pages/Onboarding";
+import Auth from "@/pages/Auth";
 import DashboardLayout from "@/pages/Dashboard";
 import DashboardHome from "@/pages/DashboardHome";
 import AgentWeather from "@/pages/AgentWeather";
@@ -37,11 +40,13 @@ function DashboardRoutes() {
 }
 
 function AppRouter() {
-  const { tripId } = useTrip();
+  useTrip();
 
   return (
     <Switch>
-      <Route path="/" component={Onboarding} />
+      <Route path="/" component={Landing} />
+      <Route path="/plan" component={Onboarding} />
+      <Route path="/auth" component={Auth} />
       <Route path="/dashboard" component={DashboardRoutes} />
       <Route path="/dashboard/:rest*" component={DashboardRoutes} />
       <Route component={NotFound} />
@@ -55,11 +60,13 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <TripProvider>
-          <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-            <AppRouter />
-          </WouterRouter>
-        </TripProvider>
+        <AuthProvider>
+          <TripProvider>
+            <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+              <AppRouter />
+            </WouterRouter>
+          </TripProvider>
+        </AuthProvider>
         <Toaster />
       </TooltipProvider>
     </QueryClientProvider>

@@ -1,109 +1,127 @@
 import { AgentPage } from "@/components/AgentPage";
 import { fetchDriving } from "@/services/api";
-import { Car, AlertTriangle, Phone, Wrench, CheckSquare } from "lucide-react";
+import { Car, AlertTriangle, Phone, Wrench, CheckSquare, Calendar } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 const riskColors: Record<string, string> = {
-  low: "bg-emerald-100 text-emerald-700",
-  moderate: "bg-amber-100 text-amber-700",
-  high: "bg-orange-100 text-orange-700",
-  extreme: "bg-red-100 text-red-700",
-  critical: "bg-red-100 text-red-700",
-  medium: "bg-amber-100 text-amber-700",
-  excellent: "bg-emerald-100 text-emerald-700",
-  good: "bg-blue-100 text-blue-700",
-  poor: "bg-orange-100 text-orange-700",
-  dangerous: "bg-red-100 text-red-700",
+  low: "bg-[#4C9DB0]/20 text-[#163E48] border-[#4C9DB0]",
+  moderate: "bg-[#FFEBAF] text-[#163E48] border-[#1F4F5B]/50",
+  high: "bg-[#1F4F5B] text-[#FFEBAF] border-[#163E48]",
+  extreme: "bg-[#1F4F5B] text-[#FFEBAF] border-[#163E48]",
+  critical: "bg-[#1F4F5B] text-[#FFEBAF] border-[#163E48]",
+  medium: "bg-[#FFEBAF] text-[#163E48] border-[#1F4F5B]/50",
+  excellent: "bg-[#4C9DB0]/20 text-[#163E48] border-[#4C9DB0]",
+  good: "bg-[#4C9DB0]/25 text-[#163E48] border-[#1F4F5B]/50",
+  poor: "bg-[#1F4F5B] text-[#FFEBAF] border-[#163E48]",
+  dangerous: "bg-[#1F4F5B] text-[#FFEBAF] border-[#163E48]",
 };
 
 const colorDot: Record<string, string> = {
-  green: "bg-emerald-500",
-  yellow: "bg-amber-500",
-  orange: "bg-orange-500",
-  red: "bg-red-500",
+  green: "bg-[#4C9DB0]",
+  yellow: "bg-[#FFEBAF]",
+  orange: "bg-[#3F8C9E]",
+  red: "bg-[#1F4F5B]",
 };
 
 function StatusBadge({ value }: { value: string }) {
-  const color = riskColors[value?.toLowerCase?.()] ?? "bg-muted text-muted-foreground";
-  return <span className={`inline-flex px-2 py-0.5 rounded-full text-xs font-semibold capitalize ${color}`}>{value}</span>;
+  const color = riskColors[value?.toLowerCase?.()] ?? "bg-[#FFF3CC] text-[#163E48] border-[#4C9DB0]/55";
+  return (
+    <span className={`inline-flex px-2.5 py-0.5 rounded-full border text-xs font-bold capitalize ${color}`}>
+      {value}
+    </span>
+  );
 }
 
 function DrivingDisplay({ data }: { data: any }) {
   const d = data?.driving_analysis ?? data ?? {};
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
       {d.trip_driving_summary && (
-        <Card className="border-primary/20 bg-primary/5">
-          <CardContent className="pt-4 pb-4">
-            <div className="flex items-center gap-3 mb-2">
+        <Card className="bg-[#4C9DB0]/20 border-[1.5px] border-[#1F4F5B] shadow-[3px_3px_0_#1F4F5B] rounded-2xl">
+          <CardContent className="p-5">
+            <div className="flex items-center gap-3 mb-2.5 flex-wrap">
               {d.overall_driving_risk && <StatusBadge value={d.overall_driving_risk + " risk"} />}
               {d.should_avoid_self_drive && (
-                <Badge className="bg-red-100 text-red-700 border-red-200">Avoid Self-Drive</Badge>
+                <Badge className="bg-[#1F4F5B] text-[#FFEBAF] border-[#163E48]">Avoid Self-Drive</Badge>
               )}
             </div>
-            <p className="text-sm leading-relaxed">{d.trip_driving_summary}</p>
-            {d.avoid_reason && <p className="text-xs text-muted-foreground mt-1">{d.avoid_reason}</p>}
+            <p className="text-sm sm:text-base leading-relaxed text-[#163E48]">{d.trip_driving_summary}</p>
+            {d.avoid_reason && <p className="font-note text-xs text-[#2A5C69] mt-2">{d.avoid_reason}</p>}
           </CardContent>
         </Card>
       )}
 
       {d.daily_driving_guide?.length > 0 && (
-        <Card>
-          <CardHeader className="pb-2 flex-row items-center gap-2">
-            <Car className="w-4 h-4 text-primary" />
-            <CardTitle className="text-sm">Daily Driving Guide</CardTitle>
+        <Card className="paper-card-soft rounded-2xl">
+          <CardHeader className="pb-3 flex-row items-center gap-2">
+            <Car className="w-4 h-4 text-[#4C9DB0]" />
+            <CardTitle className="font-display text-base font-bold text-[#163E48]">Daily Driving Timeline</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-3">
-            {d.daily_driving_guide.map((day: any, i: number) => (
-              <div key={i} className="flex gap-3 border-b border-border/50 pb-3 last:border-0 last:pb-0">
-                <div className="flex flex-col items-center gap-1 shrink-0 pt-0.5">
-                  <div className={`w-3 h-3 rounded-full ${colorDot[day.color_code] ?? "bg-muted"}`} />
-                  {day.driving_score !== undefined && (
-                    <span className="text-xs font-bold text-muted-foreground">{day.driving_score}</span>
-                  )}
-                </div>
-                <div className="flex-1 text-sm">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="font-mono text-xs text-muted-foreground">{day.date}</span>
-                    <StatusBadge value={day.condition} />
-                    {day.best_departure_time && (
-                      <span className="text-xs text-muted-foreground">Best depart: {day.best_departure_time}</span>
+          <CardContent>
+            <div className="relative pl-6 space-y-4 before:content-[''] before:absolute before:left-2 before:top-2 before:bottom-2 before:border-l-2 before:border-dashed before:border-[#4C9DB0]/65">
+              {d.daily_driving_guide.map((day: any, i: number) => (
+                <div key={i} className="relative bg-[#FFEBAF]/50 border border-[#4C9DB0]/55 rounded-xl p-4">
+                  <div
+                    aria-hidden="true"
+                    className={`absolute -left-[22px] top-4 w-4 h-4 rounded-full border-[1.5px] border-[#1F4F5B] ${colorDot[day.color_code] ?? "bg-[#FFF3CC]"}`}
+                  />
+                  <div className="flex items-center justify-between gap-2 flex-wrap mb-1.5">
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="inline-flex items-center gap-1 font-note text-xs font-bold text-[#1F4F5B]">
+                        <Calendar className="w-3.5 h-3.5" />
+                        {day.date}
+                      </span>
+                      <StatusBadge value={day.condition} />
+                    </div>
+                    {day.driving_score !== undefined && (
+                      <span className="font-note text-xs font-bold text-[#163E48] bg-[#FFF8E0] border border-[#4C9DB0]/55 px-2.5 py-0.5 rounded-full tabular-nums">
+                        Score {day.driving_score}
+                      </span>
                     )}
                   </div>
-                  <p className="mt-1 text-muted-foreground">{day.recommendation}</p>
+                  {day.best_departure_time && (
+                    <p className="font-note text-xs text-[#2A5C69] mb-1">
+                      Best depart: {day.best_departure_time}
+                    </p>
+                  )}
+                  <p className="text-sm text-[#2A5C69]">{day.recommendation}</p>
                   {day.active_hazards?.length > 0 && (
-                    <div className="flex flex-wrap gap-1 mt-1">
+                    <div className="flex flex-wrap gap-1.5 mt-2">
                       {day.active_hazards.map((h: string) => (
-                        <Badge key={h} variant="outline" className="text-xs">{h}</Badge>
+                        <Badge key={h} variant="outline" className="text-xs border-[#1F4F5B]/45 bg-[#FFF8E0]">{h}</Badge>
                       ))}
                     </div>
                   )}
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </CardContent>
         </Card>
       )}
 
       {d.dangerous_stretches?.length > 0 && (
-        <Card className="border-red-200">
+        <Card className="border-[1.5px] border-[#1F4F5B] bg-[#4C9DB0]/15 rounded-2xl">
           <CardHeader className="pb-2 flex-row items-center gap-2">
-            <AlertTriangle className="w-4 h-4 text-red-500" />
-            <CardTitle className="text-sm">Dangerous Stretches</CardTitle>
+            <AlertTriangle className="w-4 h-4 text-[#1F4F5B]" />
+            <CardTitle className="font-display text-base font-bold text-[#163E48]">Dangerous Stretches</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             {d.dangerous_stretches.map((s: any, i: number) => (
-              <div key={i} className="border-l-2 border-red-400 pl-3 space-y-1">
+              <div key={i} className="bg-[#FFF8E0] border border-[#4C9DB0]/55 rounded-xl p-3.5 space-y-1.5">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="font-medium text-sm">{s.stretch ?? s.route_name}</span>
+                  <span className="font-bold text-sm text-[#163E48]">{s.stretch ?? s.route_name}</span>
                   <StatusBadge value={s.risk_level} />
-                  {s.risk_type && <Badge variant="outline" className="text-xs capitalize">{s.risk_type.replace(/_/g, " ")}</Badge>}
+                  {s.risk_type && (
+                    <Badge variant="outline" className="text-xs capitalize border-[#1F4F5B]/45">
+                      {s.risk_type.replace(/_/g, " ")}
+                    </Badge>
+                  )}
                 </div>
-                {s.advisory && <p className="text-sm text-muted-foreground">{s.advisory}</p>}
+                {s.advisory && <p className="text-sm text-[#2A5C69]">{s.advisory}</p>}
                 {s.alternative_route && (
-                  <p className="text-xs text-emerald-600 dark:text-emerald-400">Alternative: {s.alternative_route}</p>
+                  <p className="font-note text-xs text-[#1F4F5B] font-bold">Alternative: {s.alternative_route}</p>
                 )}
               </div>
             ))}
@@ -112,20 +130,20 @@ function DrivingDisplay({ data }: { data: any }) {
       )}
 
       {d.vehicle_specific_advice && (
-        <Card>
+        <Card className="paper-card-soft rounded-2xl">
           <CardHeader className="pb-2 flex-row items-center gap-2">
-            <Wrench className="w-4 h-4 text-primary" />
-            <CardTitle className="text-sm">Vehicle Advice</CardTitle>
+            <Wrench className="w-4 h-4 text-[#4C9DB0]" />
+            <CardTitle className="font-display text-base font-bold text-[#163E48]">Vehicle Advice</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2 text-sm">
             <div className="flex items-center gap-2">
-              <span className="text-muted-foreground">{d.vehicle_specific_advice.vehicle_type}</span>
+              <span className="font-semibold text-[#163E48]">{d.vehicle_specific_advice.vehicle_type}</span>
               {d.vehicle_specific_advice.suitability_rating && <StatusBadge value={d.vehicle_specific_advice.suitability_rating} />}
             </div>
             {d.vehicle_specific_advice.specific_tips?.length > 0 && (
-              <ul className="space-y-1 text-muted-foreground">
+              <ul className="space-y-1.5 text-[#2A5C69]">
                 {d.vehicle_specific_advice.specific_tips.map((t: string, i: number) => (
-                  <li key={i} className="flex items-start gap-2"><span className="text-primary mt-0.5">•</span>{t}</li>
+                  <li key={i} className="flex items-start gap-2"><span className="text-[#4C9DB0] font-bold mt-0.5">•</span>{t}</li>
                 ))}
               </ul>
             )}
@@ -135,16 +153,16 @@ function DrivingDisplay({ data }: { data: any }) {
 
       <div className="grid sm:grid-cols-2 gap-4">
         {d.driver_checklist?.length > 0 && (
-          <Card>
+          <Card className="paper-card-soft rounded-2xl">
             <CardHeader className="pb-2 flex-row items-center gap-2">
-              <CheckSquare className="w-4 h-4 text-primary" />
-              <CardTitle className="text-sm">Driver Checklist</CardTitle>
+              <CheckSquare className="w-4 h-4 text-[#4C9DB0]" />
+              <CardTitle className="font-display text-base font-bold text-[#163E48]">Driver Checklist</CardTitle>
             </CardHeader>
             <CardContent>
-              <ul className="space-y-1.5">
+              <ul className="space-y-2">
                 {d.driver_checklist.map((item: string, i: number) => (
-                  <li key={i} className="flex items-start gap-2 text-sm">
-                    <span className="text-primary mt-0.5">☐</span><span>{item}</span>
+                  <li key={i} className="flex items-start gap-2.5 text-sm text-[#163E48]">
+                    <span className="text-[#4C9DB0] font-bold mt-0.5">☐</span><span>{item}</span>
                   </li>
                 ))}
               </ul>
@@ -153,19 +171,19 @@ function DrivingDisplay({ data }: { data: any }) {
         )}
 
         {d.emergency_contacts?.length > 0 && (
-          <Card>
+          <Card className="paper-card-soft rounded-2xl">
             <CardHeader className="pb-2 flex-row items-center gap-2">
-              <Phone className="w-4 h-4 text-primary" />
-              <CardTitle className="text-sm">Emergency Contacts</CardTitle>
+              <Phone className="w-4 h-4 text-[#1F4F5B]" />
+              <CardTitle className="font-display text-base font-bold text-[#163E48]">Emergency Contacts</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-2">
+            <CardContent className="space-y-2.5">
               {d.emergency_contacts.map((c: any, i: number) => (
-                <div key={i} className="text-sm border-b border-border/50 pb-2 last:border-0 last:pb-0">
-                  <div className="flex items-center justify-between">
-                    <span className="font-medium">{c.service}</span>
-                    <span className="font-mono text-primary">{c.number}</span>
+                <div key={i} className="text-sm border-b border-[#4C9DB0]/35 pb-2 last:border-0 last:pb-0">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="font-semibold text-[#163E48]">{c.service}</span>
+                    <span className="font-note font-bold text-[#1F4F5B] tabular-nums">{c.number}</span>
                   </div>
-                  {c.when_to_call && <p className="text-xs text-muted-foreground">{c.when_to_call}</p>}
+                  {c.when_to_call && <p className="text-xs text-[#2A5C69] mt-0.5">{c.when_to_call}</p>}
                 </div>
               ))}
             </CardContent>
@@ -174,16 +192,16 @@ function DrivingDisplay({ data }: { data: any }) {
       </div>
 
       {(d.fuel_advisory || d.parking_advisory || d.night_driving_assessment) && (
-        <Card>
+        <Card className="paper-card-soft rounded-2xl">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm">Additional Notes</CardTitle>
+            <CardTitle className="font-display text-base font-bold text-[#163E48]">Additional Notes</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-2 text-sm">
-            {d.fuel_advisory && <p><span className="font-medium">Fuel:</span> {d.fuel_advisory}</p>}
-            {d.parking_advisory && <p><span className="font-medium">Parking:</span> {d.parking_advisory}</p>}
-            {d.night_driving_assessment && <p><span className="font-medium">Night Driving:</span> {d.night_driving_assessment}</p>}
-            {d.best_driving_day && <p><span className="font-medium">Best Day:</span> <span className="font-mono">{d.best_driving_day}</span></p>}
-            {d.worst_driving_day && <p><span className="font-medium">Worst Day:</span> <span className="font-mono">{d.worst_driving_day}</span></p>}
+          <CardContent className="space-y-2 text-sm text-[#2A5C69]">
+            {d.fuel_advisory && <p><span className="font-semibold text-[#163E48]">Fuel:</span> {d.fuel_advisory}</p>}
+            {d.parking_advisory && <p><span className="font-semibold text-[#163E48]">Parking:</span> {d.parking_advisory}</p>}
+            {d.night_driving_assessment && <p><span className="font-semibold text-[#163E48]">Night Driving:</span> {d.night_driving_assessment}</p>}
+            {d.best_driving_day && <p><span className="font-semibold text-[#163E48]">Best Day:</span> <span className="font-note">{d.best_driving_day}</span></p>}
+            {d.worst_driving_day && <p><span className="font-semibold text-[#163E48]">Worst Day:</span> <span className="font-note">{d.worst_driving_day}</span></p>}
           </CardContent>
         </Card>
       )}

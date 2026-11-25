@@ -2,6 +2,8 @@ import express, { type Express, type Request, type Response } from "express";
 import cors from "cors";
 import pinoHttp from "pino-http";
 import https from "https";
+import type { OutgoingHttpHeaders } from "http";
+import fs from "fs";
 import path from "path";
 import router from "./routes";
 import { logger } from "./lib/logger";
@@ -27,10 +29,14 @@ app.use(express.urlencoded({ extended: true }));
 
 function proxyToPython(req: Request, res: Response) {
   const backendPath = req.originalUrl.replace(/^\/api/, "");
-  const hasBody = req.method !== "GET" && req.method !== "HEAD" && req.body && Object.keys(req.body).length > 0;
+  const hasBody =
+    req.method !== "GET" &&
+    req.method !== "HEAD" &&
+    req.body &&
+    Object.keys(req.body).length > 0;
   const body = hasBody ? JSON.stringify(req.body) : undefined;
 
-  const headers: https.OutgoingHttpHeaders = {
+  const headers: OutgoingHttpHeaders = {
     "Content-Type": "application/json",
   };
   if (body !== undefined) {
@@ -53,10 +59,16 @@ function proxyToPython(req: Request, res: Response) {
     proxyRes.pipe(res, { end: true });
   });
 
+  proxyReq.setTimeout(120000, () => {
+    proxyReq.destroy(new Error("Python backend proxy timeout"));
+  });
+
   proxyReq.on("error", (err) => {
     logger.error({ err }, "Python backend proxy error");
     if (!res.headersSent) {
-      res.status(502).json({ detail: "Python backend unavailable. Please wait and retry." });
+      res
+        .status(502)
+        .json({ detail: "Python backend unavailable. Please wait and retry." });
     }
   });
 
@@ -66,12 +78,19 @@ function proxyToPython(req: Request, res: Response) {
   proxyReq.end();
 }
 
-const distPath = path.resolve(process.cwd(), "artifacts", "travelmind", "dist", "public");
-app.use(express.static(distPath));
-
 app.all("/api/health", proxyToPython);
 app.all("/api/session/*splat", proxyToPython);
 app.use("/api", router);
+
+const candidateDistPaths = [
+  path.resolve(process.cwd(), "artifacts", "travelmind", "dist", "public"),
+  path.resolve(__dirname, "..", "..", "travelmind", "dist", "public"),
+  path.resolve(process.cwd(), "..", "travelmind", "dist", "public"),
+];
+const distPath =
+  candidateDistPaths.find((p) => fs.existsSync(p)) ?? candidateDistPaths[0];
+
+app.use(express.static(distPath));
 
 app.get("/{*splat}", (_req, res) => {
   res.sendFile(path.join(distPath, "index.html"));
