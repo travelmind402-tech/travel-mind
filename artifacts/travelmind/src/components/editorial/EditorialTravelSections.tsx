@@ -92,60 +92,50 @@ function ScrollRevealStatement({
 }
 
 const STATEMENT_ONE_WORDS: StatementWord[] = [
-  { text: "Travel" },
-  { text: "is" },
-  { text: "never" },
-  { text: "merely" },
-  { text: "about" },
-  { text: "distance." },
-  { text: "It" },
-  { text: "quietly" },
-  { text: "rewrites" },
-  { text: "who", accent: "highlight" },
-  { text: "we", accent: "highlight" },
-  { text: "are,", accent: "highlight" },
-  { text: "sharpens" },
-  { text: "what" },
-  { text: "we" },
-  { text: "notice," },
-  { text: "and" },
-  { text: "reframes" },
+  { text: "Some" },
+  { text: "places" },
+  { text: "leave" },
+  { text: "you" },
+  { text: "with" },
+  { text: "photographs,", accent: "highlight" },
+  { text: "others" },
+  { text: "leave" },
+  { text: "you" },
+  { text: "with" },
+  { text: "a" },
+  { text: "feeling", accent: "highlight" },
+  { text: "you" },
+  { text: "carry" },
+  { text: "for" },
   { text: "the" },
-  { text: "world", accent: "purple" },
-  { text: "we" },
-  { text: "bring" },
-  { text: "back" },
-  { text: "home." },
+  { text: "rest" },
+  { text: "of" },
+  { text: "your" },
+  { text: "life.", accent: "purple" },
 ];
 
 const STATEMENT_TWO_WORDS: StatementWord[] = [
-  { text: "Across" },
-  { text: "every" },
-  { text: "edge" },
-  { text: "of" },
-  { text: "the" },
-  { text: "world,", accent: "red" },
-  { text: "where" },
-  { text: "you" },
-  { text: "rest" },
-  { text: "sets" },
-  { text: "the" },
-  { text: "pace" },
-  { text: "of" },
-  { text: "the" },
-  { text: "trip." },
-  { text: "Whether", accent: "highlight" },
-  { text: "cliffside" },
-  { text: "sanctuary" },
-  { text: "or" },
-  { text: "desert" },
-  { text: "tented" },
-  { text: "camp," },
-  { text: "choose" },
+  { text: "In" },
   { text: "a" },
-  { text: "stay" },
+  { text: "world" },
   { text: "that" },
-  { text: "lingers." },
+  { text: "never" },
+  { text: "stops" },
+  { text: "changing,", accent: "red" },
+  { text: "perhaps" },
+  { text: "the" },
+  { text: "most" },
+  { text: "beautiful" },
+  { text: "thing" },
+  { text: "is" },
+  { text: "finding" },
+  { text: "places", accent: "highlight" },
+  { text: "worth" },
+  { text: "visiting" },
+  { text: "and" },
+  { text: "moments" },
+  { text: "worth" },
+  { text: "remembering.", accent: "purple" },
 ];
 
 interface AgentCardData {
@@ -214,7 +204,7 @@ export function EditorialTravelSections() {
   return (
     <div className="overflow-x-clip">
       {/* SCROLL-REVEAL STATEMENT #1 */}
-      <section className="px-4 sm:px-8 pt-14 pb-24 sm:pt-20 sm:pb-32 border-t border-[#4C9DB0]/40 bg-transparent">
+      <section id="philosophy" className="scroll-mt-24 px-4 sm:px-8 pt-14 pb-24 sm:pt-20 sm:pb-32 border-t border-[#4C9DB0]/40 bg-transparent">
         <ScrollRevealStatement
           kicker="Travel Philosophy"
           kickerColor="text-[#1F4F5B]"
@@ -224,8 +214,9 @@ export function EditorialTravelSections() {
 
       {/* AGENTS CARDS GRID SECTION (Replacing PortfolioScrollGrid) */}
       <section
+        id="agents"
         ref={agentsSection.ref}
-        className="relative py-24 sm:py-32 px-4 sm:px-8 border-t border-[#4C9DB0]/40 bg-transparent overflow-hidden"
+        className="scroll-mt-24 relative py-24 sm:py-32 px-4 sm:px-8 border-t border-[#4C9DB0]/40 bg-transparent overflow-hidden"
       >
         <div className="max-w-5xl mx-auto space-y-16">
           <div

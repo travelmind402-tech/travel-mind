@@ -36,7 +36,7 @@ const PLACEMENTS: Record<FloatingFieldVariant, Placement[]> = {
     { key: "l-01", stickerId: "sunflower", top: "2.2%", left: "1.5%", width: 108, rotate: -13, floatY: 6.5, floatRot: 0.7, floatDur: 7.4, floatDelay: -1.2, depth: 0.72, hide: "tablet" },
     { key: "l-02", stickerId: "newsbird", top: "3.1%", right: "14%", width: 132, rotate: -8, floatY: 7.5, floatRot: -0.8, floatDur: 6.8, floatDelay: -3.4, depth: 0.88, hide: "mobile" },
     { key: "l-03", stickerId: "orange-starburst", top: "6.4%", right: "3.5%", width: 88, rotate: 11, floatY: 4.5, floatRot: 0.8, floatDur: 6.1, floatDelay: -4.8, depth: 0.52 },
-    { key: "l-04", stickerId: "butterflies", top: "9.8%", right: "28%", width: 72, rotate: 6, floatY: 5, floatRot: -0.6, floatDur: 7.9, floatDelay: -2.1, depth: 0.58, hide: "tablet" },
+    { key: "l-04", stickerId: "butterflies", top: "11.5%", right: "1.8%", width: 72, rotate: 6, floatY: 5, floatRot: -0.6, floatDur: 7.9, floatDelay: -2.1, depth: 0.58, hide: "tablet" },
 
     // Band 2 — flanking "TravelMind sorts it." & 7 sticker-job cards
     { key: "l-05", stickerId: "lightbulb", top: "16.5%", left: "1.2%", width: 96, rotate: -15, floatY: 5.5, floatRot: -0.8, floatDur: 6.4, floatDelay: -5.1, depth: 0.62, hide: "tablet" },
@@ -60,7 +60,7 @@ const PLACEMENTS: Record<FloatingFieldVariant, Placement[]> = {
     // Band 6 — Architecture of Rest statement & approach to Footer
     { key: "l-16", stickerId: "calico", top: "86.4%", right: "2.6%", width: 104, rotate: -5, floatY: 6, floatRot: -0.6, floatDur: 7.5, floatDelay: -2.3, depth: 0.74, hide: "mobile" },
     { key: "l-17", stickerId: "starburst", top: "90.8%", left: "5.2%", width: 78, rotate: -12, floatY: 4.5, floatRot: 0.8, floatDur: 5.8, floatDelay: -3.9, depth: 0.48, hide: "mobile" },
-    { key: "l-18", stickerId: "butterflies", top: "93.2%", right: "11%", width: 64, rotate: 8, floatY: 4.5, floatRot: -0.7, floatDur: 6.9, floatDelay: -1.1, depth: 0.52, hide: "tablet" },
+    { key: "l-18", stickerId: "butterflies", top: "90.5%", right: "1.6%", width: 64, rotate: 8, floatY: 4.5, floatRot: -0.7, floatDur: 6.9, floatDelay: -1.1, depth: 0.52, hide: "tablet" },
   ],
 
   // 7 arbitrary cutouts floating gently around the Auth form area

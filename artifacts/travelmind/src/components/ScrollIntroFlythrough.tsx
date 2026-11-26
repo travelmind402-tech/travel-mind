@@ -1,4 +1,4 @@
-import { useEffect, useRef, type CSSProperties, type ReactNode, type RefObject } from "react";
+import { useEffect, useLayoutEffect, useRef, type CSSProperties, type ReactNode, type RefObject } from "react";
 
 /**
  * All existing PNG images in the project's public asset folders.
@@ -105,14 +105,52 @@ export function ScrollIntroFlythrough({
     src: introImages[index % introImages.length],
   }));
 
+  useLayoutEffect(() => {
+    if (typeof window === "undefined") return;
+    const trackEl = trackRef.current;
+    if (!trackEl) return;
+
+    const setIntroState = (done: boolean) => {
+      const next = done ? "done" : "playing";
+      if (document.documentElement.dataset.intro !== next) {
+        document.documentElement.dataset.intro = next;
+        window.dispatchEvent(
+          new CustomEvent("travelmind:intro-change", { detail: { done } }),
+        );
+      }
+    };
+
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) {
+      setIntroState(true);
+      return;
+    }
+
+    const rect = trackEl.getBoundingClientRect();
+    const scrollable = Math.max(1, trackEl.offsetHeight - window.innerHeight);
+    const p = clamp(-rect.top / scrollable, 0, 1);
+    setIntroState(p >= 0.95);
+  }, []);
+
   useEffect(() => {
     if (typeof window === "undefined") return;
     const trackEl = trackRef.current;
     if (!trackEl) return;
 
+    const setIntroState = (done: boolean) => {
+      const next = done ? "done" : "playing";
+      if (document.documentElement.dataset.intro !== next) {
+        document.documentElement.dataset.intro = next;
+        window.dispatchEvent(
+          new CustomEvent("travelmind:intro-change", { detail: { done } }),
+        );
+      }
+    };
+
     const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     const applyReducedMotionState = () => {
+      setIntroState(true);
       const revealEl = revealTargetRef.current;
       if (revealEl) {
         revealEl.style.opacity = "1";
@@ -132,7 +170,9 @@ export function ScrollIntroFlythrough({
 
     if (reducedMotionQuery.matches) {
       applyReducedMotionState();
-      return;
+      return () => {
+        setIntroState(true);
+      };
     }
 
     let targetP = 0;
@@ -211,6 +251,9 @@ export function ScrollIntroFlythrough({
         revealEl.style.transform = `translate3d(0, ${((1 - homeIn) * 26).toFixed(2)}px, 0)`;
         revealEl.style.pointerEvents = homeIn > 0.35 ? "auto" : "none";
       }
+
+      // Navbar reveal threshold: hidden during intro, shown once progress >= 0.95
+      setIntroState(p >= 0.95);
     };
 
     const tick = (now: number) => {
@@ -274,6 +317,7 @@ export function ScrollIntroFlythrough({
       if (rafId) {
         window.cancelAnimationFrame(rafId);
       }
+      setIntroState(true);
     };
   }, [revealTargetRef]);
 

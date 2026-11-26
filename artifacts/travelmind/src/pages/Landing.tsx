@@ -1,19 +1,20 @@
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation } from "wouter";
 import { useAuth } from "@/context/AuthContext";
 import { FlowButton } from "@/components/ui/flow-button";
 import {
   ScrapbookSticker,
-  useDiaryReveal,
   useScrapbookMotion,
   type StickerVariant,
 } from "@/components/ScrapbookStickers";
 import { PageFloatingStickers } from "@/components/PageFloatingStickers";
 import { EditorialTravelSections } from "@/components/editorial/EditorialTravelSections";
-import {
-  Mail,
-  PlaneTakeoff,
-} from "lucide-react";
+import PushpinTearFooter from "@/components/ui/pushpin-tear-footer";
+import { SterlingGateKineticNavigation } from "@/components/ui/sterling-gate-kinetic-navigation";
+import { Plane } from "lucide-react";
+
+// TODO: Replace with real TravelMind contact email
+const CONTACT_EMAIL = "hello@example.com";
 
 const STICKER_JOBS: {
   sticker: StickerVariant;
@@ -65,33 +66,6 @@ const STICKER_JOBS: {
   },
 ];
 
-const HOW_IT_WORKS_STEPS = [
-  {
-    step: "01",
-    title: "Tell us the trip",
-    description:
-      "Drop your destination, dates, crew size, food flags, and daily budget into our 4-step travel brief.",
-    sticker: "pushpin" as StickerVariant,
-    accent: "bg-[#FFEBAF] text-[#163E48]",
-  },
-  {
-    step: "02",
-    title: "AI plans it",
-    description:
-      "Seven focused travel specialists check weather, disruptions, roads, cuisine, culture, budget, and phrases.",
-    sticker: "chess" as StickerVariant,
-    accent: "bg-[#FFF8E0] text-[#4C9DB0]",
-  },
-  {
-    step: "03",
-    title: "Get your itinerary",
-    description:
-      "Open a calm, scannable briefing deck you can actually use on the ground before and during your trip.",
-    sticker: "envelope" as StickerVariant,
-    accent: "bg-[#1F4F5B] text-[#FFEBAF]",
-  },
-];
-
 function useInViewOnce(threshold = 0.2) {
   const ref = useRef<HTMLDivElement | null>(null);
   const [inView, setInView] = useState(false);
@@ -130,7 +104,6 @@ export default function Landing() {
 
   const chaosSection = useInViewOnce(0.15);
   const sortSection = useInViewOnce(0.16);
-  const howStepsSection = useDiaryReveal(0.14);
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
@@ -141,91 +114,16 @@ export default function Landing() {
 
   return (
     <div ref={pageRef} className="min-h-screen paper-texture text-[#163E48] overflow-x-clip">
-      {/* Floating White Pill Navbar */}
-      <div className="fixed top-3 left-0 right-0 z-50 px-3 sm:px-6 pointer-events-none">
-        <header className="pointer-events-auto max-w-5xl mx-auto rounded-full bg-[#FFF8E0]/95 backdrop-blur-md border-[1.5px] border-[#1F4F5B] shadow-[0_10px_28px_rgba(22,62,72,0.12)] px-3.5 sm:px-5 py-2 flex items-center justify-between gap-4 sm:gap-8">
-          <a
-            href="#home"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollToSection("home");
-            }}
-            className="flex items-center gap-2 font-display text-lg sm:text-xl tracking-wide text-[#163E48] whitespace-nowrap shrink-0 pl-1"
-          >
-            <span className="w-7 h-7 rounded-full bg-[#4C9DB0] border border-[#1F4F5B] flex items-center justify-center">
-              <PlaneTakeoff className="w-3.5 h-3.5 text-[#163E48]" />
-            </span>
-            <span>TRAVELMIND</span>
-          </a>
-
-          <nav
-            aria-label="Primary navigation"
-            className="hidden md:flex items-center gap-6 text-sm font-medium text-[#2A5C69]"
-          >
-            <a
-              href="#home"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToSection("home");
-              }}
-              className="hover:text-[#163E48] hover:underline underline-offset-4 whitespace-nowrap shrink-0 transition-colors"
-            >
-              Home
-            </a>
-            <a
-              href="#how-it-works"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToSection("how-it-works");
-              }}
-              className="hover:text-[#163E48] hover:underline underline-offset-4 whitespace-nowrap shrink-0 transition-colors"
-            >
-              How it works
-            </a>
-            <a
-              href="#contact"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToSection("contact");
-              }}
-              className="hover:text-[#163E48] hover:underline underline-offset-4 whitespace-nowrap shrink-0 transition-colors"
-            >
-              Contact
-            </a>
-          </nav>
-
-          <div className="flex items-center gap-2 shrink-0">
-            {user ? (
-              <div className="hidden sm:flex items-center gap-2">
-                <span className="font-note text-xs font-bold text-[#2A5C69] max-w-[110px] truncate">
-                  {user.name}
-                </span>
-                <FlowButton
-                  size="sm"
-                  variant="secondary"
-                  text="Log out"
-                  onClick={() => void logout()}
-                />
-              </div>
-            ) : (
-              <FlowButton
-                size="sm"
-                variant="secondary"
-                text="Log in"
-                onClick={() => setLocation("/auth")}
-              />
-            )}
-
-            <FlowButton
-              size="sm"
-              variant="primary"
-              text="Make the trip"
-              onClick={() => setLocation("/plan")}
-              className="font-bold"
-            />
-          </div>
-        </header>
-      </div>
+      {/* Floating Cream Pill Navbar + Kinetic Right-Hand Sidebar (hidden during Scene 0 intro) */}
+      <SterlingGateKineticNavigation
+        hasIntro={true}
+        user={user}
+        onLogout={() => void logout()}
+        onNavigate={(href) => {
+          setLocation(href);
+          window.scrollTo({ top: 0 });
+        }}
+      />
 
       {/* ADDITIVE: SCROLL-DRIVEN 3D INTRO ANIMATION (ACTS 1–6) */}
       <ScrollIntroFlythrough
@@ -295,31 +193,22 @@ export default function Landing() {
         <PageFloatingStickers variant="landing" />
 
         {/* SCROLL STORY 1: CHAOS -> 2: SORTING */}
-        <section id="how-it-works" className="relative z-[2] py-20 px-4 sm:px-8 border-t border-[#4C9DB0]/40 overflow-hidden">
-          <div className="relative z-10 max-w-5xl mx-auto space-y-24">
+        <section className="relative z-[2] py-12 md:py-16 lg:py-20 px-4 sm:px-8 border-t border-[#4C9DB0]/40 overflow-hidden">
+          <div className="relative z-10 max-w-5xl mx-auto space-y-4 md:space-y-5">
           {/* Story Step 1: Chaos */}
           <div
             ref={chaosSection.ref}
-            className="grid lg:grid-cols-12 gap-8 items-center"
+            className="grid lg:grid-cols-12 items-center"
           >
             <div
               data-revealed={chaosSection.inView}
-              className="diary-reveal lg:col-span-5 space-y-4"
+              className="diary-reveal lg:col-span-5"
             >
               <h2 className="font-display uppercase text-4xl sm:text-5xl leading-[0.98] tracking-wide text-[#163E48] text-balance">
-                All your travel ideas,{" "}
-                <span className="text-[#4C9DB0]">everywhere.</span>
+                All your travel{" "}
+                <span className="text-[#4C9DB0]">ideas.</span>
               </h2>
-              <p className="text-[#2A5C69] text-base leading-relaxed">
-                Half-read food tabs, weather worries, layover notes, playlist ideas, and scribbled phrases all pile up before you even pack.
-              </p>
             </div>
-
-            <div
-              data-revealed={chaosSection.inView}
-              style={{ "--reveal-delay": "120ms" } as CSSProperties}
-              className="diary-reveal lg:col-span-7"
-            />
           </div>
 
           {/* Story Step 2: Sorting (scroll-triggered snap into tidy sticker-job groups) */}
@@ -370,97 +259,87 @@ export default function Landing() {
             </div>
           </div>
 
-          {/* Story Step 3: How it works (3 short cards) */}
-          <div ref={howStepsSection.ref} className="relative space-y-8 pt-4 border-t border-[#4C9DB0]/40">
-            <div
-              data-revealed={howStepsSection.revealed}
-              className="diary-reveal space-y-2 max-w-xl"
-            >
-              <h2 className="font-display uppercase text-4xl sm:text-5xl leading-[0.98] tracking-wide text-[#163E48]">
-                Three steps from scatter to{" "}
-                <span className="text-[#4C9DB0]">sorted.</span>
-              </h2>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-5">
-              {HOW_IT_WORKS_STEPS.map((card, idx) => (
-                <div
-                  key={card.step}
-                  data-revealed={howStepsSection.revealed}
-                  style={
-                    {
-                      "--reveal-delay": `${100 + idx * 110}ms`,
-                      "--reveal-rot": idx % 2 === 0 ? "-1.2deg" : "1.2deg",
-                    } as CSSProperties
-                  }
-                  className="diary-reveal paper-card rounded-2xl p-6 flex flex-col justify-between gap-5"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="font-display uppercase text-sm tracking-wider text-[#4C9DB0]">
-                      Step {card.step}
-                    </span>
-                    <div className="w-12 h-12 flex items-center justify-center">
-                      <ScrapbookSticker variant={card.sticker} className="w-12" />
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <h3 className="font-display uppercase text-2xl tracking-wide text-[#163E48]">
-                      {card.title}
-                    </h3>
-                    <p className="text-sm text-[#2A5C69] leading-relaxed">{card.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        <div id="how-it-works" aria-hidden="true" className="h-0 scroll-mt-24" />
 
         {/* Merged editorial travel sections */}
         <div className="relative z-[2]">
           <EditorialTravelSections />
         </div>
-
-        {/* CONTACT & QUIET FOOTER */}
-        <footer id="contact" className="relative z-[2] border-t border-[#4C9DB0]/45 bg-[#FFEBAF]/85 py-14 px-4 sm:px-8">
-          <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-            <div className="space-y-2">
-              <div className="flex items-center gap-2.5 font-display text-2xl tracking-wide text-[#163E48]">
-                <span className="w-8 h-8 rounded-full bg-[#4C9DB0] border border-[#1F4F5B] flex items-center justify-center">
-                  <PlaneTakeoff className="w-4 h-4 text-[#163E48]" />
-                </span>
-                <span>TRAVELMIND</span>
-              </div>
-              <p className="font-note text-xs text-[#2A5C69]">
-                Your trip, thought through. Built for curious travelers.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-3">
-              <a
-                href="mailto:hello@travelmind.app"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FFF8E0] border border-[#1F4F5B] text-sm font-medium text-[#163E48] hover:bg-[#4C9DB0] transition-colors whitespace-nowrap shrink-0"
-              >
-                <Mail className="w-4 h-4" />
-                <span>hello@travelmind.app</span>
-              </a>
-              <FlowButton
-                size="sm"
-                variant="secondary"
-                text={user ? "Account" : "Log in"}
-                onClick={() => setLocation("/auth")}
-              />
-              <FlowButton
-                size="sm"
-                variant="teal"
-                text="Make the trip"
-                onClick={() => setLocation("/plan")}
-                className="font-bold"
-              />
-            </div>
-          </div>
-        </footer>
       </div>
+
+      {/* PUSHPIN TEAR FOOTER */}
+      <PushpinTearFooter
+        id="contact"
+        className="w-full relative z-20"
+        height="min(100svh, 860px)"
+        sheet="#276F86"
+        sheetInk="#FFF8E0"
+        paper="#FFEBAF"
+        paperInk="#163E48"
+        fontSans="'Shadows Into Light', cursive, sans-serif"
+        brand="travelmind."
+        name="TravelMind"
+        tagline="your trip, thought through"
+        logo={
+          <span className="w-10 h-10 rounded-full border-[1.5px] border-[#FFF8E0] flex items-center justify-center text-[#FFF8E0]">
+            <Plane className="w-4 h-4" />
+          </span>
+        }
+        logoHref="/"
+        email={CONTACT_EMAIL}
+        // TODO: Replace these placeholder URLs with real GitHub and LinkedIn profile links
+        socials={[
+          { icon: "github", label: "GitHub", href: "https://github.com/YOUR_GITHUB_USERNAME" },
+          { icon: "linkedin", label: "LinkedIn", href: "https://linkedin.com/in/YOUR_LINKEDIN_USERNAME" },
+        ]}
+        newsletter={null}
+        cta={{ label: "Make the trip", hint: "ready when your ideas are", href: "/plan" }}
+        status={{ label: "seven AI agents, one trip", href: "/plan" }}
+        mark="est. 2026"
+        timeZone="Asia/Kolkata"
+        timeLabel="IST"
+        columns={[
+          {
+            title: "explore",
+            links: [
+              { label: "Home", href: "/" },
+              { label: "How it works", href: "#how-it-works" },
+              { label: "Contact", href: "#contact" },
+            ],
+            cta: { label: "trip.", href: "/plan" },
+          },
+          {
+            title: "account",
+            links: [
+              { label: "Log in", href: "/auth" },
+              { label: "Sign up", href: "/auth" },
+              { label: "Make the trip", href: "/plan" },
+            ],
+            cta: { label: "hello.", href: `mailto:${CONTACT_EMAIL}` },
+          },
+        ]}
+        chat={{ label: "say hi" }}
+        sideLinks={[
+          { icon: "globe", label: "how it works", href: "#how-it-works" },
+          { icon: "mail", label: "contact", href: `mailto:${CONTACT_EMAIL}` },
+        ]}
+        copyright="© 2026 TravelMind"
+        credit="made for wanderers"
+        // TODO: Replace with real handle and profile link
+        handle={{ label: "@your_handle", href: "https://github.com/YOUR_GITHUB_USERNAME" }}
+        seed={7}
+        onNavigate={(href) => {
+          if (href === "/") {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          } else {
+            setLocation(href);
+            window.scrollTo({ top: 0 });
+          }
+        }}
+      />
       </div>
     </div>
   );
