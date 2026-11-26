@@ -86,6 +86,24 @@ export function useParallaxOffset(strength = 18) {
  * directly on the target container via a damped requestAnimationFrame loop.
  * Uses cursor tracking on desktop and touch + scroll drift on touch devices.
  */
+function getStaticDocumentTop(el: HTMLElement): number {
+  let top = 0;
+  let node: HTMLElement | null = el;
+  while (node) {
+    top += node.offsetTop;
+    node = node.offsetParent as HTMLElement | null;
+  }
+  return top;
+}
+
+interface ParallaxItem {
+  el: HTMLElement;
+  anchorCenterY: number;
+  speedY: number;
+  speedX: number;
+  speedRot: number;
+}
+
 export function useScrapbookMotion(
   targetRef: RefObject<HTMLElement | null>,
   heroRef?: RefObject<HTMLElement | null>,
@@ -101,6 +119,10 @@ export function useScrapbookMotion(
       targetEl.style.setProperty("--my", "0");
       targetEl.style.setProperty("--hero-progress", "0");
       targetEl.style.setProperty("--scroll-y", "0px");
+      targetEl.style.setProperty("--sb-1", "0");
+      targetEl.style.setProperty("--sb-2", "0");
+      targetEl.style.setProperty("--sb-1-abs", "0");
+      targetEl.style.setProperty("--sb-2-abs", "0");
       return;
     }
 
@@ -112,23 +134,77 @@ export function useScrapbookMotion(
     let currentMy = 0;
     let targetScroll = window.scrollY;
     let currentScroll = window.scrollY;
+    let lastScrollY = window.scrollY;
+    let vh = window.innerHeight || 800;
+    let heroTop = 0;
+    let heroHeight = Math.max(420, vh * 0.85);
+    let parallaxItems: ParallaxItem[] = [];
+    let bounce1Pos = 0;
+    let bounce1Vel = 0;
+    let bounce2Pos = 0;
+    let bounce2Vel = 0;
+    let lastTime = 0;
     let rafId = 0;
 
+    const measureAll = () => {
+      vh = window.innerHeight || 800;
+      const heroEl = heroRef?.current;
+      if (heroEl) {
+        heroTop = Math.max(0, getStaticDocumentTop(heroEl));
+        heroHeight = Math.max(420, heroEl.offsetHeight || vh * 0.85);
+      } else {
+        heroTop = 0;
+        heroHeight = Math.max(420, vh * 0.85);
+      }
+
+      const nodes = targetEl.querySelectorAll<HTMLElement>("[data-parallax-item]");
+      const measured: ParallaxItem[] = [];
+      nodes.forEach((el) => {
+        const anchorEl = el.parentElement ?? el;
+        const anchorTop = getStaticDocumentTop(anchorEl);
+        const anchorH = anchorEl.offsetHeight || 120;
+        measured.push({
+          el,
+          anchorCenterY: anchorTop + anchorH * 0.5,
+          speedY: Number(el.dataset.parallaxSpeedY ?? 0),
+          speedX: Number(el.dataset.parallaxSpeedX ?? 0),
+          speedRot: Number(el.dataset.parallaxSpeedRot ?? 0),
+        });
+      });
+      parallaxItems = measured;
+    };
+
     const applyVars = () => {
-      const heroHeight = Math.max(420, heroRef?.current?.offsetHeight || window.innerHeight * 0.85);
-      const heroProgress = Math.max(0, Math.min(2.2, currentScroll / heroHeight));
+      const relativeScroll = Math.max(0, currentScroll - heroTop);
+      const heroProgress = Math.max(0, Math.min(2.2, relativeScroll / heroHeight));
 
       targetEl.style.setProperty("--mx", currentMx.toFixed(4));
       targetEl.style.setProperty("--my", currentMy.toFixed(4));
       targetEl.style.setProperty("--scroll-y", `${currentScroll.toFixed(1)}px`);
       targetEl.style.setProperty("--hero-progress", heroProgress.toFixed(4));
+      targetEl.style.setProperty("--sb-1", bounce1Pos.toFixed(3));
+      targetEl.style.setProperty("--sb-2", bounce2Pos.toFixed(3));
+      targetEl.style.setProperty("--sb-1-abs", Math.abs(bounce1Pos).toFixed(3));
+      targetEl.style.setProperty("--sb-2-abs", Math.abs(bounce2Pos).toFixed(3));
+
+      const viewportCenterY = currentScroll + vh * 0.5;
+      for (let i = 0; i < parallaxItems.length; i++) {
+        const item = parallaxItems[i];
+        const rawNorm = (viewportCenterY - item.anchorCenterY) / Math.max(1, vh);
+        const norm = rawNorm < -1.35 ? -1.35 : rawNorm > 1.35 ? 1.35 : rawNorm;
+
+        item.el.style.setProperty("--sp-y", `${(norm * item.speedY).toFixed(2)}px`);
+        item.el.style.setProperty("--sp-x", `${(norm * item.speedX).toFixed(2)}px`);
+        item.el.style.setProperty("--sp-rot", `${(norm * item.speedRot).toFixed(2)}deg`);
+      }
     };
 
-    const tick = () => {
+    const tick = (now: number) => {
       rafId = 0;
+      const dt = lastTime ? Math.min(0.032, Math.max(0.004, (now - lastTime) / 1000)) : 0.016;
+      lastTime = now;
 
       if (isTouchDevice) {
-        // Gentle touch + scroll-linked breathing on mobile/tablet
         targetMx = Math.sin(targetScroll * 0.0038) * 0.42;
         targetMy = Math.cos(targetScroll * 0.0031) * 0.36;
       }
@@ -137,19 +213,46 @@ export function useScrapbookMotion(
       const dy = targetMy - currentMy;
       const ds = targetScroll - currentScroll;
 
-      currentMx += dx * 0.11;
-      currentMy += dy * 0.11;
-      currentScroll += ds * 0.22;
+      const ptrAlpha = 1 - Math.pow(1 - 0.11, dt / 0.01667);
+      const scrollAlpha = 1 - Math.pow(1 - 0.16, dt / 0.01667);
+
+      currentMx += dx * ptrAlpha;
+      currentMy += dy * ptrAlpha;
+      currentScroll += ds * scrollAlpha;
+
+      // Subtle underdamped harmonic spring 1 (gentle cushioned bounce on scroll)
+      const a1 = -130 * bounce1Pos - 11.2 * bounce1Vel;
+      bounce1Vel += a1 * dt;
+      bounce1Pos += bounce1Vel * dt;
+      bounce1Pos = Math.max(-18, Math.min(18, bounce1Pos));
+
+      // Subtle underdamped harmonic spring 2 (staggered soft rebound)
+      const a2 = -96 * bounce2Pos - 9.6 * bounce2Vel;
+      bounce2Vel += a2 * dt;
+      bounce2Pos += bounce2Vel * dt;
+      bounce2Pos = Math.max(-18, Math.min(18, bounce2Pos));
+
+      const springSettled =
+        Math.abs(bounce1Pos) < 0.04 &&
+        Math.abs(bounce1Vel) < 0.45 &&
+        Math.abs(bounce2Pos) < 0.04 &&
+        Math.abs(bounce2Vel) < 0.45;
 
       const settled =
+        springSettled &&
         Math.abs(dx) < 0.0015 &&
         Math.abs(dy) < 0.0015 &&
-        Math.abs(ds) < 0.35;
+        Math.abs(ds) < 0.25;
 
       if (settled) {
         currentMx = targetMx;
         currentMy = targetMy;
         currentScroll = targetScroll;
+        bounce1Pos = 0;
+        bounce1Vel = 0;
+        bounce2Pos = 0;
+        bounce2Vel = 0;
+        lastTime = 0;
       }
 
       applyVars();
@@ -181,8 +284,21 @@ export function useScrapbookMotion(
     };
 
     const handleScroll = () => {
-      targetScroll = window.scrollY;
+      const nextScroll = window.scrollY;
+      const delta = nextScroll - lastScrollY;
+      lastScrollY = nextScroll;
+      targetScroll = nextScroll;
+
+      const impulse = Math.max(-34, Math.min(34, delta * 0.45));
+      bounce1Vel += impulse * 7.2;
+      bounce2Vel += impulse * 5.8;
+
       schedule();
+    };
+
+    const handleResize = () => {
+      measureAll();
+      applyVars();
     };
 
     const handlePointerLeave = () => {
@@ -191,16 +307,32 @@ export function useScrapbookMotion(
       schedule();
     };
 
+    measureAll();
     applyVars();
+
+    let resizeObserver: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== "undefined") {
+      resizeObserver = new ResizeObserver(() => {
+        measureAll();
+        applyVars();
+      });
+      resizeObserver.observe(targetEl);
+    }
+
     window.addEventListener("pointermove", handlePointerMove, { passive: true });
     window.addEventListener("touchmove", handleTouchMove, { passive: true });
     window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleResize, { passive: true });
+    window.addEventListener("load", handleResize, { passive: true });
     document.addEventListener("mouseleave", handlePointerLeave, { passive: true });
 
     return () => {
+      resizeObserver?.disconnect();
       window.removeEventListener("pointermove", handlePointerMove);
       window.removeEventListener("touchmove", handleTouchMove);
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("load", handleResize);
       document.removeEventListener("mouseleave", handlePointerLeave);
       if (rafId) window.cancelAnimationFrame(rafId);
     };
@@ -400,11 +532,13 @@ export function ScrapbookSticker({
   className = "",
   decorative = true,
   eager = false,
+  interactive = true,
 }: {
   variant: StickerVariant;
   className?: string;
   decorative?: boolean;
   eager?: boolean;
+  interactive?: boolean;
 }) {
   const asset = STICKER_ASSETS[variant];
   const [src, setSrc] = useState<string>(asset.primarySrc);
@@ -429,7 +563,7 @@ export function ScrapbookSticker({
       <div
         aria-hidden={decorative}
         title={decorative ? undefined : asset.label}
-        className={`sticker-wobble inline-flex flex-col items-center justify-center gap-1 rounded-2xl border-[1.5px] border-dashed border-[#1F4F5B]/65 px-3 py-2.5 shadow-[2px_3px_0_rgba(76,157,176,0.35)] select-none ${asset.accentBg} ${asset.accentText} ${className}`}
+        className={`${interactive ? "sticker-wobble" : ""} inline-flex flex-col items-center justify-center gap-1 rounded-2xl border-[1.5px] border-dashed border-[#1F4F5B]/65 px-3 py-2.5 shadow-[2px_3px_0_rgba(76,157,176,0.35)] select-none ${asset.accentBg} ${asset.accentText} ${className}`}
       >
         <Icon className="w-5 h-5 shrink-0" />
         <span className="font-note text-[10px] font-bold leading-none whitespace-nowrap">
@@ -456,7 +590,7 @@ export function ScrapbookSticker({
           handleUnavailable();
         }
       }}
-      className={`sticker-wobble w-full h-auto block select-none pointer-events-auto drop-shadow-[2px_4px_0_rgba(31,79,91,0.3)] drop-shadow-[0_6px_12px_rgba(22,62,72,0.12)] ${className}`}
+      className={`${interactive ? "sticker-wobble pointer-events-auto" : "pointer-events-none"} w-full h-auto block select-none drop-shadow-[2px_4px_0_rgba(31,79,91,0.3)] drop-shadow-[0_6px_12px_rgba(22,62,72,0.12)] ${className}`}
     />
   );
 }
@@ -471,14 +605,22 @@ export interface FloatingStickerProps {
   enterScale?: number;
   enterDelayMs?: number;
   enterDurationMs?: number;
-  driftVariant?: "a" | "b" | "c" | "d" | "e";
+  driftVariant?: "a" | "b" | "c" | "d" | "e" | "f";
   driftDurationSec?: number;
+  driftPhaseSec?: number;
   parallaxX?: number;
   parallaxY?: number;
   parallaxRotate?: number;
   scrollX?: number;
   scrollY?: number;
   scrollRotate?: number;
+  parallaxSpeedY?: number;
+  parallaxSpeedX?: number;
+  parallaxSpeedRot?: number;
+  scrollBounce?: "a" | "b";
+  bounceY?: number;
+  bounceRotate?: number;
+  bounceScale?: number;
   eager?: boolean;
 }
 
@@ -494,14 +636,24 @@ export function FloatingScrapbookSticker({
   enterDurationMs = 820,
   driftVariant = "a",
   driftDurationSec = 7.8,
+  driftPhaseSec,
   parallaxX = 14,
   parallaxY = 12,
   parallaxRotate = 2,
   scrollX = 0,
   scrollY = -120,
   scrollRotate = 0,
+  parallaxSpeedY,
+  parallaxSpeedX = 0,
+  parallaxSpeedRot = 0,
+  scrollBounce,
+  bounceY = 0.72,
+  bounceRotate = 0.16,
+  bounceScale = 0.0025,
   eager = false,
 }: FloatingStickerProps) {
+  const useSectionParallax = parallaxSpeedY !== undefined;
+
   const parallaxStyle = {
     "--px-x": `${parallaxX}px`,
     "--px-y": `${parallaxY}px`,
@@ -509,6 +661,13 @@ export function FloatingScrapbookSticker({
     "--scroll-x": `${scrollX}px`,
     "--scroll-y": `${scrollY}px`,
     "--scroll-rot": `${scrollRotate}deg`,
+    ...(scrollBounce
+      ? {
+          "--bounce-y": `${bounceY}px`,
+          "--bounce-rot": `${bounceRotate}deg`,
+          "--bounce-scale": `${bounceScale}`,
+        }
+      : {}),
   } as CSSProperties;
 
   const enterStyle = {
@@ -521,9 +680,14 @@ export function FloatingScrapbookSticker({
     "--sticker-rot": `${restRotate}deg`,
   } as CSSProperties;
 
+  const driftDelayValue =
+    driftPhaseSec !== undefined
+      ? `${driftPhaseSec}s`
+      : `${Math.max(0, enterDelayMs + enterDurationMs - 140)}ms`;
+
   const driftStyle = {
     "--drift-dur": `${driftDurationSec}s`,
-    "--drift-delay": `${Math.max(0, enterDelayMs + enterDurationMs - 140)}ms`,
+    "--drift-delay": driftDelayValue,
   } as CSSProperties;
 
   return (
@@ -531,10 +695,23 @@ export function FloatingScrapbookSticker({
       aria-hidden="true"
       className={`pointer-events-none select-none ${className}`}
     >
-      <div className="sticker-parallax" style={parallaxStyle}>
+      <div
+        className="sticker-parallax"
+        data-parallax-item={useSectionParallax ? "true" : undefined}
+        data-parallax-speed-y={useSectionParallax ? parallaxSpeedY : undefined}
+        data-parallax-speed-x={useSectionParallax ? parallaxSpeedX : undefined}
+        data-parallax-speed-rot={useSectionParallax ? parallaxSpeedRot : undefined}
+        data-scroll-bounce={scrollBounce}
+        style={parallaxStyle}
+      >
         <div className="sticker-enter" style={enterStyle}>
           <div className={`sticker-drift-${driftVariant}`} style={driftStyle}>
-            <ScrapbookSticker variant={variant} eager={eager} className="w-full" />
+            <ScrapbookSticker
+              variant={variant}
+              eager={eager}
+              interactive={false}
+              className="w-full"
+            />
           </div>
         </div>
       </div>

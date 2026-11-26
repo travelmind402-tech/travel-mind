@@ -11,13 +11,12 @@ import {
   Wallet,
   MessageSquare,
   Home,
-  Plus,
   PlaneTakeoff,
   LogOut,
   Menu,
   X,
 } from "lucide-react";
-import { Button } from "./ui/button";
+import { FlowButton } from "./ui/flow-button";
 
 const links = [
   { href: "/dashboard", label: "Overview", icon: Home },
@@ -47,18 +46,16 @@ export function Sidebar() {
           <span>TRAVELMIND</span>
         </Link>
         <div className="flex items-center gap-2">
-          <Button
+          <FlowButton
+            size="sm"
+            variant="inverse"
+            text="New Trip"
             onClick={() => {
               clearSession();
               setLocation("/plan");
             }}
-            variant="outline"
-            size="sm"
-            className="h-8 px-3 text-xs rounded-full border-[#FFEBAF]/45 bg-transparent text-[#FFEBAF] hover:bg-[#FFEBAF] hover:text-[#163E48] cursor-pointer"
-          >
-            <Plus className="w-3.5 h-3.5 mr-1" />
-            New Trip
-          </Button>
+            className="h-8 text-xs"
+          />
           <button
             type="button"
             aria-label={mobileOpen ? "Close navigation" : "Open navigation"}
@@ -150,18 +147,16 @@ export function Sidebar() {
               </button>
             </div>
           )}
-          <Button
+          <FlowButton
+            size="sm"
+            variant="inverse"
+            text="New Trip"
             onClick={() => {
               clearSession();
               setLocation("/plan");
             }}
-            variant="outline"
-            size="sm"
-            className="w-full justify-start gap-2 rounded-xl border-[#4C9DB0]/60 text-[#FFEBAF] hover:text-[#163E48] bg-transparent hover:bg-[#FFEBAF] hover:border-[#FFEBAF] font-semibold transition-colors cursor-pointer"
-          >
-            <Plus className="w-4 h-4" />
-            New Trip
-          </Button>
+            className="w-full"
+          />
         </div>
       </aside>
     </>

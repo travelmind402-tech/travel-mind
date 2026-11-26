@@ -133,10 +133,10 @@
   --sidebar-accent-foreground: 45 100% 84%;
   --sidebar-ring: 45 100% 84%;
 
-  --app-font-display: 'Proxima Nova Condensed', 'Barlow Condensed', sans-serif;
-  --app-font-sans: 'Proxima Nova Condensed', 'Barlow Condensed', sans-serif;
-  --app-font-serif: 'Sailors', 'Sail', serif;
-  --app-font-mono: 'Sailors', 'Sail', 'Proxima Nova Condensed', sans-serif;
+  --app-font-display: 'Balboa', 'Oswald', 'Bebas Neue', sans-serif;
+  --app-font-sans: 'Shadows Into Light', cursive, sans-serif;
+  --app-font-serif: 'Shadows Into Light', cursive, sans-serif;
+  --app-font-mono: 'Shadows Into Light', cursive, sans-serif;
   --radius: 0.75rem;
 
   --shadow-2xs: 0 1px 2px rgba(22, 62, 72, 0.06);
@@ -205,10 +205,12 @@
   }
   body {
     @apply font-sans antialiased bg-background text-foreground selection:bg-[#4C9DB0] selection:text-[#FFEBAF];
+    letter-spacing: 0.025em;
   }
   h1, h2, h3, .font-display {
     font-family: var(--app-font-display);
-    letter-spacing: 0.015em;
+    font-weight: 700;
+    letter-spacing: 0.02em;
   }
 }
 
@@ -236,11 +238,13 @@
 }
 
 .font-note {
-  font-family: 'Sailors', 'Sail', 'Proxima Nova Condensed', serif;
+  font-family: 'Shadows Into Light', cursive, sans-serif;
+  letter-spacing: 0.03em;
 }
 
 .font-display {
-  font-family: 'Proxima Nova Condensed', 'Barlow Condensed', sans-serif;
+  font-family: 'Balboa', 'Oswald', 'Bebas Neue', sans-serif;
+  font-weight: 700;
 }
 
 @keyframes sticker-float-slow {
@@ -290,70 +294,97 @@
 
 @keyframes sticker-drift-a {
   0%, 100% {
-    transform: translate3d(0px, 0px, 0) rotate(0deg);
+    transform: translate3d(0px, 0px, 0) rotate(0deg) scale(1);
   }
-  30% {
-    transform: translate3d(5px, -11px, 0) rotate(2.4deg);
+  22% {
+    transform: translate3d(7px, -18px, 0) rotate(3.2deg) scale(1.028);
   }
-  65% {
-    transform: translate3d(-4px, -5px, 0) rotate(-1.6deg);
+  44% {
+    transform: translate3d(2px, -5px, 0) rotate(0.9deg) scale(0.992);
   }
-  82% {
-    transform: translate3d(2px, 4px, 0) rotate(2.8deg);
+  68% {
+    transform: translate3d(-8px, -14px, 0) rotate(-2.8deg) scale(1.022);
+  }
+  86% {
+    transform: translate3d(-3px, 6px, 0) rotate(-1.1deg) scale(0.99);
   }
 }
 
 @keyframes sticker-drift-b {
   0%, 100% {
-    transform: translate3d(0px, 0px, 0) rotate(0deg);
+    transform: translate3d(0px, 0px, 0) rotate(0deg) scale(1);
   }
-  28% {
-    transform: translate3d(-7px, 7px, 0) rotate(-2.5deg);
+  24% {
+    transform: translate3d(-9px, 14px, 0) rotate(-3.4deg) scale(0.988);
   }
-  58% {
-    transform: translate3d(4px, 11px, 0) rotate(1.8deg);
+  50% {
+    transform: translate3d(4px, -15px, 0) rotate(2.4deg) scale(1.03);
   }
-  84% {
-    transform: translate3d(5px, -4px, 0) rotate(-3deg);
+  74% {
+    transform: translate3d(8px, 5px, 0) rotate(-2.2deg) scale(0.994);
   }
 }
 
 @keyframes sticker-drift-c {
   0%, 100% {
-    transform: translate3d(0px, 0px, 0) rotate(0deg);
+    transform: translate3d(0px, 0px, 0) rotate(0deg) scale(1);
   }
-  25% {
-    transform: translate3d(7px, 4px, 0) rotate(3deg);
+  20% {
+    transform: translate3d(9px, 10px, 0) rotate(3.6deg) scale(0.99);
   }
-  55% {
-    transform: translate3d(2px, -10px, 0) rotate(-2.2deg);
+  48% {
+    transform: translate3d(3px, -19px, 0) rotate(-2.9deg) scale(1.032);
   }
-  80% {
-    transform: translate3d(-6px, -3px, 0) rotate(1.5deg);
+  74% {
+    transform: translate3d(-9px, -6px, 0) rotate(2.1deg) scale(1.012);
+  }
+  89% {
+    transform: translate3d(-3px, 5px, 0) rotate(-0.8deg) scale(0.994);
   }
 }
 
 @keyframes sticker-drift-d {
   0%, 100% {
-    transform: translate3d(0px, 0px, 0) rotate(0deg);
+    transform: translate3d(0px, 0px, 0) rotate(0deg) scale(1);
   }
-  34% {
-    transform: translate3d(-6px, -9px, 0) rotate(-3.2deg);
+  28% {
+    transform: translate3d(-8px, -17px, 0) rotate(-3.8deg) scale(1.026);
   }
-  66% {
-    transform: translate3d(6px, -3px, 0) rotate(2.6deg);
+  55% {
+    transform: translate3d(3px, 9px, 0) rotate(1.7deg) scale(0.988);
+  }
+  79% {
+    transform: translate3d(9px, -11px, 0) rotate(3.1deg) scale(1.02);
   }
 }
 
 @keyframes sticker-drift-e {
   0%, 100% {
-    transform: translate3d(0px, 0px, 0) rotate(0deg);
+    transform: translate3d(0px, 0px, 0) rotate(0deg) scale(1);
   }
-  36% {
-    transform: translate3d(4px, 9px, 0) rotate(2.2deg);
+  26% {
+    transform: translate3d(8px, 15px, 0) rotate(2.9deg) scale(0.988);
   }
-  72% {
-    transform: translate3d(-5px, -8px, 0) rotate(-2.7deg);
+  52% {
+    transform: translate3d(-4px, -4px, 0) rotate(-1.3deg) scale(1.015);
+  }
+  76% {
+    transform: translate3d(-8px, -16px, 0) rotate(-3.4deg) scale(1.028);
+  }
+}
+
+@keyframes sticker-drift-f {
+  0%, 100% {
+    transform: translate3d(0px, 0px, 0) rotate(0deg) scale(1);
+  }
+  23% {
+    transform: translate3d(-7px, -14px, 0) rotate(2.7deg) scale(1.025);
+  }
+  52% {
+    transform: translate3d(9px, 11px, 0) rotate(-3.0deg) scale(0.988);
+  }
+  78% {
+    transform: translate3d(4px, -16px, 0) rotate(2.2deg) scale(1.028);
   }
 }
 
@@ -471,6 +502,68 @@
   will-change: transform;
 }
 
+.sticker-parallax[data-scroll-bounce="a"] {
+  transform: translate3d(
+      calc(var(--mx, 0) * var(--px-x, 16px) + var(--hero-progress, 0) * var(--scroll-x, 0px)),
+      calc(
+        var(--my, 0) * var(--px-y, 14px) +
+        var(--hero-progress, 0) * var(--scroll-y, -120px) +
+        var(--sb-1, 0) * var(--bounce-y, 1.15px)
+      ),
+      0
+    )
+    rotate(
+      calc(
+        var(--mx, 0) * var(--px-rot, 2.2deg) +
+        var(--hero-progress, 0) * var(--scroll-rot, 0deg) +
+        var(--sb-1, 0) * var(--bounce-rot, 0.3deg)
+      )
+    )
+    scale(calc(1 + var(--sb-1-abs, 0) * var(--bounce-scale, 0.004)));
+}
+
+.sticker-parallax[data-scroll-bounce="b"] {
+  transform: translate3d(
+      calc(var(--mx, 0) * var(--px-x, 16px) + var(--hero-progress, 0) * var(--scroll-x, 0px)),
+      calc(
+        var(--my, 0) * var(--px-y, 14px) +
+        var(--hero-progress, 0) * var(--scroll-y, -120px) +
+        var(--sb-2, 0) * var(--bounce-y, 1.15px)
+      ),
+      0
+    )
+    rotate(
+      calc(
+        var(--mx, 0) * var(--px-rot, 2.2deg) +
+        var(--hero-progress, 0) * var(--scroll-rot, 0deg) +
+        var(--sb-2, 0) * var(--bounce-rot, 0.3deg)
+      )
+    )
+    scale(calc(1 + var(--sb-2-abs, 0) * var(--bounce-scale, 0.004)));
+}
+
+.sticker-parallax[data-parallax-item="true"] {
+  transform: translate3d(
+      calc(var(--sp-x, 0px)),
+      calc(var(--sp-y, 0px) + var(--sb-1, 0) * var(--bounce-y, 0px)),
+      0
+    )
+    rotate(calc(var(--sp-rot, 0deg) + var(--sb-1, 0) * var(--bounce-rot, 0deg)))
+    scale(calc(1 + var(--sb-1-abs, 0) * var(--bounce-scale, 0)));
+  will-change: transform;
+}
+
+.sticker-parallax[data-parallax-item="true"][data-scroll-bounce="b"] {
+  transform: translate3d(
+      calc(var(--sp-x, 0px)),
+      calc(var(--sp-y, 0px) + var(--sb-2, 0) * var(--bounce-y, 0px)),
+      0
+    )
+    rotate(calc(var(--sp-rot, 0deg) + var(--sb-2, 0) * var(--bounce-rot, 0deg)))
+    scale(calc(1 + var(--sb-2-abs, 0) * var(--bounce-scale, 0)));
+  will-change: transform;
+}
+
 .sticker-enter {
   animation: sticker-paste-in var(--enter-dur, 820ms) cubic-bezier(0.22, 1, 0.36, 1)
     var(--enter-delay, 0ms) both;
@@ -478,27 +571,32 @@
 }
 
 .sticker-drift-a {
-  animation: sticker-drift-a var(--drift-dur, 7.6s) ease-in-out var(--drift-delay, 900ms) infinite;
+  animation: sticker-drift-a var(--drift-dur, 7.6s) ease-in-out var(--drift-delay, 0ms) infinite;
   will-change: transform;
 }
 
 .sticker-drift-b {
-  animation: sticker-drift-b var(--drift-dur, 8.8s) ease-in-out var(--drift-delay, 950ms) infinite;
+  animation: sticker-drift-b var(--drift-dur, 8.8s) ease-in-out var(--drift-delay, 0ms) infinite;
   will-change: transform;
 }
 
 .sticker-drift-c {
-  animation: sticker-drift-c var(--drift-dur, 10.1s) ease-in-out var(--drift-delay, 1000ms) infinite;
+  animation: sticker-drift-c var(--drift-dur, 10.1s) ease-in-out var(--drift-delay, 0ms) infinite;
   will-change: transform;
 }
 
 .sticker-drift-d {
-  animation: sticker-drift-d var(--drift-dur, 6.9s) ease-in-out var(--drift-delay, 850ms) infinite;
+  animation: sticker-drift-d var(--drift-dur, 6.9s) ease-in-out var(--drift-delay, 0ms) infinite;
   will-change: transform;
 }
 
 .sticker-drift-e {
-  animation: sticker-drift-e var(--drift-dur, 9.4s) ease-in-out var(--drift-delay, 1100ms) infinite;
+  animation: sticker-drift-e var(--drift-dur, 9.4s) ease-in-out var(--drift-delay, 0ms) infinite;
+  will-change: transform;
+}
+
+.sticker-drift-f {
+  animation: sticker-drift-f var(--drift-dur, 9.8s) ease-in-out var(--drift-delay, 0ms) infinite;
   will-change: transform;
 }
 
@@ -612,6 +710,7 @@
   .sticker-drift-c,
   .sticker-drift-d,
   .sticker-drift-e,
+  .sticker-drift-f,
   .kinetic-badge,
   .kinetic-line-1,
   .kinetic-cutout-mind,
@@ -638,3 +737,270 @@
     transition: none !important;
   }
 }
+
+/* ===== Scroll-scrubbed scrapbook hero ===== */
+.sh-track {
+  position: relative;
+  height: 300vh;      /* 100vh stage + 200vh of scrub/hold; tune to taste */
+  --u: 1vw;           /* sticker size unit: desktop */
+}
+@media (max-width: 1023px) { .sh-track { --u: 1.15vw; } }
+@media (max-width: 639px)  { .sh-track { --u: 2vw; } }
+
+.sh-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.sh-sticker {
+  position: absolute;
+  width: calc(var(--u) * var(--w));
+  pointer-events: none;
+  will-change: transform;
+}
+
+.sh-sticker-scroll {
+  transform: translate3d(0, calc(var(--sh-scroll-offset, 0px) * var(--depth, 0.7)), 0);
+  will-change: transform;
+}
+
+@keyframes sh-idle-float {
+  0% {
+    transform: translate3d(0, calc(var(--float-y, 6px) * -1), 0)
+      rotate(calc(var(--float-rot, 0.7deg) * -1));
+  }
+  100% {
+    transform: translate3d(0, var(--float-y, 6px), 0)
+      rotate(var(--float-rot, 0.7deg));
+  }
+}
+
+.sh-sticker-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+  filter: drop-shadow(2px 4px 0 rgba(31, 79, 91, 0.3))
+          drop-shadow(0 8px 14px rgba(22, 62, 72, 0.16));
+  animation: sh-idle-float var(--float-dur, 6.5s) ease-in-out var(--float-delay, 0s) infinite alternate;
+  will-change: transform;
+}
+
+.sh-track[data-inview="false"] .sh-sticker-img {
+  animation-play-state: paused;
+}
+
+@media (max-width: 1023px) { .sh-sticker[data-hide="tablet"] { display: none; } }
+@media (max-width: 639px) {
+  .sh-sticker[data-hide="tablet"],
+  .sh-sticker[data-hide="mobile"] { display: none; }
+}
+
+.sh-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 1rem 3rem;
+  will-change: transform, opacity;
+}
+.sh-intro   { z-index: 12; pointer-events: none; text-align: center; }
+.sh-content { z-index: 10; }
+
+@media (prefers-reduced-motion: reduce) {
+  .sh-track { height: auto; }
+  .sh-sticker-scroll {
+    transform: none !important;
+    will-change: auto;
+  }
+  .sh-sticker-img {
+    animation: none !important;
+    transform: none !important;
+    will-change: auto;
+  }
+}
+
+/* ===== ADDITIVE: Scroll-Driven 3D Intro Flythrough (Acts 1–6) ===== */
+.scroll-intro-track {
+  position: relative;
+  height: 500vh;
+  width: 100%;
+  z-index: 20;
+  pointer-events: none;
+  --intro-card-scale: 0.56;
+}
+
+@media (min-width: 640px) {
+  .scroll-intro-track {
+    --intro-card-scale: 0.78;
+  }
+}
+
+@media (min-width: 1024px) {
+  .scroll-intro-track {
+    --intro-card-scale: 1;
+  }
+}
+
+.scroll-intro-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.scroll-intro-quote {
+  position: relative;
+  z-index: 10;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.scroll-intro-card-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+  perspective-origin: 50% 50%;
+  transform-style: preserve-3d;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.scroll-intro-card {
+  position: absolute;
+  width: calc(var(--intro-card-w, 240px) * var(--intro-card-scale, 1));
+  background: transparent;
+  pointer-events: none;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+  opacity: 0;
+}
+
+.scroll-intro-card-img {
+  width: 100%;
+  height: auto;
+  max-height: calc(var(--intro-card-w, 240px) * 1.28 * var(--intro-card-scale, 1));
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  filter:
+    drop-shadow(2px 5px 0 rgba(31, 79, 91, 0.22))
+    drop-shadow(0 14px 26px rgba(22, 62, 72, 0.2));
+}
+
+.intro-home-reveal {
+  position: relative;
+  z-index: 10;
+  margin-top: -100vh;
+  margin-top: -100svh;
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-intro-track {
+    display: none;
+  }
+
+  .intro-home-reveal {
+    margin-top: 0 !important;
+    opacity: 1 !important;
+    transform: none !important;
+    pointer-events: auto !important;
+    will-change: auto;
+  }
+}
+
+/* ===== Page-Wide Floating Transparent Cutout Stickers ===== */
+.pf-field {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+  --pf-scale: 0.62;
+}
+
+@media (min-width: 640px) {
+  .pf-field {
+    --pf-scale: 0.78;
+  }
+}
+
+@media (min-width: 1280px) {
+  .pf-field {
+    --pf-scale: 1;
+  }
+}
+
+.pf-sticker {
+  position: absolute;
+  width: calc(var(--pf-w, 100px) * var(--pf-scale, 1));
+  pointer-events: none;
+}
+
+.pf-sticker-scroll {
+  transform: translate3d(0, calc(var(--pf-scroll-offset, 0px) * var(--depth, 0.7)), 0);
+  will-change: transform;
+}
+
+.pf-sticker-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: transparent;
+  user-select: none;
+  filter:
+    drop-shadow(1px 3px 0 rgba(31, 79, 91, 0.22))
+    drop-shadow(0 8px 14px rgba(22, 62, 72, 0.13));
+  animation: sh-idle-float var(--float-dur, 7s) ease-in-out var(--float-delay, 0s) infinite alternate;
+  will-change: transform;
+}
+
+.pf-field[data-inview="false"] .pf-sticker-img {
+  animation-play-state: paused;
+}
+
+@media (max-width: 1279px) {
+  .pf-sticker[data-hide="tablet"] {
+    display: none;
+  }
+}
+
+@media (max-width: 639px) {
+  .pf-sticker[data-hide="tablet"],
+  .pf-sticker[data-hide="mobile"] {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pf-sticker-scroll {
+    transform: none !important;
+    will-change: auto;
+  }
+
+  .pf-sticker-img {
+    animation: none !important;
+    transform: none !important;
+    will-change: auto;
+  }
+}
+
+
+
+

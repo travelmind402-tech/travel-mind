@@ -1,11 +1,12 @@
 import { useState, type FormEvent } from "react";
 import { Link, useLocation } from "wouter";
 import { useAuth } from "@/context/AuthContext";
-import { Button } from "@/components/ui/button";
+import { FlowButton } from "@/components/ui/flow-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ScrapbookSticker, useParallaxOffset } from "@/components/ScrapbookStickers";
-import { ArrowLeft, Eye, EyeOff, Loader2, PlaneTakeoff } from "lucide-react";
+import { PageFloatingStickers } from "@/components/PageFloatingStickers";
+import { ArrowLeft, Eye, EyeOff, PlaneTakeoff } from "lucide-react";
 
 type AuthMode = "login" | "signup";
 
@@ -179,8 +180,9 @@ export default function Auth() {
       </aside>
 
       {/* RIGHT ONE-THIRD: Auth form */}
-      <main className="lg:col-span-4 flex flex-col justify-center px-5 py-10 sm:px-10 bg-[#FFEBAF]">
-        <div className="w-full max-w-sm mx-auto space-y-6">
+      <main className="lg:col-span-4 relative overflow-hidden flex flex-col justify-center px-5 py-10 sm:px-10 bg-[#FFEBAF]">
+        <PageFloatingStickers variant="auth" />
+        <div className="relative z-10 w-full max-w-sm mx-auto space-y-6">
           <Link href="/" className="inline-flex items-center gap-2.5 font-display text-2xl tracking-wide text-[#163E48]">
             <span className="w-8 h-8 rounded-full bg-[#4C9DB0] border-[1.5px] border-[#1F4F5B] flex items-center justify-center">
               <PlaneTakeoff className="w-4 h-4 text-[#163E48]" />
@@ -338,22 +340,23 @@ export default function Auth() {
                 </div>
               )}
 
-              <Button
+              <FlowButton
                 type="submit"
+                size="lg"
+                variant="primary"
+                loading={submitting}
                 disabled={submitting}
-                className="w-full h-12 rounded-xl border-[1.5px] border-[#1F4F5B] bg-[#4C9DB0] text-[#163E48] hover:bg-[#3F8C9E] shadow-[3px_3px_0_#1F4F5B] hover:shadow-[1px_1px_0_#1F4F5B] hover:translate-x-[2px] hover:translate-y-[2px] disabled:opacity-50 font-extrabold transition-all duration-150 cursor-pointer"
-              >
-                {submitting ? (
-                  <>
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                    {mode === "login" ? "Signing in..." : "Creating account..."}
-                  </>
-                ) : mode === "login" ? (
-                  "Log in"
-                ) : (
-                  "Create account"
-                )}
-              </Button>
+                text={
+                  submitting
+                    ? mode === "login"
+                      ? "Signing in..."
+                      : "Creating account..."
+                    : mode === "login"
+                      ? "Log in"
+                      : "Create account"
+                }
+                className="w-full"
+              />
             </form>
           </div>
         </div>

@@ -1,9 +1,9 @@
 import { ReactNode, useState, useEffect } from "react";
 import { useTrip } from "@/context/TripContext";
 import { useLocation } from "wouter";
-import { Button } from "./ui/button";
+import { FlowButton } from "./ui/flow-button";
 import { ScrapbookSticker } from "./ScrapbookStickers";
-import { RefreshCw, LucideIcon, Zap } from "lucide-react";
+import { RefreshCw, LucideIcon } from "lucide-react";
 
 interface AgentPageProps {
   title: string;
@@ -73,15 +73,13 @@ export function AgentPage({ title, description, icon: Icon, fetchData, formatDat
         </div>
 
         {data && !loading && (
-          <Button
-            variant="outline"
+          <FlowButton
             size="sm"
+            variant="secondary"
+            text="Refresh"
             onClick={handleAnalyze}
-            className="self-start sm:self-auto rounded-full border-[1.5px] border-[#1F4F5B] bg-[#FFF8E0] text-[#163E48] hover:bg-[#4C9DB0] font-semibold cursor-pointer"
-          >
-            <RefreshCw className="w-3.5 h-3.5 mr-1.5" />
-            Refresh
-          </Button>
+            className="self-start sm:self-auto"
+          />
         )}
       </div>
 
@@ -122,13 +120,13 @@ export function AgentPage({ title, description, icon: Icon, fetchData, formatDat
               <p className="font-display font-bold text-lg text-[#163E48]">Analysis Failed</p>
               <p className="text-sm text-[#2A5C69] max-w-sm">{error}</p>
             </div>
-            <Button
-              variant="outline"
+            <FlowButton
+              size="md"
+              variant="primary"
+              text="Try Again"
               onClick={handleAnalyze}
-              className="rounded-full border-[1.5px] border-[#1F4F5B] bg-[#4C9DB0] text-[#163E48] font-bold hover:bg-[#3F8C9E] cursor-pointer"
-            >
-              Try Again
-            </Button>
+              className="font-bold"
+            />
           </div>
         )}
 
@@ -160,14 +158,12 @@ export function AgentPage({ title, description, icon: Icon, fetchData, formatDat
                 Run this desk to turn your trip brief into a scannable, practical guide.
               </p>
             </div>
-            <Button
-              onClick={handleAnalyze}
+            <FlowButton
               size="lg"
-              className="gap-2 px-8 h-12 rounded-full bg-[#4C9DB0] text-[#163E48] hover:bg-[#3F8C9E] border-[1.5px] border-[#1F4F5B] shadow-[4px_4px_0_#1F4F5B] hover:shadow-[2px_2px_0_#1F4F5B] hover:translate-x-[2px] hover:translate-y-[2px] font-extrabold transition-all duration-150 cursor-pointer"
-            >
-              <Zap className="w-4 h-4" />
-              Run Analysis
-            </Button>
+              variant="primary"
+              text="Run Analysis"
+              onClick={handleAnalyze}
+            />
           </div>
         )}
       </div>

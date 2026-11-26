@@ -4,6 +4,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useTrip } from "@/context/TripContext";
 import { startSession } from "@/services/api";
 import { Button } from "@/components/ui/button";
+import { FlowButton } from "@/components/ui/flow-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,17 +12,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import {
   ScrapbookSticker,
-  useParallaxOffset,
   type StickerVariant,
 } from "@/components/ScrapbookStickers";
+import { PageFloatingStickers } from "@/components/PageFloatingStickers";
 import {
   PlaneTakeoff,
   Loader2,
-  LogOut,
   X,
   Plus,
-  ChevronRight,
-  ChevronLeft,
   AlertTriangle,
   MapPin,
   Check,
@@ -270,7 +268,6 @@ export default function Onboarding() {
   });
 
   const [loadingMessageIndex, setLoadingMessageIndex] = useState(0);
-  const parallax = useParallaxOffset(14);
 
   useEffect(() => {
     if (!loading) {
@@ -450,59 +447,30 @@ export default function Onboarding() {
                 <span className="font-note text-xs font-bold text-[#2A5C69] max-w-[160px] truncate">
                   {user.name}
                 </span>
-                <Button
-                  type="button"
-                  variant="outline"
+                <FlowButton
                   size="sm"
+                  variant="secondary"
+                  text="Log out"
                   onClick={() => void logout()}
-                  className="rounded-full border-[1.5px] border-[#1F4F5B] bg-[#FFEBAF] text-[#163E48] hover:bg-[#4C9DB0] h-9 px-3.5 text-xs font-bold whitespace-nowrap shrink-0 cursor-pointer"
-                >
-                  <LogOut className="w-3.5 h-3.5 mr-1.5" />
-                  Log out
-                </Button>
+                />
               </>
             ) : (
-              <Button
-                type="button"
-                variant="outline"
+              <FlowButton
                 size="sm"
+                variant="secondary"
+                text="Log in"
                 onClick={() => setLocation("/auth")}
-                className="rounded-full border-[1.5px] border-[#1F4F5B] bg-[#FFF8E0] text-[#163E48] hover:bg-[#4C9DB0] h-9 px-4 text-xs font-bold whitespace-nowrap shrink-0 cursor-pointer"
-              >
-                Log in
-              </Button>
+              />
             )}
           </div>
         </div>
       </header>
 
       {/* THE 4-STEP WIZARD */}
-      <main id="trip-wizard" className="relative flex-1 py-10 sm:py-14 px-4 sm:px-6">
-        {/* Edge decorative stickers around the wizard on large viewports (never behind inputs) */}
-        <div
-          aria-hidden="true"
-          className="hidden xl:block absolute left-8 top-24 w-28 pointer-events-none opacity-95"
-          style={{
-            transform: `translate3d(${parallax.x * -0.4}px, ${parallax.y * -0.3}px, 0)`,
-          }}
-        >
-          <div className="animate-sticker-float" style={{ ["--sticker-rot" as string]: "-8deg" }}>
-            <ScrapbookSticker variant="newsbird" className="w-full" />
-          </div>
-        </div>
-        <div
-          aria-hidden="true"
-          className="hidden xl:block absolute right-8 bottom-20 w-24 pointer-events-none opacity-95"
-          style={{
-            transform: `translate3d(${parallax.x * 0.4}px, ${parallax.y * 0.3}px, 0)`,
-          }}
-        >
-          <div className="animate-sticker-float-alt" style={{ ["--sticker-rot" as string]: "9deg" }}>
-            <ScrapbookSticker variant="star" className="w-full" />
-          </div>
-        </div>
+      <main id="trip-wizard" className="relative overflow-hidden flex-1 py-10 sm:py-14 px-4 sm:px-6">
+        <PageFloatingStickers variant="plan" />
 
-        <div className="max-w-5xl mx-auto">
+        <div className="relative z-10 max-w-5xl mx-auto">
           <div className="text-center max-w-xl mx-auto mb-10 space-y-2">
             <span className="font-note text-xs uppercase tracking-wider text-[#1F4F5B] font-bold">
               Your trip, thought through
@@ -958,42 +926,34 @@ export default function Onboarding() {
 
                       <div className="flex gap-3 pt-3 border-t border-dashed border-[#4C9DB0]/55">
                         {step > 0 && (
-                          <Button
-                            type="button"
-                            variant="outline"
+                          <FlowButton
+                            size="lg"
+                            variant="secondary"
+                            direction="back"
+                            text="Back"
                             onClick={() => setStep((s) => s - 1)}
-                            className="flex-1 h-12 rounded-xl border-[1.5px] border-[#1F4F5B] bg-[#FFF8E0] text-[#163E48] hover:bg-[#FFEBAF] font-semibold cursor-pointer"
-                          >
-                            <ChevronLeft className="w-4 h-4 mr-1" />
-                            Back
-                          </Button>
+                            className="flex-1 font-semibold"
+                          />
                         )}
                         {step < STEPS.length - 1 ? (
-                          <Button
-                            type="button"
+                          <FlowButton
+                            size="lg"
+                            variant="teal"
+                            text="Continue"
                             onClick={() => setStep((s) => s + 1)}
                             disabled={!canNext()}
-                            className="flex-1 h-12 rounded-xl border-[1.5px] border-[#163E48] bg-[#1F4F5B] text-[#FFEBAF] hover:bg-[#163E48] shadow-[3px_3px_0_#4C9DB0] hover:shadow-[1px_1px_0_#4C9DB0] hover:translate-x-[2px] hover:translate-y-[2px] disabled:opacity-45 disabled:shadow-none disabled:translate-x-0 disabled:translate-y-0 disabled:cursor-not-allowed font-bold transition-all duration-150 cursor-pointer"
-                          >
-                            Continue
-                            <ChevronRight className="w-4 h-4 ml-1" />
-                          </Button>
+                            className="flex-1"
+                          />
                         ) : (
-                          <Button
-                            type="button"
-                            onClick={handleSubmit}
+                          <FlowButton
+                            size="lg"
+                            variant="primary"
+                            loading={loading}
                             disabled={loading}
-                            className="flex-1 h-12 rounded-xl border-[1.5px] border-[#1F4F5B] bg-[#4C9DB0] text-[#163E48] hover:bg-[#3F8C9E] shadow-[3px_3px_0_#1F4F5B] hover:shadow-[1px_1px_0_#1F4F5B] hover:translate-x-[2px] hover:translate-y-[2px] disabled:opacity-50 font-extrabold transition-all duration-150 cursor-pointer"
-                          >
-                            {loading ? (
-                              <>
-                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                Creating Trip...
-                              </>
-                            ) : (
-                              "Create My Trip"
-                            )}
-                          </Button>
+                            text={loading ? "Creating Trip..." : "Create My Trip"}
+                            onClick={handleSubmit}
+                            className="flex-1"
+                          />
                         )}
                       </div>
                     </CardContent>

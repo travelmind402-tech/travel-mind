@@ -72,20 +72,15 @@ function ScrollRevealStatement({
           const revealed = progress >= threshold * 0.9;
 
           let color = revealed ? "#163E48" : "#9EC6D0";
-          if (revealed && word.accent === "purple") color = "#2F7282";
-          if (revealed && word.accent === "red") color = "#2F7282";
-
-          const isHighlight = word.accent === "highlight";
+          if (revealed && (word.accent === "purple" || word.accent === "red" || word.accent === "highlight")) {
+            color = "#4C9DB0";
+          }
 
           return (
             <span
               key={`${word.text}-${idx}`}
-              className={`inline-block mr-[0.22em] transition-colors duration-200 ${
-                isHighlight && revealed
-                  ? "font-note bg-[#4C9DB0] px-2 rounded-md border-[1.5px] border-[#1F4F5B] shadow-[2px_2px_0_#1F4F5B]"
-                  : ""
-              }`}
-              style={{ color: isHighlight && revealed ? "#FFEBAF" : color }}
+              className="font-display inline-block mr-[0.22em] transition-colors duration-200"
+              style={{ color }}
             >
               {word.text}
             </span>
@@ -232,14 +227,6 @@ export function EditorialTravelSections() {
         ref={agentsSection.ref}
         className="relative py-24 sm:py-32 px-4 sm:px-8 border-t border-[#4C9DB0]/40 bg-transparent overflow-hidden"
       >
-        {/* Floating background decorative stickers */}
-        <div className="absolute left-6 top-12 w-20 sm:w-24 opacity-75 pointer-events-none hidden xl:block -rotate-12">
-          <ScrapbookSticker variant="star" />
-        </div>
-        <div className="absolute right-8 bottom-16 w-24 sm:w-28 opacity-75 pointer-events-none hidden xl:block rotate-12">
-          <ScrapbookSticker variant="swallow" />
-        </div>
-
         <div className="max-w-5xl mx-auto space-y-16">
           <div
             data-revealed={agentsSection.revealed}
@@ -250,7 +237,7 @@ export function EditorialTravelSections() {
             </span>
             <h2 className="font-display uppercase text-4xl sm:text-6xl tracking-wide text-[#163E48] leading-[0.96]">
               TravelMind Offers{" "}
-              <span className="font-note inline-block bg-[#4C9DB0] text-[#FFEBAF] px-3 py-0.5 rounded-lg border-[1.5px] border-[#1F4F5B] shadow-[3px_3px_0_#1F4F5B]">
+              <span className="font-display inline-block text-[#4C9DB0]">
                 All
               </span>
             </h2>
@@ -274,7 +261,7 @@ export function EditorialTravelSections() {
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="space-y-1.5">
-                    <span className="font-note text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded bg-[#FFEBAF] text-[#163E48] border border-[#1F4F5B]/60 inline-block">
+                    <span className="font-display text-xs uppercase tracking-widest text-[#4C9DB0] inline-block">
                       {agent.tag}
                     </span>
                     <h3 className="font-display uppercase text-2xl tracking-wide text-[#163E48] pt-1">
