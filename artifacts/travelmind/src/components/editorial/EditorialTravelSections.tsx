@@ -4,6 +4,7 @@ import {
   useDiaryReveal,
   type StickerVariant,
 } from "@/components/ScrapbookStickers";
+import { CardCarousel } from "@/components/ui/card-carousel";
 
 interface StatementWord {
   text: string;
@@ -212,13 +213,13 @@ export function EditorialTravelSections() {
         />
       </section>
 
-      {/* AGENTS CARDS GRID SECTION (Replacing PortfolioScrollGrid) */}
+      {/* AGENTS CAROUSEL SECTION */}
       <section
         id="agents"
         ref={agentsSection.ref}
-        className="scroll-mt-24 relative py-24 sm:py-32 px-4 sm:px-8 border-t border-[#4C9DB0]/40 bg-transparent overflow-hidden"
+        className="scroll-mt-24 relative z-[2] py-20 sm:py-24 px-4 sm:px-8 border-t border-[#4C9DB0]/40 bg-transparent overflow-x-clip"
       >
-        <div className="max-w-5xl mx-auto space-y-16">
+        <div className="max-w-5xl mx-auto space-y-6 sm:space-y-8">
           <div
             data-revealed={agentsSection.revealed}
             className="diary-reveal text-center max-w-2xl mx-auto space-y-3"
@@ -237,39 +238,38 @@ export function EditorialTravelSections() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
-            {TRAVEL_MIND_AGENTS.map((agent, idx) => (
-              <div
-                key={agent.name}
-                data-revealed={agentsSection.revealed}
-                style={
-                  {
-                    "--reveal-delay": `${120 + idx * 80}ms`,
-                    "--reveal-rot": idx % 2 === 0 ? "-0.6deg" : "0.6deg",
-                  } as CSSProperties
-                }
-                className="diary-reveal paper-card rounded-2xl p-6 sm:p-7 flex flex-col justify-between gap-6 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[6px_8px_0_#4C9DB0]"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div className="space-y-1.5">
-                    <span className="font-display text-xs uppercase tracking-widest text-[#4C9DB0] inline-block">
-                      {agent.tag}
-                    </span>
-                    <h3 className="font-display uppercase text-2xl tracking-wide text-[#163E48] pt-1">
-                      {agent.name}
-                    </h3>
-                    <p className="font-note text-xs font-bold text-[#2A5C69]">{agent.role}</p>
+          <div
+            data-revealed={agentsSection.revealed}
+            style={{ "--reveal-delay": "120ms" } as CSSProperties}
+            className="diary-reveal w-full"
+          >
+            <CardCarousel
+              items={TRAVEL_MIND_AGENTS}
+              ariaLabel="TravelMind agents"
+              getItemKey={(agent) => agent.name}
+              renderItem={(agent) => (
+                <div className="paper-card rounded-2xl p-6 sm:p-7 h-full flex flex-col justify-between gap-6 transition-shadow duration-300 hover:shadow-[6px_8px_0_#4C9DB0]">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="space-y-1.5">
+                      <span className="font-display text-xs uppercase tracking-widest text-[#4C9DB0] inline-block">
+                        {agent.tag}
+                      </span>
+                      <h3 className="font-display uppercase text-2xl tracking-wide text-[#163E48] pt-1">
+                        {agent.name}
+                      </h3>
+                      <p className="font-note text-xs font-bold text-[#2A5C69]">{agent.role}</p>
+                    </div>
+                    <div className="w-14 h-14 shrink-0 flex items-center justify-center p-1 bg-[#FFF8E0] rounded-xl border border-[#1F4F5B]/40 shadow-[2px_2px_0_#4C9DB0]">
+                      <ScrapbookSticker variant={agent.sticker} className="w-10 h-10" />
+                    </div>
                   </div>
-                  <div className="w-14 h-14 shrink-0 flex items-center justify-center p-1 bg-[#FFF8E0] rounded-xl border border-[#1F4F5B]/40 shadow-[2px_2px_0_#4C9DB0]">
-                    <ScrapbookSticker variant={agent.sticker} className="w-10 h-10" />
-                  </div>
-                </div>
 
-                <p className="text-sm text-[#2A5C69] leading-relaxed pt-2 border-t border-[#4C9DB0]/35">
-                  {agent.desc}
-                </p>
-              </div>
-            ))}
+                  <p className="text-sm text-[#2A5C69] leading-relaxed pt-2 border-t border-[#4C9DB0]/35">
+                    {agent.desc}
+                  </p>
+                </div>
+              )}
+            />
           </div>
         </div>
       </section>
