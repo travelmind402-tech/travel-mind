@@ -190,8 +190,8 @@ export function Component({
     };
   }, []);
 
-  // Sidebar Open / Close GSAP timeline (runs only after user interaction; never flashes on mount)
-  useEffect(() => {
+  // Sidebar Open / Close GSAP timeline (useLayoutEffect prevents any 1-frame flash before GSAP hides items)
+  useLayoutEffect(() => {
     const root = containerRef.current;
     if (!root) return;
 
@@ -203,12 +203,13 @@ export function Component({
     menuTimelineRef.current?.kill();
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const dur = reduced ? 0.01 : 0.7;
+    const dur = reduced ? 0.01 : 0.6;
 
     const navWrap = root.querySelector<HTMLElement>(".kn-overlay-wrapper");
     const menu = root.querySelector<HTMLElement>(".kn-menu");
     const overlay = root.querySelector<HTMLElement>(".kn-overlay");
     const bgPanels = root.querySelectorAll<HTMLElement>(".kn-backdrop-layer");
+    const menuList = root.querySelector<HTMLElement>(".kn-menu-list");
     const menuLinks = root.querySelectorAll<HTMLElement>(".kn-nav-link");
     const fadeTargets = root.querySelectorAll<HTMLElement>("[data-menu-fade]");
     const menuButton = root.querySelector<HTMLElement>(".kn-menu-btn");
@@ -224,45 +225,65 @@ export function Component({
     menuTimelineRef.current = tl;
 
     if (isMenuOpen) {
+      // Prepare all initial offscreen / hidden states synchronously BEFORE making overlay visible
+      gsap.set(overlay, { autoAlpha: 0 });
+      gsap.set(menu, { xPercent: 0 });
+      gsap.set(bgPanels, { xPercent: 101 });
+      if (menuList) gsap.set(menuList, { autoAlpha: 0 });
+      gsap.set(menuLinks, {
+        yPercent: reduced ? 0 : 115,
+        rotate: reduced ? 0 : 6,
+        autoAlpha: 0,
+      });
+      if (fadeTargets.length) {
+        gsap.set(fadeTargets, { autoAlpha: 0, yPercent: reduced ? 0 : 35 });
+      }
+      gsap.set(navWrap, { display: "block" });
       navWrap.setAttribute("data-nav", "open");
 
-      tl.set(navWrap, { display: "block" })
-        .set(menu, { xPercent: 0 }, "<")
-        .fromTo(
-          menuButtonTexts,
-          { yPercent: 0 },
-          { yPercent: -100, stagger: reduced ? 0 : 0.16 },
-        );
+      tl.to(
+        menuButtonTexts,
+        { yPercent: -100, stagger: reduced ? 0 : 0.14, duration: reduced ? 0.01 : 0.5 },
+        0,
+      );
 
       if (menuButtonIcon) {
-        tl.fromTo(menuButtonIcon, { rotate: 0 }, { rotate: 315 }, "<");
+        tl.to(menuButtonIcon, { rotate: 315, duration: reduced ? 0.01 : 0.5 }, 0);
       }
 
-      tl.fromTo(overlay, { autoAlpha: 0 }, { autoAlpha: 1 }, "<")
-        .fromTo(
+      tl.to(overlay, { autoAlpha: 1, duration: reduced ? 0.01 : 0.45 }, 0)
+        .to(
           bgPanels,
-          { xPercent: 101 },
-          { xPercent: 0, stagger: reduced ? 0 : 0.12, duration: reduced ? 0.01 : 0.575 },
-          "<",
-        )
-        .fromTo(
-          menuLinks,
-          { yPercent: reduced ? 0 : 140, rotate: reduced ? 0 : 10 },
-          { yPercent: 0, rotate: 0, stagger: reduced ? 0 : 0.05 },
-          reduced ? "<" : "<+=0.32",
+          { xPercent: 0, stagger: reduced ? 0 : 0.1, duration: reduced ? 0.01 : 0.52 },
+          0,
         );
 
+      if (menuList) {
+        tl.to(menuList, { autoAlpha: 1, duration: reduced ? 0.01 : 0.25 }, reduced ? 0 : 0.34);
+      }
+
+      tl.to(
+        menuLinks,
+        {
+          yPercent: 0,
+          rotate: 0,
+          autoAlpha: 1,
+          stagger: reduced ? 0 : 0.055,
+          duration: reduced ? 0.01 : 0.52,
+        },
+        reduced ? 0 : 0.36,
+      );
+
       if (fadeTargets.length) {
-        tl.fromTo(
+        tl.to(
           fadeTargets,
-          { autoAlpha: 0, yPercent: reduced ? 0 : 50 },
           {
             autoAlpha: 1,
             yPercent: 0,
             stagger: reduced ? 0 : 0.04,
-            clearProps: "all",
+            duration: reduced ? 0.01 : 0.42,
           },
-          reduced ? "<" : "<+=0.18",
+          reduced ? 0 : 0.54,
         );
       }
 
@@ -273,12 +294,19 @@ export function Component({
     } else {
       navWrap.setAttribute("data-nav", "closed");
 
-      tl.to(overlay, { autoAlpha: 0 })
-        .to(menu, { xPercent: 120 }, "<")
-        .to(menuButtonTexts, { yPercent: 0 }, "<");
+      if (menuList) {
+        tl.to(menuList, { autoAlpha: 0, duration: reduced ? 0.01 : 0.18 }, 0);
+      }
+      tl.to(menuLinks, { autoAlpha: 0, duration: reduced ? 0.01 : 0.18 }, 0);
+      if (fadeTargets.length) {
+        tl.to(fadeTargets, { autoAlpha: 0, duration: reduced ? 0.01 : 0.15 }, 0);
+      }
+      tl.to(overlay, { autoAlpha: 0, duration: reduced ? 0.01 : 0.45 }, 0)
+        .to(menu, { xPercent: 120, duration: reduced ? 0.01 : 0.5 }, 0)
+        .to(menuButtonTexts, { yPercent: 0, duration: reduced ? 0.01 : 0.45 }, 0);
 
       if (menuButtonIcon) {
-        tl.to(menuButtonIcon, { rotate: 0 }, "<");
+        tl.to(menuButtonIcon, { rotate: 0, duration: reduced ? 0.01 : 0.45 }, 0);
       }
 
       tl.set(navWrap, { display: "none" });
@@ -438,7 +466,6 @@ export function Component({
       <div
         ref={panelWrapRef}
         id="kn-sidebar-nav"
-        data-nav={isMenuOpen ? "open" : "closed"}
         aria-hidden={!isMenuOpen}
         className="kn-overlay-wrapper"
       >

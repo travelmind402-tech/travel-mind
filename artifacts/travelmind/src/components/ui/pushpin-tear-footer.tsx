@@ -452,8 +452,8 @@ const CSS =
   ".tpf-col li{list-style:none}" +
   ".tpf-col li a{display:inline-block;transition:transform .35s var(--ease),opacity .25s}" +
   ".tpf-col.l li a:hover{transform:translateX(4px)}.tpf-col.r li a:hover{transform:translateX(-4px)}" +
-  ".tpf-big{margin-top:max(6px,1cqmin);font-family:var(--app-font-display,'Balboa','Oswald','Bebas Neue',sans-serif);text-transform:uppercase;font-weight:700;font-size:max(26px,4.6cqmin);letter-spacing:0;line-height:1;text-decoration:underline;text-decoration-thickness:max(1.5px,.04em);text-underline-offset:.12em;transition:text-underline-offset .35s var(--ease)}" +
-  ".tpf .tpf-big:hover{text-underline-offset:.22em}" +
+  ".tpf-big{margin-top:max(6px,1cqmin);font-family:var(--app-font-display,'Balboa','Oswald','Bebas Neue',sans-serif);text-transform:uppercase;font-weight:700;font-size:max(26px,4.6cqmin);letter-spacing:0;line-height:1;text-decoration:none;transition:opacity .25s var(--ease)}" +
+  ".tpf .tpf-big:hover{opacity:.78}" +
   // pin
   ".tpf-pin{position:absolute;z-index:3;left:50%;top:64%;width:max(46px,9cqmin);height:max(92px,18cqmin);transform:translate(-50%,-100%);cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation}" +
   ".tpf-pin:focus-visible{outline-offset:6px}" +
@@ -486,10 +486,7 @@ const CSS =
   ".tpf-bub:hover b,.tpf-bub:focus-visible b{max-width:8em;opacity:1}" +
   ".tpf-word{display:block;overflow:hidden;padding:0 .04em .1em;font-family:var(--app-font-display,'Balboa','Oswald','Bebas Neue',sans-serif);text-transform:uppercase;font-size:clamp(46px,min(19.5cqmin,13.8cqw),172px);font-weight:700;letter-spacing:.015em;line-height:.94;white-space:nowrap}" +
   ".tpf-word span{display:block;position:relative;transition:transform 1s var(--ease) .5s}" +
-  ".tpf-word span::after{content:'';position:absolute;left:.02em;right:.04em;bottom:-.02em;height:max(2px,.045em);background:currentColor;transform-origin:0 50%;transition:transform .9s var(--ease) 1.05s,height .3s var(--ease)}" +
   ".tpf:not(.s3) .tpf-word span{transform:translateY(125%);transition-delay:0s}" +
-  ".tpf:not(.s3) .tpf-word span::after{transform:scaleX(0);transition-delay:0s}" +
-  ".tpf-word:hover span::after{height:max(4px,.075em)}" +
   ".tpf-side{top:76%;display:grid;justify-items:center;gap:max(10px,1.9cqmin);font-size:max(14px,2.25cqmin);transform:translateX(-50%)}" +
   ".tpf-side .tpf-ico{width:1.35em;height:1.35em;transition:transform .35s var(--ease)}" +
   ".tpf-side:hover .tpf-ico{transform:translateY(-2px) rotate(-8deg)}" +

@@ -4,16 +4,14 @@ import { useAuth } from "@/context/AuthContext";
 import { FlowButton } from "@/components/ui/flow-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ScrapbookSticker, useParallaxOffset } from "@/components/ScrapbookStickers";
 import { PageFloatingStickers } from "@/components/PageFloatingStickers";
-import { ArrowLeft, Eye, EyeOff, PlaneTakeoff } from "lucide-react";
+import { Eye, EyeOff, PlaneTakeoff } from "lucide-react";
 
 type AuthMode = "login" | "signup";
 
 export default function Auth() {
   const [, setLocation] = useLocation();
   const { login, signup } = useAuth();
-  const parallax = useParallaxOffset(12);
 
   const [mode, setMode] = useState<AuthMode>("login");
   const [name, setName] = useState("");
@@ -80,103 +78,13 @@ export default function Auth() {
 
   return (
     <div className="min-h-screen grid lg:grid-cols-12 paper-texture text-[#163E48]">
-      {/* LEFT TWO-THIRDS: Full-height collage artwork panel (top banner on mobile) */}
-      <aside className="lg:col-span-8 relative overflow-hidden bg-[#1F4F5B] text-[#FFEBAF] min-h-[220px] sm:min-h-[260px] lg:min-h-screen flex flex-col justify-between p-6 sm:p-10 lg:p-14 border-b-[1.5px] lg:border-b-0 lg:border-r-[1.5px] border-[#163E48]">
-        {/* Subtle halftone texture on dark teal backdrop */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 opacity-20 pointer-events-none"
-          style={{
-            backgroundImage: "radial-gradient(#FFEBAF 1px, transparent 1px)",
-            backgroundSize: "24px 24px",
-          }}
+      {/* LEFT TWO-THIRDS: Full-bleed mountain ridge photograph (top banner on mobile) */}
+      <aside className="lg:col-span-8 relative overflow-hidden bg-[#1F4F5B] min-h-[240px] sm:min-h-[300px] lg:min-h-screen border-b-[1.5px] lg:border-b-0 lg:border-r-[1.5px] border-[#163E48]">
+        <img
+          src="/assets/aistudio/IMG_20250226_071355_bd94df76.jpg"
+          alt="Snow-dusted mountain ridge trail with cabins"
+          className="absolute inset-0 w-full h-full object-cover object-center"
         />
-
-        {/* Animated collage stickers */}
-        <div
-          aria-hidden="true"
-          className="hidden sm:block absolute right-6 top-10 w-28 lg:w-44 pointer-events-none"
-          style={{
-            transform: `translate3d(${parallax.x * 0.6}px, ${parallax.y * -0.5}px, 0)`,
-          }}
-        >
-          <div className="animate-sticker-float" style={{ ["--sticker-rot" as string]: "8deg" }}>
-            <ScrapbookSticker variant="envelope" />
-          </div>
-        </div>
-
-        <div
-          aria-hidden="true"
-          className="hidden md:block absolute left-10 bottom-28 w-28 lg:w-36 pointer-events-none"
-          style={{
-            transform: `translate3d(${parallax.x * -0.5}px, ${parallax.y * 0.5}px, 0)`,
-          }}
-        >
-          <div className="animate-sticker-float-alt" style={{ ["--sticker-rot" as string]: "-7deg" }}>
-            <ScrapbookSticker variant="statue" />
-          </div>
-        </div>
-
-        <div
-          aria-hidden="true"
-          className="hidden lg:block absolute right-[28%] top-[18%] w-32 pointer-events-none"
-          style={{
-            transform: `translate3d(${parallax.x * -0.3}px, ${parallax.y * 0.3}px, 0)`,
-          }}
-        >
-          <div className="animate-sticker-float" style={{ ["--sticker-rot" as string]: "-10deg" }}>
-            <ScrapbookSticker variant="newsbird" />
-          </div>
-        </div>
-
-        <div
-          aria-hidden="true"
-          className="hidden lg:block absolute right-14 bottom-16 w-28 pointer-events-none"
-          style={{
-            transform: `translate3d(${parallax.x * 0.4}px, ${parallax.y * 0.4}px, 0)`,
-          }}
-        >
-          <div className="animate-sticker-float-alt" style={{ ["--sticker-rot" as string]: "10deg" }}>
-            <ScrapbookSticker variant="speech" />
-          </div>
-        </div>
-
-        <div
-          aria-hidden="true"
-          className="hidden xl:block absolute left-[42%] bottom-14 w-24 pointer-events-none"
-        >
-          <div className="animate-sticker-float" style={{ ["--sticker-rot" as string]: "6deg" }}>
-            <ScrapbookSticker variant="star" />
-          </div>
-        </div>
-
-        <div className="relative z-10 flex items-center justify-between">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-xs font-note text-[#FFEBAF]/85 hover:text-[#FFEBAF] transition-colors"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span>Back to home</span>
-          </Link>
-        </div>
-
-        <div className="relative z-10 max-w-2xl my-auto py-4 lg:py-0">
-          <div className="inline-block bg-[#4C9DB0] text-[#163E48] px-3 py-1 rounded-full font-note text-xs font-bold border border-[#FFEBAF]/60 mb-4">
-            Your trip, thought through
-          </div>
-          <h1 className="font-display uppercase text-4xl sm:text-5xl lg:text-7xl leading-[0.95] tracking-wide text-[#FFEBAF] text-balance">
-            YOUR NEXT TRIP STARTS HERE.
-          </h1>
-          <p className="mt-4 text-sm sm:text-base text-[#FFEBAF]/85 max-w-md hidden sm:block">
-            Keep your travel profile ready across visits—from weather prep and local phrases to budgets and street eats.
-          </p>
-        </div>
-
-        <div className="relative z-10 hidden lg:flex items-center gap-3 font-note text-xs text-[#FFEBAF]/80">
-          <span>7 specialist briefings</span>
-          <span aria-hidden="true">·</span>
-          <span>Email & password account</span>
-        </div>
       </aside>
 
       {/* RIGHT ONE-THIRD: Auth form */}

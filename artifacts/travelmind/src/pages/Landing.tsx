@@ -11,6 +11,7 @@ import { PageFloatingStickers } from "@/components/PageFloatingStickers";
 import { EditorialTravelSections } from "@/components/editorial/EditorialTravelSections";
 import PushpinTearFooter from "@/components/ui/pushpin-tear-footer";
 import { SterlingGateKineticNavigation } from "@/components/ui/sterling-gate-kinetic-navigation";
+import { FlappingButterfly } from "@/components/butterfly/FlappingButterfly";
 import { Plane } from "lucide-react";
 
 // TODO: Replace with real TravelMind contact email
@@ -154,8 +155,9 @@ export default function Landing() {
 
           <h1 className="font-display uppercase text-[clamp(3rem,7vw,5.75rem)] leading-[0.94] tracking-wide text-[#163E48] text-balance max-w-3xl">
             <span className="kinetic-line-1">TRAVEL WITH A</span>{" "}
-            <span className="kinetic-cutout-mind font-display inline-block text-[#4C9DB0]">
+            <span className="kinetic-cutout-mind font-display relative inline-block text-[#4C9DB0]">
               MIND
+              <FlappingButterfly />
             </span>{" "}
             <span className="kinetic-word-1">OF</span>{" "}
             <span className="kinetic-word-2">ITS</span>{" "}
@@ -280,7 +282,7 @@ export default function Landing() {
         paper="#FFEBAF"
         paperInk="#163E48"
         fontSans="'Shadows Into Light', cursive, sans-serif"
-        brand="travelmind."
+        brand="travelmind"
         name="TravelMind"
         tagline="your trip, thought through"
         logo={
@@ -309,7 +311,7 @@ export default function Landing() {
               { label: "How it works", href: "#how-it-works" },
               { label: "Contact", href: "#contact" },
             ],
-            cta: { label: "trip.", href: "/plan" },
+            cta: { label: "trip", href: "/plan" },
           },
           {
             title: "account",
@@ -318,7 +320,7 @@ export default function Landing() {
               { label: "Sign up", href: "/auth" },
               { label: "Make the trip", href: "/plan" },
             ],
-            cta: { label: "hello.", href: `mailto:${CONTACT_EMAIL}` },
+            cta: { label: "hello", href: `mailto:${CONTACT_EMAIL}` },
           },
         ]}
         chat={{ label: "say hi" }}
